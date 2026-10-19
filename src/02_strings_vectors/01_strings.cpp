@@ -91,14 +91,14 @@ std::string reverse_string(const std::string& text) {
 // isn't a letter: "A man, a plan, a canal: Panama!" is a palindrome.
 bool is_palindrome(const std::string& text) {
     std::string cleaned;
-    
+
     // Get rid of any upper case letters and spaces
     for (char c : text) {
         if (std::isalpha(static_cast<unsigned char>(c))) {
             cleaned += std::tolower(static_cast<unsigned char>(c));
         }
     }
-    
+
     std::cout << "cleaned: " << cleaned << '\n';
 
     int left = 0;
@@ -118,4 +118,24 @@ bool is_palindrome(const std::string& text) {
 
 // The upper-case first letter of each word: initials("ada king lovelace") == "AKL".
 // Words are separated by one or more spaces.
-std::string initials(const std::string& full_name) { throw "TODO"; }
+std::string initials(const std::string& full_name) {
+    std::string initials;
+
+    for (std::size_t i = 0; i < full_name.size(); i++) {
+
+        // First letter
+        if (i == 0) {
+            char cap = std::toupper(full_name[i]);
+            initials += cap;
+            continue;
+        }
+
+        // If space before letter 
+        if (full_name[i-1] == ' ') {
+            char cap = std::toupper(full_name[i]);
+            initials += cap;
+        }
+    }
+
+    return initials;
+}
