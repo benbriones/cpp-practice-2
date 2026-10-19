@@ -48,21 +48,18 @@
 // ./grade 01_basics/01_arithmetic
 
 // Average of a and b: average(1, 2) == 1.5. Must work for values near the int limit.
-double average(int a, int b) {
-    throw "TODO";
+double average(int a, int b) { 
+    return (static_cast<double>(a) + b) / 2;
 }
 
 // Fahrenheit = celsius × 9/5 + 32.
-double celsius_to_fahrenheit(double celsius) {
-    throw "TODO";
-}
+double celsius_to_fahrenheit(double celsius) { return celsius * 9 / 5 + 32; }
 
 // The last digit of n, always non-negative: last_digit(1234) == 4, last_digit(-57) == 7.
 int last_digit(int n) {
-    throw "TODO";
+    int digit = n % 10;
+    return digit < 0 ? -digit : digit;
 }
 
 // Seconds in `years` years of 365 days. Large inputs don't fit in an int.
-long long seconds_in_years(int years) {
-    throw "TODO";
-}
+long long seconds_in_years(int years) { return static_cast<long long>(years) * 365 * 24 * 60 * 60; }

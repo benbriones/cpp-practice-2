@@ -60,26 +60,62 @@
 // ./grade 02_strings_vectors/01_strings
 
 #include <cctype>
+#include <cstddef>
+#include <cstdio>
+#include <iostream>
 #include <string>
 
 // How many times c appears in text.
 int count_char(const std::string& text, char c) {
-    throw "TODO";
+    int count = 0;
+    for (std::size_t i = 0; i < text.size(); i++) {
+        if (text[i] == c) count++;
+    }
+
+    return count;
 }
 
 // text backwards: reverse_string("abc") == "cba".
 std::string reverse_string(const std::string& text) {
-    throw "TODO";
+    std::string s = "";
+    int textSize = text.size();
+
+    for (int i = textSize - 1; i >= 0; i--) {
+        s.push_back(text[i]);
+    }
+
+    return s;
 }
 
 // True if text reads the same both ways, ignoring case and anything that
 // isn't a letter: "A man, a plan, a canal: Panama!" is a palindrome.
 bool is_palindrome(const std::string& text) {
-    throw "TODO";
+    std::string cleaned;
+    
+    // Get rid of any upper case letters and spaces
+    for (char c : text) {
+        if (std::isalpha(static_cast<unsigned char>(c))) {
+            cleaned += std::tolower(static_cast<unsigned char>(c));
+        }
+    }
+    
+    std::cout << "cleaned: " << cleaned << '\n';
+
+    int left = 0;
+    int right = cleaned.size() - 1;
+
+    while (left < right) {
+        if (cleaned[left] != cleaned[right]) return false;
+        left++;
+        right--;
+    }
+
+    // cleaned:racecar
+    // cleaned:abba
+    // cleaned:abca
+    return true;
 }
 
 // The upper-case first letter of each word: initials("ada king lovelace") == "AKL".
 // Words are separated by one or more spaces.
-std::string initials(const std::string& full_name) {
-    throw "TODO";
-}
+std::string initials(const std::string& full_name) { throw "TODO"; }
