@@ -122,17 +122,15 @@ std::string initials(const std::string& full_name) {
     std::string initials;
 
     for (std::size_t i = 0; i < full_name.size(); i++) {
-
-        // First letter
-        if (i == 0) {
-            char cap = std::toupper(full_name[i]);
-            initials += cap;
+        // Skip spaces
+        if (full_name[i] == ' ') {
             continue;
+            ;
         }
 
-        // If space before letter 
-        if (full_name[i-1] == ' ') {
-            char cap = std::toupper(full_name[i]);
+        // First character OR character after a space
+        if (i == 0 || full_name[i - 1] == ' ') {
+            char cap = static_cast<char>(std::toupper(static_cast<unsigned char>(full_name[i])));
             initials += cap;
         }
     }
