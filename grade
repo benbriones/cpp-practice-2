@@ -1,0 +1,3 @@
+#!/bin/sh
+# Entry point: forwards to grader/grade.py; works from any directory and through symlinks.
+exec python3 "$(dirname "$(realpath "$0")")/grader/grade.py" "$@"

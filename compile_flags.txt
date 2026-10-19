@@ -1,0 +1,8 @@
+-std=c++20
+-Wall
+-Wextra
+-Wpedantic
+-Wshadow
+-Wno-unused-parameter
+-Isrc
+-Igrader
