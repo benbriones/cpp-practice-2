@@ -8,7 +8,7 @@
 //
 // Write the parsing logic once, then build the other two versions on top of it.
 //
-// Grade: grade 08_error_handling/03_error_strategies
+// ./grade 08_error_handling/03_error_strategies
 
 #include <optional>
 #include <stdexcept>

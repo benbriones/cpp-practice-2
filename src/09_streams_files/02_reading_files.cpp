@@ -6,7 +6,7 @@
 // Every function throws std::runtime_error("can't open " + path) when the file
 // can't be opened.
 //
-// Grade: grade 09_streams_files/02_reading_files
+// ./grade 09_streams_files/02_reading_files
 
 #include <cstddef>
 #include <fstream>

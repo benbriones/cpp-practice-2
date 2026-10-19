@@ -12,7 +12,7 @@
 // Hint: std::getline(std::cin, line) reads one line. To pull words out of a
 // line: std::istringstream words(line); while (words >> word) { ... }  (<sstream>)
 //
-// Grade: grade 02_strings_vectors/05_word_count
+// ./grade 02_strings_vectors/05_word_count
 // Try it: grade --run 02_strings_vectors/05_word_count < some_file.txt
 
 #include <iostream>

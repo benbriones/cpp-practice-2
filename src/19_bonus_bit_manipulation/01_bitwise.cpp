@@ -7,7 +7,7 @@
 // shift an unsigned one, 1u << bit, so the whole expression stays unsigned.
 // (<bit> has std::popcount and friends; write these by hand first.)
 //
-// Grade: grade 19_bonus_bit_manipulation/01_bitwise
+// ./grade 19_bonus_bit_manipulation/01_bitwise
 
 #include <cstdint>
 

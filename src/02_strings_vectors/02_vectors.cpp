@@ -7,7 +7,7 @@
 // Note: v.size() returns std::size_t, an unsigned type. Comparing it with a
 // negative int, or computing v.size() - 1 on an empty vector, goes wrong silently.
 //
-// Grade: grade 02_strings_vectors/02_vectors
+// ./grade 02_strings_vectors/02_vectors
 
 #include <cstddef>
 #include <vector>

@@ -7,7 +7,7 @@
 // Pass a hasher type as the second template argument:
 // std::unordered_set<Point, PointHash>.
 //
-// Grade: grade 13_operator_overloading/04_functors_and_hashing
+// ./grade 13_operator_overloading/04_functors_and_hashing
 
 #include <algorithm>
 #include <cstddef>

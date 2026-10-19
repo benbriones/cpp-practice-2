@@ -6,7 +6,7 @@
 // index a 2D container: m(row, col). Store the elements in one
 // std::vector<double> of rows * cols values, row after row.
 //
-// Grade: grade 13_operator_overloading/03_matrix
+// ./grade 13_operator_overloading/03_matrix
 
 #include <ostream>
 #include <stdexcept>

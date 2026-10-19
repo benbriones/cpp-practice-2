@@ -4,7 +4,7 @@
 //     auto it = index.find(key);
 //     if (it != index.end()) { use it->first (key) and it->second (value) }
 //
-// Grade: grade 06_containers/03_unordered_map
+// ./grade 06_containers/03_unordered_map
 
 #include <algorithm>
 #include <cstddef>

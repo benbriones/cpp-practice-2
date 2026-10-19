@@ -6,7 +6,7 @@
 // items() returns a const reference: callers can read the cart's vector without
 // copying it, but can't modify it.
 //
-// Grade: grade 05_classes/03_shopping_cart
+// ./grade 05_classes/03_shopping_cart
 
 #include <stdexcept>
 #include <string>

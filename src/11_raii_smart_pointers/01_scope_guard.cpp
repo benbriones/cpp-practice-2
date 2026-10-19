@@ -7,7 +7,7 @@
 // You never call a destructor yourself. Destructors must not throw, so that
 // stub is an empty body instead of `throw "TODO";`.
 //
-// Grade: grade 11_raii_smart_pointers/01_scope_guard
+// ./grade 11_raii_smart_pointers/01_scope_guard
 
 #include <functional>
 #include <stdexcept>

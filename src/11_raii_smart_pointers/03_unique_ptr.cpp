@@ -4,7 +4,7 @@
 //
 //   auto p = std::make_unique<Widget>("gear", 3);   p->name;   if (p) { ... }
 //
-// Grade: grade 11_raii_smart_pointers/03_unique_ptr
+// ./grade 11_raii_smart_pointers/03_unique_ptr
 
 #include <cstddef>
 #include <memory>

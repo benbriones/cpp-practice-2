@@ -33,7 +33,7 @@
 // prints "error: " + e.what(). Keep money as whole cents in a long long so
 // 0.10 + 0.20 is exactly 0.30.
 //
-// Grade: grade 18_capstone_projects/03_bank_system
+// ./grade 18_capstone_projects/03_bank_system
 // Try it: grade --run 18_capstone_projects/03_bank_system
 
 #include <format>

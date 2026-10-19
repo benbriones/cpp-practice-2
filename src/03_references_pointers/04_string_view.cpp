@@ -9,7 +9,7 @@
 //
 // Each function below must return a view into its input, never a copy.
 //
-// Grade: grade 03_references_pointers/04_string_view
+// ./grade 03_references_pointers/04_string_view
 
 #include <cctype>
 #include <cstddef>

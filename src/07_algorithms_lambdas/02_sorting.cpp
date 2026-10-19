@@ -3,7 +3,7 @@
 // comparator as a third argument: a function or lambda (a, b) that returns true
 // when a must come before b.
 //
-// Grade: grade 07_algorithms_lambdas/02_sorting
+// ./grade 07_algorithms_lambdas/02_sorting
 
 #include <algorithm>
 #include <cctype>

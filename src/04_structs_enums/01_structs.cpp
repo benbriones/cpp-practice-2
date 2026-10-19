@@ -8,7 +8,7 @@
 // const&. Coordinates work like a screen: x grows to the right, y grows DOWN,
 // and a Rect is its top-left corner plus a width and height.
 //
-// Grade: grade 04_structs_enums/01_structs
+// ./grade 04_structs_enums/01_structs
 
 #include <cmath>
 #include <vector>

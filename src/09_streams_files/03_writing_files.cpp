@@ -4,7 +4,7 @@
 // Write with << just like std::cout. The file is flushed and closed when `out`
 // goes out of scope.
 //
-// Grade: grade 09_streams_files/03_writing_files
+// ./grade 09_streams_files/03_writing_files
 
 #include <format>
 #include <fstream>

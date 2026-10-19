@@ -4,7 +4,7 @@
 // forgetting its size, so the size has to travel separately: f(values, 5).
 // p[i] and *(p + i) mean the same thing.
 //
-// Grade: grade 10_memory/01_c_arrays
+// ./grade 10_memory/01_c_arrays
 
 // Pointer to the first even element, or nullptr if there is none.
 int* find_first_even(int values[], int count) {

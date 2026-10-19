@@ -8,7 +8,7 @@
 // `const std::string&` means "read this string without copying it".
 // References get their own module next.
 //
-// Grade: grade 02_strings_vectors/01_strings
+// ./grade 02_strings_vectors/01_strings
 
 #include <cctype>
 #include <string>

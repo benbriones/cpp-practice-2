@@ -12,7 +12,7 @@
 // The tests insert 50,000 values and do 100,000 lookups, so a linear scan in
 // insert or contains will time out.
 //
-// Grade: grade 15_templates/05_sorted_vector
+// ./grade 15_templates/05_sorted_vector
 
 #include <algorithm>
 #include <cstddef>

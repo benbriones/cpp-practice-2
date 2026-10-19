@@ -2,7 +2,7 @@
 // Two-dimensional data as a vector of rows: std::vector<std::vector<int>>, or
 // std::vector<std::string> for a grid of characters. grid[row][col].
 //
-// Grade: grade 02_strings_vectors/04_grids
+// ./grade 02_strings_vectors/04_grids
 
 #include <string>
 #include <vector>

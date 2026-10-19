@@ -7,7 +7,7 @@
 //
 // A `const int*` can read the value it points at but not change it.
 //
-// Grade: grade 03_references_pointers/02_pointers
+// ./grade 03_references_pointers/02_pointers
 
 #include <vector>
 

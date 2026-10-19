@@ -3,7 +3,7 @@
 // Its length isn't stored anywhere; you walk forward until the terminator.
 // std::string is built on exactly this. Don't use <cstring>: you're writing it.
 //
-// Grade: grade 10_memory/02_c_strings
+// ./grade 10_memory/02_c_strings
 
 #include <cstddef>
 

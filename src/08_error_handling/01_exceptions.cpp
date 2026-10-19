@@ -7,7 +7,7 @@
 //
 // Always catch by const reference.
 //
-// Grade: grade 08_error_handling/01_exceptions
+// ./grade 08_error_handling/01_exceptions
 
 #include <stdexcept>
 #include <string>

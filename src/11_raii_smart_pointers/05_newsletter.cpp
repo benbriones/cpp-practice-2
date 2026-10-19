@@ -6,7 +6,7 @@
 // Two weak_ptrs (or a weak_ptr and a shared_ptr) refer to the same object when
 // w.lock() == s.
 //
-// Grade: grade 11_raii_smart_pointers/05_newsletter
+// ./grade 11_raii_smart_pointers/05_newsletter
 
 #include <algorithm>
 #include <memory>

@@ -5,7 +5,7 @@
 // the scope. A const member function that locks needs a `mutable std::mutex`.
 // std::scoped_lock lock(a, b); locks two mutexes together without deadlocking.
 //
-// Grade: grade 17_concurrency/02_mutex
+// ./grade 17_concurrency/02_mutex
 
 #include <mutex>
 

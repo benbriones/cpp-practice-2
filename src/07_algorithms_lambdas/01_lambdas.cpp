@@ -6,7 +6,7 @@
 // takes an int and returns an int. A lambda that changes its own copies needs
 // `mutable` after the parameter list.
 //
-// Grade: grade 07_algorithms_lambdas/01_lambdas
+// ./grade 07_algorithms_lambdas/01_lambdas
 
 #include <functional>
 #include <vector>

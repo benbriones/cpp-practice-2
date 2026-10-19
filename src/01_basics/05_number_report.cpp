@@ -14,7 +14,7 @@
 // Hint: `while (std::cin >> n)` stops at end of input. For the mean, look up
 // std::fixed and std::setprecision in <iomanip>.
 //
-// Grade: grade 01_basics/05_number_report
+// ./grade 01_basics/05_number_report
 // Try it: grade --run 01_basics/05_number_report   (type numbers, then Ctrl-D)
 
 #include <iostream>

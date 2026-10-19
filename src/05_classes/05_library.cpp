@@ -5,7 +5,7 @@
 // Rules: titles are unique. A book is either on the shelf or lent to one member, and a
 // member can hold at most kMaxLoans books at once.
 //
-// Grade: grade 05_classes/05_library
+// ./grade 05_classes/05_library
 
 #include <string>
 #include <vector>

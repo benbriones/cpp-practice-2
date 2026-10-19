@@ -4,7 +4,7 @@
 // a whole family. Catch clauses are tried top to bottom, so list the most
 // specific type first.
 //
-// Grade: grade 08_error_handling/02_custom_exceptions
+// ./grade 08_error_handling/02_custom_exceptions
 
 #include <functional>
 #include <map>

@@ -8,7 +8,7 @@
 // chain with |:   for (int x : v | std::views::filter(pred) | std::views::take(3))
 // C++20 can't collect a view straight into a vector, so push_back in a loop.
 //
-// Grade: grade 07_algorithms_lambdas/04_erase_and_ranges
+// ./grade 07_algorithms_lambdas/04_erase_and_ranges
 
 #include <algorithm>
 #include <cstddef>

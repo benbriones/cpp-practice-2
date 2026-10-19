@@ -24,7 +24,7 @@
 //
 // Hint: std::getline(line_stream, field, ',') splits on commas.
 //
-// Grade: grade 09_streams_files/04_csv_report
+// ./grade 09_streams_files/04_csv_report
 // Try it: grade --run 09_streams_files/04_csv_report < salaries.csv
 
 #include <format>

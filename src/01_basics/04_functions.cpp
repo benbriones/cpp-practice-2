@@ -1,7 +1,7 @@
 // Exercise: Functions
 // Overloading, default arguments, recursion, and a static local variable.
 //
-// Grade: grade 01_basics/04_functions
+// ./grade 01_basics/04_functions
 
 #include <string>
 

@@ -4,7 +4,7 @@
 // top byte, alpha (opacity) in the bottom one. Pack and unpack it with shifts
 // and masks: (packed >> 8) & 0xFF is the blue byte.
 //
-// Grade: grade 19_bonus_bit_manipulation/03_color_packing
+// ./grade 19_bonus_bit_manipulation/03_color_packing
 
 #include <bitset>
 #include <cstdint>

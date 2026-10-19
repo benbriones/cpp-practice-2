@@ -5,7 +5,7 @@
 // Useful: s.find(c, start) gives an index or std::string::npos if not found;
 // s.substr(start, length); s.empty().
 //
-// Grade: grade 02_strings_vectors/03_split_and_join
+// ./grade 02_strings_vectors/03_split_and_join
 
 #include <cctype>
 #include <string>

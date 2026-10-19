@@ -4,7 +4,7 @@
 // Fix all three without renaming anything or changing parameter lists (a return type
 // may change).
 //
-// Grade: grade 05_classes/04_class_bugs
+// ./grade 05_classes/04_class_bugs
 
 #include <stdexcept>
 #include <string>

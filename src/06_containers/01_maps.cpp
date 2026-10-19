@@ -5,7 +5,7 @@
 //     for (const auto& [word, count] : counts) { ... }   // visits keys in sorted order
 // `using` gives a long type a short name.
 //
-// Grade: grade 06_containers/01_maps
+// ./grade 06_containers/01_maps
 
 #include <cctype>
 #include <cstddef>

@@ -6,7 +6,7 @@
 // Keep each function's name and parameters. Where a comment says so, you may
 // change the return type.
 //
-// Grade: grade 03_references_pointers/05_lifetime_bugs
+// ./grade 03_references_pointers/05_lifetime_bugs
 
 #include <cctype>
 #include <string>

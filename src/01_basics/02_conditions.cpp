@@ -2,7 +2,7 @@
 // Implement the four functions below with if/else, switch, and the logical
 // operators && || !.
 //
-// Grade: grade 01_basics/02_conditions
+// ./grade 01_basics/02_conditions
 
 #include <string>
 

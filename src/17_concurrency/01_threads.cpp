@@ -6,7 +6,7 @@
 // Give each thread its own output slot (e.g. partial[i]) so no two threads
 // write the same memory. std::jthread joins itself in its destructor.
 //
-// Grade: grade 17_concurrency/01_threads
+// ./grade 17_concurrency/01_threads
 
 #include <thread>
 #include <vector>

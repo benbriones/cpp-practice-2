@@ -8,7 +8,7 @@
 // elements while growing if the move constructor promises not to throw;
 // otherwise it copies them.
 //
-// Grade: grade 12_move_semantics/02_rule_of_five
+// ./grade 12_move_semantics/02_rule_of_five
 
 #include <cstddef>
 #include <utility>

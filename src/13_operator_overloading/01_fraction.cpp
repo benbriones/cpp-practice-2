@@ -7,7 +7,7 @@
 // Free (non-member) operators let conversions apply to both sides, so 1 + f
 // works as well as f + 1. In C++20, one operator<=> gives you < <= > >= too.
 //
-// Grade: grade 13_operator_overloading/01_fraction
+// ./grade 13_operator_overloading/01_fraction
 
 #include <compare>
 #include <numeric>

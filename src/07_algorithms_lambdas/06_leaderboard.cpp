@@ -17,7 +17,7 @@
 // Hint: total the points in a std::map<std::string, int>, then copy the entries
 // into a std::vector of pairs and sort it with a lambda.
 //
-// Grade: grade 07_algorithms_lambdas/06_leaderboard
+// ./grade 07_algorithms_lambdas/06_leaderboard
 // Try it: grade --run 07_algorithms_lambdas/06_leaderboard
 
 #include <algorithm>

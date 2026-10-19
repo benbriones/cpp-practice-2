@@ -10,7 +10,7 @@
 // destructor are all correct: that's the rule of zero. Keep the public functions
 // working the same way.
 //
-// Grade: grade 12_move_semantics/03_rule_of_zero
+// ./grade 12_move_semantics/03_rule_of_zero
 
 #include <cstddef>
 #include <stdexcept>

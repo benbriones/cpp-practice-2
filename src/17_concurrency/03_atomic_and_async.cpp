@@ -6,7 +6,7 @@
 // another thread and returns a std::future; future.get() waits for the result
 // and rethrows any exception the task threw.
 //
-// Grade: grade 17_concurrency/03_atomic_and_async
+// ./grade 17_concurrency/03_atomic_and_async
 
 #include <atomic>
 #include <future>

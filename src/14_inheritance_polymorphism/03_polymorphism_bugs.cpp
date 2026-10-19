@@ -8,7 +8,7 @@
 // destructor, and a derived function that hides a base function instead of
 // overriding it.
 //
-// Grade: grade 14_inheritance_polymorphism/03_polymorphism_bugs
+// ./grade 14_inheritance_polymorphism/03_polymorphism_bugs
 
 #include <memory>
 #include <string>

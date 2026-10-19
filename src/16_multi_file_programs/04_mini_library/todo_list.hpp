@@ -10,7 +10,7 @@
 // Implement every function that throws "TODO" in the three .cpp files. The
 // requirements are in the comments next to each declaration in the headers.
 //
-// Grade: grade 16_multi_file_programs/04_mini_library
+// ./grade 16_multi_file_programs/04_mini_library
 // Try it: grade --run 16_multi_file_programs/04_mini_library
 
 #pragma once

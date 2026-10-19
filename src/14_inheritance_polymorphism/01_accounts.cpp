@@ -6,7 +6,7 @@
 // A `virtual` function can be replaced in a derived class; mark the replacement
 // `override`. Inside it, Account::withdraw(amount) still calls the base version.
 //
-// Grade: grade 14_inheritance_polymorphism/01_accounts
+// ./grade 14_inheritance_polymorphism/01_accounts
 
 #include <stdexcept>
 #include <vector>

@@ -18,7 +18,7 @@
 //
 // Suggested shape: a small Parser class holding the tokens and an index.
 //
-// Grade: grade 18_capstone_projects/02_expression_calculator
+// ./grade 18_capstone_projects/02_expression_calculator
 
 #include <cctype>
 #include <cstddef>

@@ -9,7 +9,7 @@
 // Use allocate() and release() instead of new[]/delete[], so the tests can
 // count live blocks and catch leaks.
 //
-// Grade: grade 11_raii_smart_pointers/02_rule_of_three
+// ./grade 11_raii_smart_pointers/02_rule_of_three
 
 #include <cstddef>
 

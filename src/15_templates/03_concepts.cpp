@@ -10,7 +10,7 @@
 // `if constexpr (condition)` picks a branch at compile time; the other branches
 // aren't compiled for that type.
 //
-// Grade: grade 15_templates/03_concepts
+// ./grade 15_templates/03_concepts
 
 #include <concepts>
 #include <string>

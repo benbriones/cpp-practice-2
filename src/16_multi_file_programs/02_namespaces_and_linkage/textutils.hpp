@@ -10,7 +10,7 @@
 //      put each one in an anonymous namespace  namespace { ... }  (or mark it
 //      `static`). That gives it internal linkage.
 //
-// Grade: grade 16_multi_file_programs/02_namespaces_and_linkage
+// ./grade 16_multi_file_programs/02_namespaces_and_linkage
 
 #pragma once
 

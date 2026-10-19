@@ -14,7 +14,7 @@
 //
 // Then implement Inventory::add.
 //
-// Grade: grade 16_multi_file_programs/03_classes_and_templates_in_headers
+// ./grade 16_multi_file_programs/03_classes_and_templates_in_headers
 
 #pragma once
 

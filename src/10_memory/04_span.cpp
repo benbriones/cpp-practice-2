@@ -4,7 +4,7 @@
 // all convert to it, so one function serves all three without losing the size.
 // std::span<const int> is read-only; std::span<int> can write through.
 //
-// Grade: grade 10_memory/04_span
+// ./grade 10_memory/04_span
 
 #include <cstddef>
 #include <span>

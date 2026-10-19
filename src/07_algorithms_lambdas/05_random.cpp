@@ -7,7 +7,7 @@
 //     std::uniform_int_distribution<int> die(1, 6);
 //     int roll = die(rng);
 //
-// Grade: grade 07_algorithms_lambdas/05_random
+// ./grade 07_algorithms_lambdas/05_random
 
 #include <algorithm>
 #include <numeric>

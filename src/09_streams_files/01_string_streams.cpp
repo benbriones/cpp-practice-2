@@ -8,7 +8,7 @@
 // std::format("{:<8}{:>6.2f}", name, price) left-aligns name in 8 columns, then
 // right-aligns price in 6 columns with 2 decimals (<format>).
 //
-// Grade: grade 09_streams_files/01_string_streams
+// ./grade 09_streams_files/01_string_streams
 
 #include <format>
 #include <istream>

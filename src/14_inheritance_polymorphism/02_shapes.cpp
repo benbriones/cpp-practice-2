@@ -6,7 +6,7 @@
 // every concrete shape must override all three functions. std::numbers::pi is
 // in <numbers>.
 //
-// Grade: grade 14_inheritance_polymorphism/02_shapes
+// ./grade 14_inheritance_polymorphism/02_shapes
 
 #include <cmath>
 #include <memory>

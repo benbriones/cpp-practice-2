@@ -9,7 +9,7 @@
 // 0), copy the elements across, and delete[] the old block. The tests count
 // allocations, so leaks and extra reallocations show up.
 //
-// Grade: grade 10_memory/05_dynamic_array
+// ./grade 10_memory/05_dynamic_array
 
 #include <cstddef>
 #include <stdexcept>

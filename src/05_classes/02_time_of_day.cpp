@@ -6,7 +6,7 @@
 //     Time(int hours, int minutes) : hours_(hours), minutes_(minutes) { /* checks */ }
 // A `static` member function belongs to the class, not to an object: Time::from_minutes(90).
 //
-// Grade: grade 05_classes/02_time_of_day
+// ./grade 05_classes/02_time_of_day
 
 #include <stdexcept>
 #include <string>

@@ -9,7 +9,7 @@
 // deleting it, and you get undefined behavior. The tests count every
 // allocation, so leaks fail too.
 //
-// Grade: grade 10_memory/03_new_and_delete
+// ./grade 10_memory/03_new_and_delete
 
 // A new heap array of `count` ints (count >= 1) holding the square of each
 // index: 0, 1, 4, 9, ... The caller owns it and will delete[] it.

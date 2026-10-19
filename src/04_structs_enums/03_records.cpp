@@ -5,7 +5,7 @@
 //   for (const Employee& e : staff) { ... }   // read
 //   for (Employee& e : staff) { ... }         // modify
 //
-// Grade: grade 04_structs_enums/03_records
+// ./grade 04_structs_enums/03_records
 
 #include <string>
 #include <utility>

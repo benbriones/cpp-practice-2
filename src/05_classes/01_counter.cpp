@@ -7,7 +7,7 @@
 //     throw std::invalid_argument("step must be positive");   // from <stdexcept>
 // (catching exceptions has its own module later).
 //
-// Grade: grade 05_classes/01_counter
+// ./grade 05_classes/01_counter
 
 #include <stdexcept>
 

@@ -9,7 +9,7 @@
 //     (... && args)          is true for an empty pack
 //     ((out << args), ...)   runs `out << arg` for each argument, in order
 //
-// Grade: grade 15_templates/04_variadic
+// ./grade 15_templates/04_variadic
 
 #include <cstddef>
 #include <sstream>

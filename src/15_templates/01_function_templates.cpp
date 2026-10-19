@@ -9,7 +9,7 @@
 // won't compile when words is a vector<std::string>, because "the" is a
 // const char*. Pass std::string("the") instead.
 //
-// Grade: grade 15_templates/01_function_templates
+// ./grade 15_templates/01_function_templates
 
 #include <cstddef>
 #include <map>

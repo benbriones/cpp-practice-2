@@ -8,7 +8,7 @@
 //
 // Algorithms take an iterator range: std::count_if(v.begin(), v.end(), predicate).
 //
-// Grade: grade 07_algorithms_lambdas/03_algorithms
+// ./grade 07_algorithms_lambdas/03_algorithms
 
 #include <algorithm>
 #include <cstddef>

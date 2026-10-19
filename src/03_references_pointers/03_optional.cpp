@@ -6,7 +6,7 @@
 //   std::optional<int> maybe = 42;     if (maybe) { use(*maybe); }
 //   return std::nullopt;               maybe.value_or(0)
 //
-// Grade: grade 03_references_pointers/03_optional
+// ./grade 03_references_pointers/03_optional
 
 #include <cstddef>
 #include <optional>

@@ -3,7 +3,7 @@
 // std::queue is first-in-first-out: push, front, pop, empty, size.
 // pop() returns nothing in both, so read top()/front() first.
 //
-// Grade: grade 06_containers/05_stacks_and_queues
+// ./grade 06_containers/05_stacks_and_queues
 
 #include <queue>
 #include <stack>

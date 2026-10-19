@@ -1,7 +1,7 @@
 // Exercise: Loops
 // Implement the four functions below using for, while, or do-while loops.
 //
-// Grade: grade 01_basics/03_loops
+// ./grade 01_basics/03_loops
 
 // Sum of the decimal digits of n, ignoring its sign: sum_of_digits(-123) == 6.
 int sum_of_digits(int n) {

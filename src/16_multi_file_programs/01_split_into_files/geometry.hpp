@@ -12,7 +12,7 @@
 // (Marking each function `inline` would also link. That's how header-only
 // libraries work, but practise the header/source split here.)
 //
-// Grade: grade 16_multi_file_programs/01_split_into_files
+// ./grade 16_multi_file_programs/01_split_into_files
 
 #include <cmath>
 

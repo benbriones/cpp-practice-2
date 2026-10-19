@@ -8,7 +8,7 @@
 // A function can also return a reference, which lets the caller assign
 // through the result:  largest(v) = 0;
 //
-// Grade: grade 03_references_pointers/01_references
+// ./grade 03_references_pointers/01_references
 
 #include <vector>
 

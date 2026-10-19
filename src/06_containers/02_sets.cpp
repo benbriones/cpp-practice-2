@@ -5,7 +5,7 @@
 //     seen.contains(x);      // C++20
 // You can build a set straight from a vector: std::set<int> s(v.begin(), v.end());
 //
-// Grade: grade 06_containers/02_sets
+// ./grade 06_containers/02_sets
 
 #include <optional>
 #include <set>

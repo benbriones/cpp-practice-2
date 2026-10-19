@@ -4,7 +4,7 @@
 // In C++, int / int throws away the remainder (7 / 2 == 3), and an int that
 // grows past ~2.1 billion overflows. Convert first: static_cast<double>(x).
 //
-// Grade: grade 01_basics/01_arithmetic
+// ./grade 01_basics/01_arithmetic
 
 // Average of a and b: average(1, 2) == 1.5. Must work for values near the int limit.
 double average(int a, int b) {

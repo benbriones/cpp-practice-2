@@ -21,7 +21,7 @@
 // lines, catches const std::exception&, and prints "error: " + e.what().
 // Hint: std::stoi(text, &used) also reports how many characters it used.
 //
-// Grade: grade 08_error_handling/04_bank_teller
+// ./grade 08_error_handling/04_bank_teller
 // Try it: grade --run 08_error_handling/04_bank_teller
 
 #include <iostream>

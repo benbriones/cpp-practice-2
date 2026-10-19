@@ -12,7 +12,7 @@
 // list iterator. list.splice(list.begin(), list, it) moves a node to the front
 // in O(1) without invalidating iterators.
 //
-// Grade: grade 18_capstone_projects/01_lru_cache
+// ./grade 18_capstone_projects/01_lru_cache
 
 #include <cstddef>
 #include <list>

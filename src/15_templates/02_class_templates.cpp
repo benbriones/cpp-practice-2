@@ -9,7 +9,7 @@
 // argument deduction (CTAD): the compiler works out A and B from the
 // constructor's arguments.
 //
-// Grade: grade 15_templates/02_class_templates
+// ./grade 15_templates/02_class_templates
 
 #include <array>
 #include <cstddef>

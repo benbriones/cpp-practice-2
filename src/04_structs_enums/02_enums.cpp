@@ -6,7 +6,7 @@
 // Failure messages print enum values as numbers: Direction(0) is North,
 // (1) East, (2) South, (3) West.
 //
-// Grade: grade 04_structs_enums/02_enums
+// ./grade 04_structs_enums/02_enums
 
 #include <ostream>
 #include <string>

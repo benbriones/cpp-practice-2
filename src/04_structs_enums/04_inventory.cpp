@@ -19,7 +19,7 @@
 // readable, e.g. one that finds an item and returns an Item* or nullptr.
 // Hint: read the quantity as a std::string first, then check and convert it.
 //
-// Grade: grade 04_structs_enums/04_inventory
+// ./grade 04_structs_enums/04_inventory
 // Try it: grade --run 04_structs_enums/04_inventory
 
 #include <iostream>

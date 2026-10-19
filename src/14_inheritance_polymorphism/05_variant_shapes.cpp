@@ -7,7 +7,7 @@
 // fits a closed set: the list of types is fixed, but adding a new operation is
 // just a new function, and no heap allocation or pointers are needed.
 //
-// Grade: grade 14_inheritance_polymorphism/05_variant_shapes
+// ./grade 14_inheritance_polymorphism/05_variant_shapes
 
 #include <array>
 #include <cmath>

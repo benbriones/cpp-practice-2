@@ -21,7 +21,7 @@
 // std::vector<std::unique_ptr<Shape>>. Strict integer parsing: std::from_chars
 // in <charconv> reports where the number stopped.
 //
-// Grade: grade 18_capstone_projects/04_ascii_canvas
+// ./grade 18_capstone_projects/04_ascii_canvas
 // Try it: grade --run 18_capstone_projects/04_ascii_canvas
 
 #include <charconv>

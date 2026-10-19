@@ -7,7 +7,7 @@
 // A class can hold a reference member (Logger& logger_;). It must be set in
 // the constructor's initializer list and can't be re-pointed later.
 //
-// Grade: grade 14_inheritance_polymorphism/04_interfaces
+// ./grade 14_inheritance_polymorphism/04_interfaces
 
 #include <ostream>
 #include <string>

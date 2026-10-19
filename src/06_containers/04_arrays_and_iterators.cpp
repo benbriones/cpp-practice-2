@@ -8,7 +8,7 @@
 // continue from the returned one:
 //     for (auto it = c.begin(); it != c.end(); ) { if (...) it = c.erase(it); else ++it; }
 //
-// Grade: grade 06_containers/04_arrays_and_iterators
+// ./grade 06_containers/04_arrays_and_iterators
 
 #include <array>
 #include <cctype>

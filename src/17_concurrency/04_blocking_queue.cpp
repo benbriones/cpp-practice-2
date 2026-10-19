@@ -8,7 +8,7 @@
 // waiters after a change. T may be move-only (e.g. std::unique_ptr), so move
 // values in and out.
 //
-// Grade: grade 17_concurrency/04_blocking_queue
+// ./grade 17_concurrency/04_blocking_queue
 
 #include <condition_variable>
 #include <cstddef>

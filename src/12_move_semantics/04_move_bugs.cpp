@@ -5,7 +5,7 @@
 //
 // Track counts its copies and moves so the tests can see what really happened.
 //
-// Grade: grade 12_move_semantics/04_move_bugs
+// ./grade 12_move_semantics/04_move_bugs
 
 #include <string>
 #include <utility>

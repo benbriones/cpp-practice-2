@@ -5,7 +5,7 @@
 // reference. Then + is easy as a free function: copy the left side, += the right.
 // 2.0 * v needs a free function, because the left operand isn't a Vec2.
 //
-// Grade: grade 13_operator_overloading/02_vec2
+// ./grade 13_operator_overloading/02_vec2
 
 #include <cmath>
 #include <ostream>

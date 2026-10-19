@@ -10,7 +10,7 @@
 // then the three functions underneath. Mark the two move operations noexcept
 // once you've implemented them (std::vector relies on it).
 //
-// Grade: grade 12_move_semantics/01_copies_and_moves
+// ./grade 12_move_semantics/01_copies_and_moves
 
 #include <string>
 #include <utility>

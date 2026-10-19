@@ -9,7 +9,7 @@
 //
 //   auto node = std::make_shared<TreeNode>("root");
 //
-// Grade: grade 11_raii_smart_pointers/04_shared_and_weak
+// ./grade 11_raii_smart_pointers/04_shared_and_weak
 
 #include <algorithm>
 #include <memory>

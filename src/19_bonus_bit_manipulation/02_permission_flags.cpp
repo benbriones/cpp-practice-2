@@ -8,7 +8,7 @@
 // turns them back. The two operators below are given (operator overloading
 // gets its own module, 13).
 //
-// Grade: grade 19_bonus_bit_manipulation/02_permission_flags
+// ./grade 19_bonus_bit_manipulation/02_permission_flags
 
 #include <cstdint>
 #include <stdexcept>
