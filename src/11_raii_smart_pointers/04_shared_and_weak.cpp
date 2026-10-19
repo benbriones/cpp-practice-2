@@ -1,11 +1,46 @@
-// Exercise: shared_ptr and weak_ptr
-// A std::shared_ptr is a reference-counted owner: the object dies when the last
-// shared_ptr to it goes away. A std::weak_ptr watches without owning; call
-// lock() to get a shared_ptr, which is null if the object is already gone.
+// === Lesson: std::shared_ptr and std::weak_ptr ===============================
 //
-// Parents own their children here. If children owned their parents too, the
-// counts could never reach zero and the tree would leak, so each child points
-// back with a weak_ptr.
+// Sometimes an object has no single owner. A std::shared_ptr<T> is one of
+// several owners: copying it adds an owner, destroying or reset()ting one removes
+// one, and the object is deleted when the count of owners reaches zero. It's the
+// reference counting Python does for every object, but opt-in and per pointer.
+//
+// A std::weak_ptr<T> watches a shared object without owning it, so it doesn't
+// keep the object alive. You can't use it directly: lock() gives you a
+// shared_ptr, which is null if the object is gone, and expired() asks the same.
+//
+//     auto song = std::make_shared<std::string>("Hey Jude");   // use_count() == 1
+//     auto again = song;                     // a copy: two owners, use_count() == 2
+//     std::weak_ptr<std::string> watch = song;   // watching doesn't count: still 2
+//     song.reset();                          // one owner left
+//     again.reset();                         // none: the string is deleted
+//     watch.expired();                       // true
+//     watch.lock();                          // an empty (null) shared_ptr
+//
+// The usual way to use a weak_ptr is to lock it into a local shared_ptr, which
+// also keeps the object alive while you use it:
+//
+//     if (std::shared_ptr<Account> account = weak_account.lock()) {
+//         account->notify();       // only runs if the Account still exists
+//     }
+//
+// Cycles leak. There's no garbage collector to notice that two objects only
+// keep each other alive:
+//
+//     struct Person {
+//         std::shared_ptr<Person> best_friend;   // if two people pick each other,
+//     };                                         // neither count can reach zero
+//
+// The fix is to decide which direction owns. Make that one a shared_ptr, and
+// make the way back a weak_ptr. Two shared_ptrs (or a lock()ed weak_ptr and a
+// shared_ptr) compare equal with == when they point at the same object.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/stdshared_ptr/
+//            https://www.learncpp.com/cpp-tutorial/circular-dependency-issues-with-stdshared_ptr-and-stdweak_ptr/
+//
+// === Exercise: shared_ptr and weak_ptr =======================================
+// A tree where parents own their children through shared_ptrs, and each child
+// points back to its parent with a weak_ptr, so the tree can't keep itself alive.
 //
 //   auto node = std::make_shared<TreeNode>("root");
 //

@@ -1,11 +1,51 @@
-// Exercise: Scope guard
-// RAII: an object takes on a job in its constructor and finishes it in its
-// destructor, and C++ runs the destructor however the scope ends: reaching the
-// closing brace, an early return, or an exception. Build a ScopeGuard that runs
-// an action when it goes out of scope, then use it in two functions.
+// === Lesson: Destructors and RAII ============================================
 //
-// You never call a destructor yourself. Destructors must not throw, so that
-// stub is an empty body instead of `throw "TODO";`.
+// A destructor, ~ClassName(), runs automatically when an object's lifetime ends.
+// For a local variable that's when its scope is left, however that happens: the
+// closing brace, a return, a break, or an exception passing through. Locals are
+// destroyed in reverse order of construction. You never call a destructor yourself.
+//
+// RAII ("resource acquisition is initialization") builds on that: a class takes
+// on a job in its constructor and finishes it in its destructor, so the second
+// half can't be forgotten. The standard library is full of it: std::vector frees
+// its memory, std::ofstream closes its file, std::lock_guard unlocks its mutex.
+//
+//     int depth = 0;
+//
+//     class Indent {                 // one level deeper for as long as it lives
+//     public:
+//         Indent() { ++depth; }
+//         ~Indent() { --depth; }
+//     };
+//
+//     void walk(const Folder& folder) {
+//         Indent indent;
+//         print_name(folder.name);                // indented by depth
+//         if (folder.subfolders.empty()) return;  // depth goes back down here...
+//         for (const Folder& sub : folder.subfolders) walk(sub);
+//     }                                           // ...and here, or if anything throws
+//
+// C++ has no `finally`. Where Python uses `with` and JavaScript uses try/finally,
+// C++ uses an object whose destructor does the cleanup. The exception isn't
+// caught or stopped: it keeps travelling to the caller while the destructors run.
+// (If you do catch one, a bare `throw;` inside the catch block rethrows it.)
+//
+// To hold "something to run later", std::function<void()> from <functional>
+// stores any callable that takes no arguments and returns nothing, like a lambda:
+//
+//     std::function<void()> on_exit = [&] { std::cout << "bye\n"; };
+//     on_exit();                       // calls the lambda
+//
+// Destructors must not throw. They're noexcept by default, and an exception
+// escaping one ends the program through std::terminate.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/destructors/
+//            https://www.learncpp.com/cpp-tutorial/function-pointers/
+//
+// === Exercise: Scope guard ===================================================
+// Build a ScopeGuard that runs an action when it goes out of scope, then use it
+// in two functions. The destructor's stub is an empty body instead of
+// `throw "TODO";`, since destructors must not throw.
 //
 // ./grade 11_raii_smart_pointers/01_scope_guard
 

@@ -1,10 +1,54 @@
-// Exercise: Shapes
-// Implement three shapes that derive from the abstract class Shape, then use
-// them through Shape pointers.
+// === Lesson: Abstract classes and owning base pointers =======================
 //
-// `= 0` makes a function pure virtual: Shape can't be created on its own, and
-// every concrete shape must override all three functions. std::numbers::pi is
-// in <numbers>.
+// `= 0` declares a pure virtual function: a promise with no body. A class with
+// one is abstract. You can't create one on its own, only classes derived from it
+// that override every pure virtual function:
+//
+//     class Instrument {
+//     public:
+//         virtual ~Instrument() = default;
+//         virtual std::string play() const = 0;
+//     };
+//
+//     class Drum : public Instrument {
+//     public:
+//         std::string play() const override { return "boom"; }
+//     };
+//
+//     Instrument i;   // error: Instrument is an abstract class
+//     Drum d;         // fine
+//
+// Forget to override one of them and the derived class is abstract too; the
+// error shows up where you try to create one.
+//
+// Polymorphism needs the original object, reached through a pointer or a
+// reference: a std::vector<Instrument> can't hold a Drum. A vector of
+// std::unique_ptr<Instrument> can, and it deletes each object for you:
+//
+//     std::vector<std::unique_ptr<Instrument>> band;
+//     band.push_back(std::make_unique<Drum>());   // unique_ptr<Drum> converts
+//     for (const auto& player : band) {
+//         std::cout << player->play() << '\n';      // each object's own play()
+//     }
+//
+//     const Instrument* first = band[0].get();   // a plain pointer: look, don't own
+//
+// A function returning std::unique_ptr<Base> can create any derived class and
+// hand it to the caller, or return nullptr for "nothing".
+//
+// A constructor that throws never finishes, so no object exists and nothing
+// leaks. To turn that into a nullptr, catch the exception around the creation.
+//
+// Parsing words and numbers from text is a job for std::istringstream (module
+// 09). `in >> x` is false when it fails. To detect extra input after the last
+// value you expect, try to read one more: if that succeeds, there was too much.
+//
+// Read more: https://en.cppreference.com/w/cpp/language/abstract_class
+//            https://www.learncpp.com/cpp-tutorial/stdunique_ptr/
+//
+// === Exercise: Shapes ========================================================
+// Implement three shapes that derive from the abstract class Shape, then use
+// them through Shape pointers. std::numbers::pi is in <numbers>.
 //
 // ./grade 14_inheritance_polymorphism/02_shapes
 

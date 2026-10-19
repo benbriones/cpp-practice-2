@@ -1,8 +1,58 @@
-// Exercise: Your own exception types
-// Deriving from a standard exception gives an error a name (and extra data).
+// === Lesson: Exception classes and hierarchies ===============================
+//
+// Your own exception class gives an error a name callers can catch, and room for
+// extra data. Base it on a standard exception, usually std::runtime_error, which
+// already stores the message and returns it from what():
+//
+//     class HttpError : public std::runtime_error {
+//     public:
+//         HttpError(int status, const std::string& message)
+//             : std::runtime_error("HTTP " + std::to_string(status) + ": " + message),
+//               status_(status) {}
+//
+//         int status() const { return status_; }
+//
+//     private:
+//         int status_;
+//     };
+//
+// `: public std::runtime_error` makes every HttpError also a std::runtime_error
+// (inheritance gets its own module later). The member initializer list after the
+// `:` in the constructor builds the base part with its message, then the class's
+// own members. The base must be built there, not assigned in the body.
+//
+// When a class adds no data, `using Base::Base;` inherits the base's constructors
+// so you don't have to write them:
+//
+//     class NotFound : public HttpError {
+//     public:
+//         using HttpError::HttpError;
+//     };
+//
+// The classes form a family tree, and a catch clause matches its own type or any
+// type derived from it. Clauses are tried top to bottom and the first match wins,
+// so put the most specific first. (clang warns when a clause can never be reached.)
+//
+//     try {
+//         fetch("/home");
+//     } catch (const NotFound&) {               // just this one kind
+//         show_404_page();
+//     } catch (const HttpError& e) {            // any other HttpError
+//         log("status " + std::to_string(e.status()));
+//     } catch (const std::exception& e) {       // anything else from the std family
+//         log(e.what());
+//     }
+//
+// An exception that no clause matches keeps going up to the next try. A function
+// that doesn't want to handle an error simply doesn't catch it, and it passes
+// through. Inside a catch, a bare `throw;` rethrows the same exception.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/exceptions-classes-and-inheritance/
+//            https://www.learncpp.com/cpp-tutorial/rethrowing-exceptions/
+//
+// === Exercise: Your own exception types ======================================
 // Callers can catch exactly the errors they care about, or a base class to catch
-// a whole family. Catch clauses are tried top to bottom, so list the most
-// specific type first.
+// a whole family.
 //
 // ./grade 08_error_handling/02_custom_exceptions
 

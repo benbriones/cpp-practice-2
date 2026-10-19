@@ -1,10 +1,44 @@
-// Exercise: Atomics and async tasks
-// Two lighter-weight tools than a mutex.
+// === Lesson: Atomics and async tasks =========================================
 //
-// std::atomic<int> n{0}; supports ++n, n += 5 and n.load() safely from any
-// thread, with no lock. std::async(std::launch::async, f, args...) runs f on
-// another thread and returns a std::future; future.get() waits for the result
-// and rethrows any exception the task threw.
+// std::atomic<T> makes each operation on one variable indivisible, without a
+// mutex. It's the tool for counters, flags and running totals:
+//
+//     std::atomic<long> bytes_sent{0};
+//     std::atomic<bool> cancelled{false};
+//
+//     bytes_sent += n;                // one indivisible read-modify-write
+//     ++bytes_sent;                   // also indivisible, like fetch_add(1)
+//     bytes_sent = bytes_sent + n;    // two steps, a load then a store: another
+//                                     // thread's update in between is lost
+//     if (cancelled.load()) return;   // safe to read from any thread
+//
+// An atomic protects one variable. When several values must change together,
+// use a mutex. Atomics can't be copied or moved.
+//
+// std::async runs a function on another thread and returns a std::future, a
+// handle to a result that will exist later:
+//
+//     std::future<std::size_t> pending =
+//         std::async(std::launch::async, count_words, std::cref(book));
+//     do_other_work();                     // count_words runs meanwhile
+//     std::size_t words = pending.get();   // waits for it, then gives the result
+//
+// - Pass std::launch::async. Without it, the task may be deferred and run on
+//   the calling thread, only when get() is called.
+// - get() works once. If the task threw, get() rethrows that exception in the
+//   caller, so errors travel back the way results do.
+// - A future from std::async waits for its task when it's destroyed. Calling
+//   std::async and then get() for each task in turn runs them one at a time; to
+//   run several at once, start them all, keep the futures in a vector, then
+//   get() each result.
+// - Like std::thread, std::async copies its arguments; std::cref(x) passes a
+//   const reference instead.
+//
+// Read more: https://en.cppreference.com/w/cpp/atomic/atomic
+//            https://en.cppreference.com/w/cpp/thread/async
+//
+// === Exercise: Atomics and async tasks =======================================
+// Two lighter-weight tools than a mutex.
 //
 // ./grade 17_concurrency/03_atomic_and_async
 

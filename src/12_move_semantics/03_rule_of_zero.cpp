@@ -1,14 +1,57 @@
-// Exercise: The rule of zero
+// === Lesson: The rule of zero ================================================
+//
+// The compiler-generated destructor, copies and moves work member by member:
+// copying the class copies each member, moving it moves each member, and
+// destroying it destroys each member. When every member already manages itself
+// (std::string, std::vector, std::map, std::unique_ptr, plain values), that's
+// exactly right, and you write none of the five. That's the rule of zero:
+//
+//     class Contact {
+//     public:
+//         Contact(std::string name, std::vector<std::string> phones)
+//             : name_(std::move(name)), phones_(std::move(phones)) {}
+//
+//     private:
+//         std::string name_;
+//         std::vector<std::string> phones_;
+//     };   // no destructor, no copy or move operations written by hand
+//
+//     Contact a("Ada", {"555-0100"});
+//     Contact b = a;               // copies both members
+//     Contact c = std::move(a);    // moves both members; noexcept, for free
+//
+// Hand-written special members are where memory bugs live. Typical ones:
+// copying a pointer member instead of what it points to, forgetting a member in
+// operator=, breaking on self-assignment, and leaking when an allocation throws
+// halfway through. The compiler catches none of them.
+//
+// So the rule of three and five are for the rare class whose whole job is
+// managing one resource. Everything else uses those classes as members and
+// follows the rule of zero.
+//
+// Writing the declarations yourself isn't neutral:
+// - `T(const T&) = delete;` forbids copying (and, as a declared copy
+//   operation, still turns off the implicit moves).
+// - `~T() = default;` keeps the default behavior but also turns off the
+//   implicit moves.
+// - Writing nothing gets you all five, correct and with moves noexcept
+//   whenever the members' moves are.
+//
+// You can prove the moves are there and can't throw:
+//
+//     static_assert(std::is_nothrow_move_constructible_v<Contact>);
+//
+// Read more: https://en.cppreference.com/w/cpp/language/rule_of_three
+//
+// === Exercise: The rule of zero ==============================================
 // This Playlist manages memory by hand: new[], delete[], a destructor, a copy
 // constructor, and copy assignment. That code has bugs, and the class has no
 // move operations at all.
 //
 // Rewrite the private part using std::string and std::vector<std::string>, then
 // remove the destructor, copy constructor, and copy assignment from the class
-// (remove them, don't `= delete` them).
-// With members that manage themselves, the compiler-generated copies, moves, and
-// destructor are all correct: that's the rule of zero. Keep the public functions
-// working the same way.
+// (remove them, don't `= delete` them). Keep the public functions working the
+// same way.
 //
 // ./grade 12_move_semantics/03_rule_of_zero
 

@@ -1,4 +1,4 @@
-// A small demo of the library (given). Run it: grade --run 16_multi_file_programs/04_mini_library
+// A small demo of the library (given). Run it: ./grade --run 16_multi_file_programs/04_mini_library
 
 #include <iostream>
 

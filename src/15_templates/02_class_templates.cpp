@@ -1,13 +1,57 @@
-// Exercise: Class templates
-// Three small generic types. Write the member functions inside the class;
-// each one is only compiled for the types you actually use it with.
+// === Lesson: Class templates =================================================
 //
-// template <typename T, std::size_t N> takes a compile-time number as well as a
-// type. RingBuffer<int, 3> and RingBuffer<int, 4> are different types.
+// A class template is a blueprint for a family of classes. Grid<int, 3, 2> and
+// Grid<char, 8, 8> below are two unrelated types, each generated from the
+// same code:
 //
-// The tests write Pair p{1, 2.5}; without <int, double>. That's class template
-// argument deduction (CTAD): the compiler works out A and B from the
-// constructor's arguments.
+//     template <typename T, std::size_t Width, std::size_t Height>
+//     class Grid {
+//     public:
+//         T& at(std::size_t x, std::size_t y) { return cells_[y * Width + x]; }
+//         std::size_t cell_count() const { return Width * Height; }
+//
+//     private:
+//         std::array<T, Width * Height> cells_{};
+//     };
+//
+//     Grid<char, 8, 8> board;   // 64 chars, no heap allocation
+//     board.at(0, 0) = 'R';
+//
+// Template parameters can be types (typename T) or compile-time values
+// (std::size_t N, int, bool, ...). A value parameter is a constant, so it can
+// size a std::array. The argument must be known at compile time: Grid<int, n, n>
+// only works if n is constexpr.
+//
+// Inside the class, its plain name means the current instantiation: within
+// Grid, `Grid` is short for Grid<T, Width, Height>. To name a different one,
+// spell out its arguments, e.g. a member returning Grid<T, Height, Width>.
+//
+// Member functions are compiled only for the instantiations that call them. A
+// method that uses T's < is fine to have, as long as nobody calls it with a T
+// that has no <.
+//
+// Class template argument deduction (CTAD, C++17): when the constructor's
+// parameters mention the template parameters, the compiler deduces them from
+// the arguments, just as it does for function templates:
+//
+//     template <typename T>
+//     struct Labeled {
+//         std::string label;
+//         T value;
+//         Labeled(std::string l, T v) : label(std::move(l)), value(v) {}
+//     };
+//
+//     Labeled temp{"celsius", 21.5};   // Labeled<double>
+//     std::vector v{1, 2, 3};          // std::vector<int>, by the same mechanism
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/class-templates/
+//            https://www.learncpp.com/cpp-tutorial/non-type-template-parameters/
+//
+// === Exercise: Class templates ===============================================
+// Three small generic types. Write the member functions inside the class.
+//
+// The tests write Pair p{1, 2.5}; without <int, double>, so Pair relies on CTAD
+// to work out A and B from the constructor's arguments.
 //
 // ./grade 15_templates/02_class_templates
 

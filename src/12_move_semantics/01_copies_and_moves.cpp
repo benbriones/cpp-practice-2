@@ -1,14 +1,53 @@
-// Exercise: Copies and moves
-// Copying duplicates an object's contents; moving steals them and leaves the
-// source empty but still usable. The compiler calls the move versions for
-// rvalues: temporaries, and anything wrapped in std::move(...).
+// === Lesson: Copies, moves and rvalues =======================================
 //
-//   Message(Message&& other) noexcept;              // move constructor
-//   Message& operator=(Message&& other) noexcept;   // move assignment
+// Copying a std::string or std::vector duplicates its heap buffer. When the
+// source is about to be thrown away anyway, that work is wasted: the new object
+// could just take the buffer. That's a move. It leaves the source valid but
+// "unspecified" (in practice, usually empty): you can destroy it or assign it a
+// new value, but don't rely on what it holds.
 //
+// The compiler moves when the source is an rvalue: a temporary with no name,
+// like the result of name + "!". Anything with a name is an lvalue. A parameter
+// of type T&& (an "rvalue reference") binds only to rvalues, so overloading on
+// const T& and T&& lets one function tell the two apart:
+//
+//     void take(const std::string& s);   // binds to anything
+//     void take(std::string&& s);        // binds only to rvalues, and wins for them
+//
+//     std::string name = "Ada";
+//     take(name);                 // name is an lvalue: the const& version
+//     take(name + "!");           // a temporary: the && version
+//     take(std::move(name));      // the && version: std::move is just a cast
+//
+// std::move doesn't move anything. It's a cast that says "treat this as an
+// rvalue; I'm done with it". Whatever receives it does the moving. And inside
+// take(std::string&& s), s has a name, so it's an lvalue again: to pass the move
+// on to something else, you write std::move(s) once more.
+//
+// Classes get the same pair of overloads as special members: Message(Message&&)
+// is the move constructor and operator=(Message&&) the move assignment, next to
+// the copy versions. Mark moves noexcept when they can't throw (they usually
+// just shuffle pointers): std::vector only moves its elements while growing if
+// the move constructor promises not to throw. Otherwise it copies them.
+//
+// Often there's nothing to move at all:
+// - `return Type(...);` builds the result directly in the caller's variable, and
+//   `return local;` does too in practice ("copy elision"). Writing
+//   return std::move(local) blocks that and costs a move.
+// - v.emplace_back(args...) constructs the element inside the vector from
+//   constructor arguments; v.push_back(Type(args...)) builds a temporary and
+//   moves it in. v.reserve(n) avoids moves when the vector grows.
+// - A "sink" parameter taken by value, like set_name(std::string name), is moved
+//   to where it's kept. Callers passing a temporary pay one move; callers passing
+//   a named variable pay one copy into the parameter, then the move.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/rvalue-references/
+//            https://www.learncpp.com/cpp-tutorial/move-constructors-and-move-assignment/
+//
+// === Exercise: Copies and moves ==============================================
 // Write the four copy/move operations, counting each one in the globals below,
 // then the three functions underneath. Mark the two move operations noexcept
-// once you've implemented them (std::vector relies on it).
+// once you've implemented them.
 //
 // ./grade 12_move_semantics/01_copies_and_moves
 

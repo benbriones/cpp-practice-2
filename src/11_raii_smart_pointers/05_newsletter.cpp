@@ -1,10 +1,44 @@
-// Challenge: Newsletter
+// === Lesson: Choosing who owns what ==========================================
+//
+// Every heap object in C++ needs an answer to "who deletes this?". The type you
+// hold it by is that answer, and it's the first design decision for a class:
+//
+//     std::unique_ptr<T>   I'm the only owner           (a node owns its child)
+//     std::shared_ptr<T>   I'm one of several owners    (a tree's nodes)
+//     std::weak_ptr<T>     I want it if it still exists (a cache, a listener list)
+//     T& or T*             I'm borrowing it, and it surely outlives me
+//                          (a function parameter, a view into a container)
+//
+// Start with unique_ptr (or a plain member) and reach for shared_ptr only when
+// ownership really is shared. A raw pointer or reference that outlives its
+// object dangles, and nothing stops you from using it: that's undefined behavior.
+//
+// weak_ptr is the tool for "observers": objects that get told about events but
+// shouldn't decide how long anyone lives. Each time you need one, lock() it and
+// skip it if it's gone. A cache works the same way:
+//
+//     std::map<std::string, std::weak_ptr<Image>> cache;
+//
+//     std::shared_ptr<Image> load(const std::string& path) {
+//         if (auto cached = cache[path].lock()) return cached;  // still in use
+//         auto image = std::make_shared<Image>(read_image(path));
+//         cache[path] = image;     // remember it without keeping it alive
+//         return image;
+//     }
+//
+// Once every caller drops its shared_ptr, the Image is freed and its entry
+// expires. A list of weak_ptrs collects expired entries like that over time, so
+// prune them now and then, or they pile up.
+//
+// weak_ptr has no ==. To check whether one refers to a particular object, lock()
+// it and compare the result with that object's shared_ptr.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/circular-dependency-issues-with-stdshared_ptr-and-stdweak_ptr/
+//
+// === Challenge: Newsletter ===================================================
 // A Newsletter delivers messages to its subscribers but doesn't own them: when
 // a subscriber is destroyed elsewhere, the newsletter simply stops delivering
 // to it. Store std::weak_ptr<Subscriber> and lock() each one when you need it.
-//
-// Two weak_ptrs (or a weak_ptr and a shared_ptr) refer to the same object when
-// w.lock() == s.
 //
 // ./grade 11_raii_smart_pointers/05_newsletter
 

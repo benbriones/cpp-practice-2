@@ -1,11 +1,59 @@
-// Exercise: Fraction
+// === Lesson: Overloading operators ===========================================
+//
+// An operator is a function with a special name: `a + b` calls operator+(a, b),
+// and `out << x` calls operator<<(out, x). Write those functions for your own
+// type and its values work with the usual symbols:
+//
+//     struct Money {
+//         long long cents = 0;
+//         Money(long long c = 0) : cents(c) {}   // not explicit: 5 converts to Money
+//     };
+//
+//     Money operator+(const Money& a, const Money& b) {
+//         return Money(a.cents + b.cents);
+//     }
+//
+//     Money m(250);
+//     m + 5;   // operator+(m, Money(5))
+//     5 + m;   // works too: a free function converts either side
+//
+// Member or free function? A member operator needs its left operand to already be
+// the class type, so with a member `Money operator+(const Money&) const`, 5 + m
+// wouldn't compile. Symmetric operators (+ - * / == <=>) are usually free.
+// Arithmetic operators return a new value and leave their operands alone.
+//
+// Comparisons in C++20: define == and the compiler derives != from it. Define <=>
+// (the "spaceship") and it derives < <= > >= from it. Built-in types already
+// have <=>, which returns an ordering (less, equal or greater):
+//
+//     std::strong_ordering operator<=>(const Money& a, const Money& b) {
+//         return a.cents <=> b.cents;
+//     }
+//
+// A hand-written <=> doesn't give you ==, so write both.
+//
+// Printing: operator<< takes the stream by reference and returns it, so that
+// out << a << b runs as operator<<(operator<<(out, a), b):
+//
+//     std::ostream& operator<<(std::ostream& out, const Money& m) {
+//         return out << m.cents << "c";
+//     }
+//
+// A conversion operator turns your type into another. Mark it explicit so it only
+// runs when asked: `explicit operator double() const` allows
+// static_cast<double>(m) but not `double d = m;`. An implicit one would also make
+// m + 5 ambiguous: convert 5 to Money, or m to double?
+//
+// <numeric> has std::gcd, the greatest common divisor; it ignores signs, so
+// std::gcd(-4, 6) == 2.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/introduction-to-operator-overloading
+//            https://www.learncpp.com/cpp-tutorial/overloading-the-comparison-operators
+//
+// === Exercise: Fraction ======================================================
 // A Fraction that always stays in lowest terms, with the sign on the numerator:
 // Fraction(2, -4) stores -1/2, and Fraction(0, 5) stores 0/1. A zero
 // denominator throws std::invalid_argument.
-//
-// An operator is a function with a special name: `a + b` calls operator+(a, b).
-// Free (non-member) operators let conversions apply to both sides, so 1 + f
-// works as well as f + 1. In C++20, one operator<=> gives you < <= > >= too.
 //
 // ./grade 13_operator_overloading/01_fraction
 

@@ -1,11 +1,54 @@
-// Exercise: Throwing and catching
-// throw reports an error the caller can't ignore; try/catch handles one.
-// The standard exception types live in <stdexcept> and carry a message:
+// === Lesson: Throwing and catching exceptions ================================
 //
-//     throw std::invalid_argument("not a number: " + text);
-//     try { ... } catch (const std::invalid_argument& e) { use(e.what()); }
+// throw reports an error the caller can't silently ignore. It leaves the current
+// function immediately, and every function up the call chain, until a matching
+// catch is found. Local objects are destroyed properly on the way out.
 //
-// Always catch by const reference.
+//     double ratio(int part, int whole) {
+//         if (whole <= 0) {
+//             throw std::invalid_argument("whole must be positive, got " +
+//                                         std::to_string(whole));
+//         }
+//         return static_cast<double>(part) / whole;
+//     }
+//
+//     try {
+//         std::cout << ratio(3, 0) << '\n';         // throws: the print never runs
+//     } catch (const std::invalid_argument& e) {
+//         std::cout << "bad input: " << e.what() << '\n';
+//     }
+//
+// C++ can throw any type, but use the standard exception classes from <stdexcept>
+// or your own classes based on them. Each takes a message, which what() returns:
+//
+//     std::invalid_argument   the input is malformed
+//     std::out_of_range       an index or value is outside what's allowed
+//     std::domain_error       the input is outside where the math is defined
+//     std::runtime_error      anything else that only shows up at run time
+//
+// The standard library throws these too: vector.at(i) throws std::out_of_range,
+// and std::stoi throws std::invalid_argument when the text doesn't start with a
+// number (after any spaces) and std::out_of_range when it doesn't fit in an int.
+//
+// Catch by const reference: const std::invalid_argument& e. Several catch clauses
+// can follow one try, and the first one whose type matches wins. If nothing
+// catches an exception, the program ends with std::terminate.
+//
+// Where you put the try decides what happens next. Inside a loop, it skips one
+// bad item and carries on; around the whole loop, it stops at the first error.
+//
+// Coming from JavaScript or Python: the idea is the same, but you catch by type
+// instead of inspecting the error, and there's no `finally`. C++ cleans up with
+// destructors instead (module 11).
+//
+// You've already met one exception: every `throw "TODO";` in this course throws a
+// string literal, which the grader catches and reports as "not implemented".
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/basic-exception-handling/
+//            https://www.learncpp.com/cpp-tutorial/exceptions-functions-and-stack-unwinding/
+//
+// === Exercise: Throwing and catching =========================================
+// Implement the functions below.
 //
 // ./grade 08_error_handling/01_exceptions
 

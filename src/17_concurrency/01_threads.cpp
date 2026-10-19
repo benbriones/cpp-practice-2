@@ -1,10 +1,51 @@
-// Exercise: Threads
-// Split work into chunks and hand each chunk to its own std::thread.
+// === Lesson: Starting threads ================================================
 //
-// std::thread t(callable, args...) starts running at once; t.join() waits for it.
-// Every thread must be joined before its std::thread object is destroyed.
-// Give each thread its own output slot (e.g. partial[i]) so no two threads
-// write the same memory. std::jthread joins itself in its destructor.
+// A std::thread runs a function on a new thread, starting the moment it's
+// constructed. join() waits for it to finish:
+//
+//     void greet(std::string name) { std::cout << "hi " + name + "\n"; }
+//
+//     std::thread t(greet, "Ada");    // greet("Ada") is already running...
+//     do_something_else();            // ...while this runs here
+//     t.join();                       // wait until greet returns
+//
+// A std::thread that's still joinable when it's destroyed calls std::terminate,
+// which ends the program, so join every thread on every path. std::jthread
+// (C++20) joins itself in its destructor. Threads can be moved but not copied:
+// keep them in a std::vector<std::thread> and add them with emplace_back.
+//
+// The arguments are copied into the new thread, even when the function takes a
+// reference. To share a variable, capture it by reference in a lambda (or pass
+// std::ref(x)), and make sure it outlives the thread:
+//
+//     std::vector<std::string> pages = load_pages();
+//     std::vector<int> words(pages.size());        // one result slot per thread
+//     std::vector<std::thread> workers;
+//     for (std::size_t i = 0; i < pages.size(); ++i) {
+//         workers.emplace_back([&pages, &words, i] {
+//             words[i] = count_words(pages[i]);
+//         });
+//     }
+//     for (std::thread& w : workers) w.join();     // now words is safe to read
+//
+// Capture the loop index by value ([i]), never by reference: by the time the
+// thread runs, the loop may have moved on.
+//
+// Data races: two threads touching the same memory without synchronization,
+// at least one of them writing, is undefined behavior. Lost updates are the
+// usual symptom. The simplest cure is not to share: give each thread its own
+// slot, or its own range of a vector (different elements are different memory),
+// and combine the results after join(). Reading data nobody writes is fine.
+// The grader's sanitizers don't detect races, so a racy program can pass by luck.
+//
+// An exception that escapes a thread's function calls std::terminate; it never
+// reaches the code that started the thread.
+//
+// Read more: https://en.cppreference.com/w/cpp/thread/thread
+//            https://en.cppreference.com/w/cpp/thread/jthread
+//
+// === Exercise: Threads =======================================================
+// Split work into chunks and hand each chunk to its own std::thread.
 //
 // ./grade 17_concurrency/01_threads
 

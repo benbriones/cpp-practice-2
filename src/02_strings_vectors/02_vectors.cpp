@@ -1,11 +1,55 @@
-// Exercise: std::vector basics
+// === Lesson: std::vector =====================================================
+//
+// std::vector<T> (from <vector>) is a growable array of T, like a JavaScript
+// array or Python list that holds one type. Like std::string it's a value:
+// assigning it or passing it by value copies every element.
+//
+//     std::vector<int> v{3, 1, 4};     // the elements 3, 1, 4
+//     std::vector<int> zeros(5);       // five 0s
+//     std::vector<int> sevens(3, 7);   // 7, 7, 7: (count, value) needs parentheses
+//     v.push_back(1);                  // 3, 1, 4, 1
+//     v.size();  v.empty();  v.front();  v.back();  v.pop_back();
+//
+// v[i] doesn't check bounds: reading outside the vector is undefined behavior,
+// which the grader's sanitizer reports. v.at(i) checks, and throws instead.
+//
+// A range-for visits each element. By value you get copies; to change the
+// elements in place, iterate by reference with & (references come next module):
+//
+//     for (int x : v) { total += x; }
+//     for (int& x : v) { x = -x; }       // negates every element of v
+//
+// The usual way to produce a vector is to build a local one and return it.
+// Returning it doesn't copy the elements:
+//
+//     std::vector<int> squares_up_to(int n) {
+//         std::vector<int> result;
+//         for (int i = 1; i <= n; ++i) {
+//             result.push_back(i * i);
+//         }
+//         return result;
+//     }
+//
+// size() returns std::size_t, which is unsigned. Mixing it with signed ints
+// goes wrong without an error:
+//
+//     int target = -1;
+//     if (target < v.size()) { ... }    // false: -1 converts to a huge unsigned value
+//     v.size() - 1                      // on an empty vector: 18446744073709551615
+//
+// The compiler warns about the first ("comparison of integers of different
+// signs"); take that warning seriously. Use std::size_t for indexes, check
+// empty() before computing size() - 1, or get a signed size with std::ssize(v)
+// (C++20) or static_cast<int>(v.size()).
+//
+// Dividing by the size of an empty vector divides by zero, so handle the empty
+// case first.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/introduction-to-stdvector-and-list-constructors/
+//            https://www.learncpp.com/cpp-tutorial/range-based-for-loops-for-each/
+//
+// === Exercise: std::vector basics ============================================
 // Implement the five functions below.
-//
-// std::vector<int> v{3, 1, 4};  v.push_back(1);  v.size();  v[0];  v.back();
-// for (int x : v) { ... }  visits each element.
-//
-// Note: v.size() returns std::size_t, an unsigned type. Comparing it with a
-// negative int, or computing v.size() - 1 on an empty vector, goes wrong silently.
 //
 // ./grade 02_strings_vectors/02_vectors
 

@@ -1,12 +1,51 @@
-// Exercise: String streams and formatting
-// Streams read and write text the same way whether the other end is the
-// console, a file, or a string. Implement the four functions below.
+// === Lesson: String streams and std::format ==================================
 //
-// std::istringstream in(text); in >> x;  reads from a string just like std::cin.
-// A failed read puts the stream into a fail state: `if (in >> x)` is false, and
-// every later read fails too until you call in.clear().
-// std::format("{:<8}{:>6.2f}", name, price) left-aligns name in 8 columns, then
-// right-aligns price in 6 columns with 2 decimals (<format>).
+// A stream is a source or destination of text. std::cin, files and strings all
+// use the same operators, so code written for one works for the others:
+//
+//     std::istringstream in("3 1.5 kiwi");    // read from a string (<sstream>)
+//     int count;  double weight;  std::string fruit;
+//     in >> count >> weight >> fruit;         // >> skips whitespace, then parses
+//
+//     std::ostringstream out;                 // write into a string
+//     out << "x=" << 3 << ", y=" << 4.5;
+//     std::string text = out.str();           // "x=3, y=4.5"
+//
+// The result of `in >> x` is the stream, which converts to bool: true while
+// reads succeed. That makes "read until it stops working" a one-line loop:
+//
+//     double total = 0, x;
+//     while (in >> x) total += x;             // stops at end of input or bad text
+//
+// Stream state. A read that can't parse sets the fail flag, stores 0, and
+// leaves the offending characters unread. From then on every read fails
+// immediately, until in.clear() resets the flags:
+//
+//     std::istringstream in("42 abc");
+//     int n;
+//     in >> n;        // ok: n == 42
+//     in >> n;        // fails: "abc" isn't an int; n == 0, in.fail() is true
+//     in >> n;        // fails without even looking
+//     in.clear();     // flags reset, but "abc" is still the next thing to read
+//
+// std::format (C++20, <format>) fills a pattern, like Python's str.format.
+// Each {} takes the next argument; after a colon comes a spec:
+// [align][width][.precision][type], with < left, > right, ^ middle:
+//
+//     std::format("{:<6}|{:>5}|{:^7}|", "ab", 42, "mid")   // "ab    |   42|  mid  |"
+//     std::format("{:.3f} {:>8.1f}", 3.14159, 9.87)        // "3.142      9.9"
+//     std::format("{:>{}}", "hi", 6)                       // "    hi"
+//
+// A width is a minimum: longer values are never cut. A nested {} takes the
+// width (or the precision) from the next argument, as in the last line.
+// Older code uses <iomanip> instead:
+// out << std::fixed << std::setprecision(2) << 3.14159 writes "3.14".
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/stream-classes-for-strings/
+//            https://en.cppreference.com/w/cpp/utility/format/spec
+//
+// === Exercise: String streams and formatting =================================
+// Implement the four functions below.
 //
 // ./grade 09_streams_files/01_string_streams
 

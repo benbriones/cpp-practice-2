@@ -1,9 +1,52 @@
-// Exercise: Mutexes
-// Make shared data safe to use from many threads at once.
+// === Lesson: Mutexes =========================================================
 //
-// std::mutex guards data; std::lock_guard lock(m); locks it until the end of
-// the scope. A const member function that locks needs a `mutable std::mutex`.
-// std::scoped_lock lock(a, b); locks two mutexes together without deadlocking.
+// ++count looks like one step but is three: read the value, add one, write it
+// back. Two threads can both read the old value and both write old + 1, losing
+// an increment. Unsynchronized access like that is a data race, which is
+// undefined behavior.
+//
+// A std::mutex lets one thread at a time through. Don't call lock() and
+// unlock() yourself (a return or an exception in between leaves it locked);
+// use an RAII guard, which unlocks in its destructor:
+//
+//     class Guestbook {
+//     public:
+//         void sign(const std::string& name) {
+//             std::lock_guard lock(mutex_);   // locked from here...
+//             names_.push_back(name);
+//         }                                   // ...to the end of the scope
+//
+//         std::size_t signatures() const {
+//             std::lock_guard lock(mutex_);   // reads need the lock too
+//             return names_.size();
+//         }
+//
+//     private:
+//         mutable std::mutex mutex_;          // mutable: lockable in const functions
+//         std::vector<std::string> names_;    // guarded by mutex_
+//     };
+//
+// Every access to guarded data, reads included, must hold the same mutex. Keep
+// locked regions short.
+//
+// Check and act under one lock. Checking "is there stock left?" and then
+// locking to take an item is still broken: another thread can take the last
+// item between your check and your lock.
+//
+// Deadlock: thread 1 holds mutex a and waits for b, while thread 2 holds b and
+// waits for a. Both wait forever. std::scoped_lock locks several mutexes at
+// once, all or nothing, using a deadlock-avoidance algorithm:
+//
+//     std::scoped_lock lock(a, b);   // both locked until the end of the scope
+//
+// Locking a std::mutex the same thread already holds is undefined behavior; in
+// practice the thread waits for itself forever.
+//
+// Read more: https://en.cppreference.com/w/cpp/thread/mutex
+//            https://en.cppreference.com/w/cpp/thread/scoped_lock
+//
+// === Exercise: Mutexes =======================================================
+// Make shared data safe to use from many threads at once.
 //
 // ./grade 17_concurrency/02_mutex
 

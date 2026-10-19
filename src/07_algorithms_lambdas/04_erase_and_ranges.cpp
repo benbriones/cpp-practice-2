@@ -1,12 +1,50 @@
-// Exercise: Erasing and ranges
+// === Lesson: Erasing elements, and views =====================================
+//
+// C++20 can remove matching elements from a vector (or string, deque, list) in
+// one call. Both return how many elements they removed:
+//
+//     std::vector<int> scores{70, 45, 88, 45, 92};
+//     std::erase(scores, 45);                                  // {70, 88, 92}
+//     std::erase_if(scores, [](int s) { return s > 90; });     // {70, 88}
+//
+// Older code uses the "erase-remove idiom", and it's worth understanding because
+// other algorithms work the same way. std::remove_if can't change a container's
+// size, since it only sees iterators. It moves the elements to keep to the front
+// and returns an iterator to the new logical end; erase then cuts off the tail:
+//
+//     auto new_end = std::remove_if(v.begin(), v.end(), pred);   // size unchanged
+//     v.erase(new_end, v.end());                                  // now it shrinks
+//
+// Forget the erase and the vector keeps its old size, with leftover values at
+// the end.
+//
+// std::unique follows the same pattern: it collapses each run of equal *adjacent*
+// elements into one, returns the new logical end, and leaves the erase to you.
+// After the erase, {1, 1, 2, 1} is {1, 2, 1}: the last 1 wasn't next to the others.
+//
+// Views (<ranges>) are lazy sequences built on top of a container. They don't
+// copy the container; each element is computed only when a loop asks for it. Adaptors
+// chain with |, like a shell pipeline:
+//
+//     std::vector<std::string> names{"Ada", "Bjarne", "Grace", "Linus", "Ken"};
+//     auto initials = names
+//         | std::views::filter([](const std::string& n) { return n.size() > 3; })
+//         | std::views::transform([](const std::string& n) { return n[0]; })
+//         | std::views::take(2);
+//     for (char c : initials) std::cout << c;                 // BG
+//
+// std::views::take(n) stops after n elements, or sooner if the input runs out.
+// A view refers to its container, so don't let it outlive the container, and
+// don't add or remove elements while you're iterating a view over it.
+//
+// C++20 can't convert a view straight into a vector (C++23 adds
+// std::ranges::to), so loop over the view and push_back each element.
+//
+// Read more: https://en.cppreference.com/w/cpp/container/vector/erase2
+//            https://en.cppreference.com/w/cpp/ranges
+//
+// === Exercise: Erasing and ranges ============================================
 // Removing elements from containers, and a first taste of C++20 ranges.
-//
-// std::erase_if(v, predicate) removes every matching element (C++20). In older
-// code you'll see the "erase-remove idiom": v.erase(std::remove_if(...), v.end()).
-//
-// Views (<ranges>) are lazy: they produce elements only as you iterate, and they
-// chain with |:   for (int x : v | std::views::filter(pred) | std::views::take(3))
-// C++20 can't collect a view straight into a vector, so push_back in a loop.
 //
 // ./grade 07_algorithms_lambdas/04_erase_and_ranges
 

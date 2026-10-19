@@ -1,4 +1,57 @@
-// Exercise: Conditions and operators
+// === Lesson: Conditions and operators ========================================
+//
+// if / else if / else runs the first branch whose condition is true. Order the
+// branches so the most specific case comes first:
+//
+//     if (n % 15 == 0) {          // must come first: 15 is also divisible by 3
+//         return "FizzBuzz";
+//     } else if (n % 3 == 0) {
+//         return "Fizz";
+//     } else if (n % 5 == 0) {
+//         return "Buzz";
+//     } else {
+//         return std::to_string(n);
+//     }
+//
+// Comparisons: == != < <= > >=. Logic: && (and), || (or), ! (not). && and ||
+// short-circuit: the right side runs only if it can still change the answer,
+// so the left side can guard the right:
+//
+//     if (count != 0 && total / count > 10) { ... }   // never divides by zero
+//
+// && binds tighter than ||, so a || b && c means a || (b && c). Add parentheses
+// whenever you mix them. And 0 < x < 10 doesn't mean what it does in math or
+// Python: it's (0 < x) < 10, which is always true. Clang rejects it; write
+// 0 < x && x < 10.
+//
+// The ternary operator picks one of two values: condition ? if_true : if_false.
+//
+//     std::string noun = (n == 1) ? "item" : "items";
+//
+// switch jumps to the case label equal to an integer, char or enum value (not
+// a string). Execution falls through into the next case unless you break or
+// return, which lets several labels share one body:
+//
+//     switch (day) {                  // 1 = Monday ... 7 = Sunday
+//         case 6:
+//         case 7:
+//             return "weekend";
+//         case 1: case 2: case 3: case 4: case 5:
+//             return "weekday";
+//         default:                    // any value without a label
+//             return "not a day";
+//     }
+//
+// A forgotten break is a classic bug: the next case's code runs too. Code that
+// falls through on purpose after doing some work is marked [[fallthrough]];.
+//
+// Handling invalid input first, with an early return, keeps the rest flat:
+// if (...) { return ...; } and then the normal case without an else.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/logical-operators/
+//            https://www.learncpp.com/cpp-tutorial/switch-statement-basics/
+//
+// === Exercise: Conditions and operators ======================================
 // Implement the four functions below with if/else, switch, and the logical
 // operators && || !.
 //

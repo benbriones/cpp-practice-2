@@ -1,11 +1,53 @@
-// Exercise: Random numbers
-// <random> separates the engine (the source of randomness) from the
-// distribution (the shape of numbers you want). Seed the engine and you get the
-// same sequence every run, which is what makes random code testable:
+// === Lesson: Random numbers ==================================================
 //
-//     std::mt19937 rng(seed);
-//     std::uniform_int_distribution<int> die(1, 6);
-//     int roll = die(rng);
+// <random> splits the job in two:
+//
+//     engine        produces raw random bits. std::mt19937 (the Mersenne Twister)
+//                   is the usual choice.
+//     distribution  turns those bits into the numbers you want: a range of ints,
+//                   decimals, a bell curve...
+//
+//     std::mt19937 rng(std::random_device{}());              // a new seed every run
+//     std::uniform_int_distribution<int> percent(1, 100);    // 1 to 100, both ends
+//     std::uniform_real_distribution<double> unit(0.0, 1.0); // [0.0, 1.0): never 1.0
+//     int p = percent(rng);          // call a distribution with the engine
+//     double u = unit(rng);
+//
+// Seeding: an engine built from the same seed produces the same sequence every
+// time, like Python's random.seed(42) (JavaScript's Math.random can't be seeded).
+// Tests and simulations you want to replay take a seed; std::random_device{}()
+// gives a fresh one when you want different results each run.
+//
+// An engine is an object with state, and every call advances it. Two pitfalls
+// follow from that:
+//
+//     int coin(std::mt19937 rng) { ... }   // a copy: the caller's engine never moves
+//                                          // on, so every call gives the same result
+//     int coin() {
+//         std::mt19937 rng(7);             // a new engine per call, same seed:
+//         ...                              // the same "random" number every time
+//     }
+//
+// Make one engine, then pass it around by reference (std::mt19937&).
+// Distributions are cheap to create; making one per call is fine.
+//
+// Algorithms that need randomness take the engine as an argument:
+//
+//     std::vector<std::string> players{"ana", "ben", "chi", "dev"};
+//     std::shuffle(players.begin(), players.end(), rng);   // a random order
+//
+// std::iota(first, last, start), from <numeric>, fills a range with start,
+// start + 1, start + 2, ...
+//
+// Old code uses std::rand() % n: one global, low-quality generator, and the %
+// makes some results more likely than others. Prefer <random>.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/introduction-to-random-number-generation/
+//            https://www.learncpp.com/cpp-tutorial/generating-random-numbers-using-mersenne-twister/
+//
+// === Exercise: Random numbers ================================================
+// Where a function gets a seed, seed a std::mt19937 with it, so the tests can
+// repeat your results.
 //
 // ./grade 07_algorithms_lambdas/05_random
 

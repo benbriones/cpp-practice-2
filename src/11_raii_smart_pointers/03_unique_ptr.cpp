@@ -1,8 +1,48 @@
-// Exercise: std::unique_ptr
-// A std::unique_ptr owns one heap object and deletes it automatically. It can't
-// be copied, only moved: `b = std::move(a);` hands ownership to b and leaves a null.
+// === Lesson: std::unique_ptr =================================================
 //
-//   auto p = std::make_unique<Widget>("gear", 3);   p->name;   if (p) { ... }
+// A std::unique_ptr<T> (from <memory>) is the sole owner of one heap object and
+// deletes it in its destructor. It's RAII for `new`: you never write delete.
+// Create one with std::make_unique, passing the constructor's arguments:
+//
+//     auto engine = std::make_unique<Engine>(150);   // std::unique_ptr<Engine>
+//     engine->horsepower;          // use it like a pointer: ->, *, and if (engine)
+//     Engine* raw = engine.get();  // a plain pointer to it; raw doesn't own it
+//
+// A unique_ptr can't be copied, since two owners would delete the object twice.
+// It can be moved. std::move(p) marks p as "you may take from this", and a
+// unique_ptr that's taken from hands the object over and is left null:
+//
+//     std::unique_ptr<Engine> copy = engine;   // error: copying is deleted
+//     auto next = std::move(engine);           // next owns it; engine is null
+//     next.reset();                            // deletes the Engine now
+//
+// Moves rearrange ownership without creating or destroying the object, including
+// moves into and out of members:
+//
+//     struct Car { std::unique_ptr<Engine> engine; };
+//
+//     Car car{std::make_unique<Engine>(150)};
+//     auto old = std::move(car.engine);             // old owns it; car.engine is null
+//     car.engine = std::make_unique<Engine>(200);   // car owns a new one
+//
+// A function's signature says what it does with ownership:
+//
+//     std::unique_ptr<Engine> build();             // gives the caller ownership
+//     void install(std::unique_ptr<Engine> e);     // takes ownership from the caller
+//     void inspect(const Engine& e);               // just borrows the object
+//
+// Passing a named unique_ptr into install needs std::move(p): you're visibly
+// giving it away. A temporary such as install(std::make_unique<Engine>(90))
+// needs nothing. Returning a local unique_ptr is just `return p;`. A vector of
+// unique_ptrs is fine too: push_back(std::move(p)), and moving an element out
+// leaves a null pointer in its slot.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/stdunique_ptr/
+//            https://www.learncpp.com/cpp-tutorial/introduction-to-smart-pointers-move-semantics/
+//
+// === Exercise: std::unique_ptr ===============================================
+// Part 1 builds a stack from nodes that each own the next; part 2 passes
+// Widgets' ownership around.
 //
 // ./grade 11_raii_smart_pointers/03_unique_ptr
 

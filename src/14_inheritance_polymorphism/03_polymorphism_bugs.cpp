@@ -1,12 +1,57 @@
-// Exercise: Polymorphism bugs
+// === Lesson: Slicing, virtual destructors and hiding =========================
+//
+// Three classic inheritance bugs. All of them compile without complaint.
+//
+// Slicing: copying a derived object into a base-class object keeps only the base
+// part. The copy really is a base object, so virtual calls on it run the base
+// versions:
+//
+//     struct Base {
+//         virtual ~Base() = default;
+//         virtual std::string who() const { return "base"; }
+//     };
+//     struct Derived : Base {
+//         std::string who() const override { return "derived"; }
+//     };
+//
+//     Derived d;
+//     Base copy = d;   // sliced: copy.who() is "base"
+//     Base& ref = d;   // no copy: ref.who() is "derived"
+//
+// The same happens when a function takes a Base by value, or when derived
+// objects are stored in a container of Base values. Polymorphism needs a
+// reference or a pointer to the original object.
+//
+// Deleting through a base pointer: when an object is destroyed through a Base*
+// or a std::unique_ptr<Base>, the destructor is called through Base. If ~Base()
+// isn't virtual, ~Derived() never runs, and the behaviour is undefined.
+//
+// Hiding instead of overriding: a derived function with the same name as a
+// non-virtual base function hides it. Calls through the derived type find the
+// new one, but calls through a Base& are decided at compile time and still run
+// the base version:
+//
+//     struct Shape { std::string kind() const { return "shape"; } };   // not virtual
+//     struct Square : Shape { std::string kind() const { return "square"; } };
+//
+//     Square sq;
+//     sq.kind();                              // "square"
+//     static_cast<const Shape&>(sq).kind();   // "shape"
+//
+// Writing `override` on every replacement turns this mistake into a compile
+// error, because override is only allowed when the base function is virtual.
+//
+// dynamic_cast<const Derived*>(p) checks at run time whether p points at a
+// Derived (or a class derived from it) and gives nullptr if not. It needs a
+// class with at least one virtual function.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/object-slicing/
+//            https://www.learncpp.com/cpp-tutorial/dynamic-casting/
+//
+// === Exercise: Polymorphism bugs =============================================
 // This code compiles but has three bugs, so some tests fail from the start.
 // Run grade to see them, then fix them. You may change types and signatures;
 // the tests only rely on the names. Then implement count_dogs at the bottom.
-//
-// The usual suspects: storing derived objects by value in a container of the
-// base class (slicing), deleting through a base pointer without a virtual
-// destructor, and a derived function that hides a base function instead of
-// overriding it.
 //
 // ./grade 14_inheritance_polymorphism/03_polymorphism_bugs
 

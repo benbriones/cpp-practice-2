@@ -1,8 +1,52 @@
-// Exercise: Reading files
-// std::ifstream in(path);  opens a file for reading (<fstream>). Then read it
-// exactly like std::cin: std::getline(in, line), in >> word.
-// Opening can fail (missing file, no permission), so check: if (!in) { ... }
+// === Lesson: Reading files ===================================================
 //
+// std::ifstream (<fstream>) opens a file for reading. After that it's an
+// ordinary input stream, so >> and std::getline work exactly as with std::cin.
+// A relative path is relative to the directory the program runs in.
+//
+// Opening can fail (missing file, no permission) without any exception: the
+// stream just starts out failed. Check it before reading:
+//
+//     std::ifstream in("todo.txt");
+//     if (!in) {
+//         throw std::runtime_error("can't open todo.txt");   // <stdexcept>
+//     }
+//
+// You never close it by hand: the file closes when `in` goes out of scope.
+//
+// Line by line. std::getline(in, line) reads up to the next '\n', drops the
+// '\n', and returns the stream, so it fits a while condition. A last line
+// with no '\n' after it is still read; at end of input the loop simply stops:
+//
+//     std::string line;
+//     int number = 0;
+//     while (std::getline(in, line)) {
+//         std::cout << ++number << ": " << line << '\n';
+//     }
+//
+// Avoid `while (!in.eof()) { getline(...); ... }`. eof() turns true only once
+// a read runs into the end of the file, so after a final '\n' that loop goes
+// round once more and handles an extra, empty "line".
+//
+// Word by word. in >> word skips any whitespace, newlines included, and reads
+// up to the next whitespace. It knows nothing about lines.
+//
+// Mixing the two trips people up: after in >> n, the '\n' that ended the number
+// is still unread, so the next getline returns an empty string.
+//
+// Parsing inside a line. Wrap the line in its own std::istringstream and use
+// >> on that; a failure then affects only this line, not the file stream.
+// The manipulator std::ws skips whitespace: `stream >> std::ws` moves past any
+// spaces, tabs and newlines without reading anything else.
+//
+//     std::istringstream fields("  7 kg");
+//     int amount;  std::string unit;
+//     fields >> amount >> unit;               // 7 and "kg"
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/basic-file-io/
+//            https://www.learncpp.com/cpp-tutorial/stream-states-and-input-validation/
+//
+// === Exercise: Reading files =================================================
 // Every function throws std::runtime_error("can't open " + path) when the file
 // can't be opened.
 //

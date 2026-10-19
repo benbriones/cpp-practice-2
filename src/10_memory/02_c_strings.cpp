@@ -1,7 +1,51 @@
-// Exercise: C strings
-// A C string is a char array ending in '\0':  "hi" is {'h', 'i', '\0'}.
-// Its length isn't stored anywhere; you walk forward until the terminator.
-// std::string is built on exactly this. Don't use <cstring>: you're writing it.
+// === Lesson: C strings =======================================================
+//
+// A C string is a char array whose end is marked by the character '\0' (the
+// value 0). Its length isn't stored anywhere: code finds the end by walking
+// forward until it meets the terminator.
+//
+//     char word[] = "hey";          // 4 chars: 'h', 'e', 'y', '\0'
+//     sizeof("hello")               // 6: a literal includes its '\0'
+//     const char* name = "Ada";     // points at a read-only literal
+//
+// A string literal has type const char[N]. You can read it through a
+// const char*, but you can't change it: passing "hey" to a char* parameter is
+// not allowed in C++ (clang warns), and writing to it crashes or worse. To get
+// a modifiable copy, initialize a char array from the literal, as `word` above.
+//
+// Walking a C string. A pointer parameter is a copy of the caller's pointer, so
+// you can advance it freely; the caller's pointer doesn't move:
+//
+//     // Replace every space with '_', in place.
+//     void underscore(char* s) {
+//         for (; *s != '\0'; ++s) {
+//             if (*s == ' ') *s = '_';
+//         }
+//     }
+//     char title[] = "hello big world";
+//     underscore(title);            // "hello_big_world"
+//
+// chars are small integers: 'a' < 'b' compares their codes, and in ASCII every
+// upper-case letter comes before every lower-case one ('Z' < 'a'). '\0' is 0,
+// smaller than any printable character.
+//
+// Writing into a buffer. Whoever writes a C string must also write its '\0';
+// without it, the next reader runs off the end. And the destination must be big
+// enough: C strings never grow, and writing past the end of the array is
+// undefined behavior. That mistake, the buffer overflow, is behind a long list
+// of security holes, and the reason C++ code prefers std::string.
+//
+// Returning a pointer into the string, or nullptr for "not there", is how the C
+// library reports positions. const-ness carries through: from a const char* you
+// can only hand back a const char*.
+//
+// Mixing with std::string: std::string s = "hi"; copies from a C string, and
+// s.c_str() gives a const char* to its text, '\0' included.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/c-style-strings/
+//
+// === Exercise: C strings =====================================================
+// Don't use <cstring>: you're writing your own versions of its functions.
 //
 // ./grade 10_memory/02_c_strings
 

@@ -1,4 +1,55 @@
-// Challenge: Build your own vector
+// === Lesson: How std::vector grows ===========================================
+//
+// A std::vector keeps its elements in one heap block. It tracks two numbers:
+// size, the elements in use, and capacity, how many fit in the block. While
+// size < capacity, push_back just writes into the next free slot. When the
+// block is full it reallocates: get a bigger block, copy the elements across,
+// free the old block, and switch over. You can watch it happen:
+//
+//     std::vector<int> v;
+//     for (int i = 0; i < 9; ++i) {
+//         v.push_back(i);
+//         std::cout << v.size() << '/' << v.capacity() << ' ';
+//     }
+//     // libc++ prints: 1/1 2/2 3/4 4/4 5/8 6/8 7/8 8/8 9/16
+//
+// Why double rather than add one slot each time? Growing by one copies every
+// element on every push_back: n pushes cost about n²/2 copies. Doubling copies
+// 1 + 2 + 4 + ... < 2n elements in total, so push_back is O(1) on average
+// ("amortized"). reserve(n) lets a caller who knows the final size skip the
+// reallocations entirely.
+//
+// The order of those reallocation steps matters: the old block has to stay
+// alive until its elements have been copied out of it. That's also why a
+// pointer or reference into a vector dangles after a push_back that
+// reallocates: the old block it pointed into is gone.
+//
+// A class that owns a heap block. Two pieces of class syntax help here. A
+// default member initializer gives a member its value in every constructor
+// that doesn't set it. A destructor, ~Name(), runs automatically when an
+// object dies (goes out of scope, or is deleted), so it's where the block
+// gets freed:
+//
+//     class Scratch {
+//     public:
+//         explicit Scratch(std::size_t n) : data_(new char[n]()), size_(n) {}
+//         ~Scratch() { delete[] data_; }    // runs when a Scratch dies
+//     private:
+//         char* data_ = nullptr;            // default member initializers
+//         std::size_t size_ = 0;
+//     };
+//
+//     void work() {
+//         Scratch buffer(1024);             // allocates
+//     }                                     // buffer dies here: ~Scratch frees it
+//
+// Module 11 builds on this pattern (RAII). Throwing from a member function works
+// as in module 08: throw std::out_of_range("..."); from <stdexcept>.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/stdvector-resizing-and-capacity/
+//            https://www.learncpp.com/cpp-tutorial/destructors/
+//
+// === Challenge: Build your own vector ========================================
 // IntArray is a growable array of ints that manages its own heap block, the way
 // std::vector does underneath. Implement every member function.
 //

@@ -1,9 +1,58 @@
-// Exercise: 2D vectors
-// Give Vec2 the operators a maths vector should have.
+// === Lesson: Member operators, [] and the usual idioms =======================
 //
-// Compound assignment (+=) is a member that changes *this and returns *this by
-// reference. Then + is easy as a free function: copy the left side, += the right.
-// 2.0 * v needs a free function, because the left operand isn't a Vec2.
+// Compound assignment (+=, -=, *=) changes the object it's called on, so it's a
+// member. It returns *this by reference, like the built-in += does, so that
+// (a += b) += c keeps working on a:
+//
+//     struct Duration {
+//         int seconds = 0;
+//
+//         Duration& operator+=(const Duration& other) {
+//             seconds += other.seconds;
+//             return *this;   // the object itself, not a copy
+//         }
+//     };
+//
+// Then write + as a free function in terms of +=. Taking the left side by value
+// gives you a copy to change and return, and the caller's object is untouched:
+//
+//     Duration operator+(Duration a, const Duration& b) {
+//         a += b;
+//         return a;
+//     }
+//
+// The parameter count picks the operator: operator-(x) with one parameter is
+// unary minus (-d), and operator-(x, y) with two is subtraction (a - b). For
+// 2.0 * v the left operand is a double, so only a free function
+// operator*(double, const Vec2&) can handle it; v * 2.0 is a separate overload.
+//
+// operator[] must be a member and, in C++20, takes exactly one argument. Write
+// it twice: a non-const version returning a reference, so callers can assign
+// through it, and a const version for const objects:
+//
+//     class Playlist {
+//     public:
+//         std::string& operator[](std::size_t i) { return songs_.at(i); }
+//         const std::string& operator[](std::size_t i) const { return songs_.at(i); }
+//     private:
+//         std::vector<std::string> songs_;
+//     };
+//
+//     playlist[0] = "Intro";   // non-const version: assigns into the vector
+//     const Playlist& view = playlist;
+//     view[0];                 // const version; assigning through it won't compile
+//
+// `bool operator==(const T&) const = default;` asks the compiler to write ==
+// for you, comparing members in declaration order.
+//
+// Plain << prints a double with up to 6 significant digits and no trailing
+// zeros: 1.0 prints as 1, and 2.5 as 2.5.
+//
+// Read more: https://en.cppreference.com/w/cpp/language/operators
+//            https://www.learncpp.com/cpp-tutorial/overloading-the-subscript-operator/
+//
+// === Exercise: 2D vectors ====================================================
+// Give Vec2 the operators a maths vector should have.
 //
 // ./grade 13_operator_overloading/02_vec2
 

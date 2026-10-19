@@ -1,10 +1,57 @@
-// Exercise: Bank accounts
-// A base class Account and two derived classes that change how withdraw works.
+// === Lesson: Inheritance and virtual functions ===============================
 //
-// `class Savings : public Account` inherits everything public. A derived
-// constructor initialises its base first: Savings(...) : Account(balance) {}.
-// A `virtual` function can be replaced in a derived class; mark the replacement
-// `override`. Inside it, Account::withdraw(amount) still calls the base version.
+// `class Manager : public Employee` makes Manager a kind of Employee: it gets
+// Employee's members, and a Manager can be used wherever an Employee& or
+// Employee* is expected.
+//
+//     class Employee {
+//     public:
+//         explicit Employee(double salary) : salary_(salary) {}
+//         virtual ~Employee() = default;
+//
+//         virtual double bonus() const { return salary_ * 0.05; }
+//
+//     protected:
+//         double salary_;   // derived classes can use it; outside code can't
+//     };
+//
+//     class Manager : public Employee {
+//     public:
+//         Manager(double salary, int reports)
+//             : Employee(salary), reports_(reports) {}   // base first, then members
+//
+//         double bonus() const override {
+//             return Employee::bonus() + reports_ * 100;   // reuse the base version
+//         }
+//
+//     private:
+//         int reports_;
+//     };
+//
+//     Manager boss(80'000, 4);
+//     Employee& someone = boss;
+//     someone.bonus();   // 4400: the Manager version, even through an Employee&
+//
+// A derived constructor can't set base members itself. It passes arguments to a
+// base constructor in its initializer list, and the base part is built first.
+//
+// Only functions marked `virtual` dispatch on the object's real type. In Python
+// or JavaScript every method works that way; in C++ a non-virtual function is
+// picked at compile time from the declared type. `override` asks the compiler
+// to check that you really are replacing a virtual function: a typo in the name
+// or a missing const becomes an error instead of a silent new function.
+//
+// Base::function(...) calls the base version explicitly, which is how a derived
+// version adds to the base behaviour instead of copying it.
+//
+// A class meant to be used through base pointers or references needs a virtual
+// destructor, so destroying the object runs the derived destructor too.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/basic-inheritance-in-c/
+//            https://www.learncpp.com/cpp-tutorial/virtual-functions/
+//
+// === Exercise: Bank accounts =================================================
+// A base class Account and two derived classes that change how withdraw works.
 //
 // ./grade 14_inheritance_polymorphism/01_accounts
 

@@ -1,7 +1,7 @@
 # C++ Practice 2
 
 A self-paced, exercise-driven course in modern C++ (C++20) with a command-line autograder.
-You learn by writing code: open an exercise, read a few lines, write C++, run `grade`, repeat.
+You learn by writing code: open an exercise, read its short lesson, write C++, run `grade`, repeat.
 
 ## Getting started
 
@@ -17,9 +17,10 @@ alias grade="$HOME/Projects/Personal/cpp-practice-2/grade"
 Then:
 
 1. Open [src/01_basics/01_arithmetic.cpp](src/01_basics/01_arithmetic.cpp).
-2. Replace each `throw "TODO";` with your code.
-3. Run `grade 01/01`.
-4. Fix what fails. When everything passes, `grade` tells you which exercise is next.
+2. Read the lesson at the top of the file, then the exercise instructions under it.
+3. Replace each `throw "TODO";` with your code.
+4. Run `grade 01/01`.
+5. Fix what fails. When everything passes, `grade` tells you which exercise is next.
 
 ## The `grade` command
 
@@ -105,8 +106,9 @@ Module 19 is an optional bonus you can slot in any time after module 04.
 
 ## Adding an exercise
 
-1. Create `src/<module>/<NN_name>.cpp`: a few lines of instructions, the `#include`s, and stubs
-   whose bodies are `throw "TODO";`.
+1. Create `src/<module>/<NN_name>.cpp`: a `// === Lesson: ... ===` block of up to 60 lines (the
+   concepts plus a short example on a different problem), a `// === Exercise: ... ===` block
+   with the instructions, the `#include`s, and stubs whose bodies are `throw "TODO";`.
 2. Create `tests/<module>/<NN_name>.cpp`:
 
    ```cpp

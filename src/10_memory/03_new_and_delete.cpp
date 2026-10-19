@@ -1,13 +1,57 @@
-// Exercise: new and delete
-// `new` creates an object on the heap and returns a pointer to it. The object
-// lives until you `delete` it, whichever function you're in by then.
+// === Lesson: new, delete and linked lists ====================================
 //
-//     int* one = new int(5);      ...   delete one;
-//     int* many = new int[n]();   ...   delete[] many;   ← arrays need delete[]
+// A local variable dies when its function returns. `new` creates an object on
+// the heap instead and returns a pointer to it; the object then lives until
+// some code calls `delete` on that pointer, in whatever function that happens.
+// There's no garbage collector: if nobody deletes it, the memory leaks.
 //
-// Forget the delete and you leak; delete twice, or touch the memory after
-// deleting it, and you get undefined behavior. The tests count every
-// allocation, so leaks fail too.
+//     struct Point { int x; int y; };
+//     Point* p = new Point{3, 4};
+//     p->x = 10;                         // -> reaches a member through a pointer
+//     delete p;                          // gone; p now dangles
+//
+// Arrays use their own pair of operators, and the two must match:
+//
+//     int n = 4;
+//     double* readings = new double[n]();   // n zeros; without (), garbage values
+//     readings[0] = 1.5;
+//     delete[] readings;                    // new[] pairs with delete[]
+//
+// The classic mistakes, all of which compile without complaint:
+//
+//     leak             forgetting to delete (or losing the last pointer to it)
+//     double delete    deleting the same object twice
+//     use after free   reading or writing through a pointer after its delete
+//     mismatch         delete on memory from new[], or delete[] on memory from new
+//
+// The last three are undefined behavior. The grader's sanitizer catches double
+// deletes and use after free; the tests count allocations to catch leaks.
+// delete on a nullptr is allowed and does nothing.
+//
+// Ownership. Whoever is responsible for the final delete "owns" the object.
+// Raw pointers don't say who that is, so it has to be written down: "returns
+// a new array; the caller owns it and must delete[] it". Module 11 replaces
+// this bookkeeping with types that delete for you.
+//
+// Linked lists. A list node holds a value and a pointer to the next node; the
+// last node's next is nullptr, and a list is a pointer to its first node (an
+// empty list is nullptr). You visit every node by following the links:
+//
+//     struct Item { std::string name; Item* next; };
+//     for (const Item* it = first; it != nullptr; it = it->next) {
+//         std::cout << it->name << '\n';
+//     }
+//
+// Changing a list means re-pointing `next` fields, and the order of the
+// assignments matters: once you overwrite a pointer, or delete a node, whatever
+// you can no longer reach is lost. Drawing boxes and arrows on paper helps.
+//
+// Read more:
+// https://www.learncpp.com/cpp-tutorial/dynamic-memory-allocation-with-new-and-delete/
+// https://www.learncpp.com/cpp-tutorial/dynamically-allocating-arrays/
+//
+// === Exercise: new and delete ================================================
+// The tests count every allocation, so leaks fail too.
 //
 // ./grade 10_memory/03_new_and_delete
 

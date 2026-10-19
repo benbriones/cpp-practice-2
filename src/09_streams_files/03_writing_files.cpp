@@ -1,8 +1,45 @@
-// Exercise: Writing files
-// std::ofstream out(path);               creates the file, or empties an existing one
-// std::ofstream out(path, std::ios::app); keeps the content and writes at the end
-// Write with << just like std::cout. The file is flushed and closed when `out`
-// goes out of scope.
+// === Lesson: Writing files ===================================================
+//
+// std::ofstream (<fstream>) opens a file for writing; then you write with <<,
+// as with std::cout. The open mode decides what happens to an existing file:
+//
+//     std::ofstream out(path);                     // create, or empty an existing file
+//     std::ofstream log(path, std::ios::app);      // create, or append at the end
+//     std::ofstream raw(path, std::ios::binary);   // bytes exactly as given
+//     std::ofstream both(path, std::ios::app | std::ios::binary);   // modes combine
+//
+// The file is created (or emptied) the moment the stream is constructed, before
+// you write a single character. So if you only want a file under some
+// condition, check that condition before constructing the stream.
+//
+// Opening fails, without an exception, when the folder doesn't exist or you
+// lack permission. Check with if (!out), just like an input stream:
+//
+//     std::ofstream out("scores.csv");
+//     if (!out) {
+//         throw std::runtime_error("can't write scores.csv");
+//     }
+//     out << "name,points\n";
+//     for (const auto& [name, points] : table) {   // a map<string, int>
+//         out << std::format("{},{}\n", name, points);
+//     }
+//
+// Writes are buffered and reach the disk when the stream is flushed, which
+// happens at the latest when it closes at the end of its scope. Prefer '\n'
+// to std::endl: endl also flushes, which is slow inside a loop.
+//
+// Text vs. binary. On Windows, text mode turns '\n' into "\r\n" on the way
+// out (and back on the way in); std::ios::binary switches that off. macOS and
+// Linux never translate, but open in binary mode whenever bytes must survive
+// unchanged, so the code is right everywhere.
+//
+// Handy for tables: std::string(5, '*') is "*****", and the std::format
+// alignment specs from the last exercise ({:<10}, {:>8}) work in files too.
+//
+// Read more: https://www.learncpp.com/cpp-tutorial/basic-file-io/
+//
+// === Exercise: Writing files =================================================
+// Implement the four functions below.
 //
 // ./grade 09_streams_files/03_writing_files
 
