@@ -75,7 +75,7 @@
 
 // The matrix is rectangular; an empty matrix gives an empty result.
 std::vector<std::vector<int>> transpose(const std::vector<std::vector<int>>& matrix) {
-    if (matrix[0].empty() || matrix.empty()) return {};
+    if (matrix.empty()) return {};
 
     std::vector<std::vector<int>> transposed{};
 
@@ -85,12 +85,11 @@ std::vector<std::vector<int>> transpose(const std::vector<std::vector<int>>& mat
     // size of outer vector -> determines pairs
     std::size_t rows = matrix.size();
 
-
     for (std::size_t i = 0; i < cols; i++) {
         std::vector<int> inner{};
 
         for (std::size_t j = 0; j < rows; j++) {
-            inner.push_back(matrix[i][j]);
+            inner.push_back(matrix[j][i]);
         }
 
         transposed.push_back(inner);
@@ -102,7 +101,9 @@ std::vector<std::vector<int>> transpose(const std::vector<std::vector<int>>& mat
 // In a grid of '#' (alive) and '.' (dead) cells, count the live cells among
 // the 8 neighbours of (row, col). Cells past the edge don't exist; there's no
 // wrap-around.
-int count_neighbors(const std::vector<std::string>& grid, int row, int col) { throw "TODO"; }
+int count_neighbors(const std::vector<std::string>& grid, int row, int col) { 
+    
+ }
 
 // One generation of Conway's Game of Life, as a new grid:
 //   a live cell with 2 or 3 live neighbours stays alive, otherwise it dies;
