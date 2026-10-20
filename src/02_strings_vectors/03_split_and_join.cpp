@@ -68,21 +68,63 @@
 std::vector<std::string> split(const std::string& text, char delimiter) {
     std::vector<std::string> split_values{};
     std::size_t pos = 0;
-    while (pos != std::string::npos) {
+
+    if (text.empty()) return split_values;
+
+    while (true) {
         std::size_t del_pos = text.find(delimiter, pos);
-        std::string vals = text.substr(0, del_pos);
+
+        if (del_pos == std::string::npos) {
+            split_values.push_back(text.substr(pos));
+            break;
+        }
+
+        std::string vals = text.substr(pos, del_pos - pos);
         split_values.push_back(vals);
+
         pos = del_pos + 1;
     }
+
+    return split_values;
 }
 
 // The reverse of split: join({"a", "b", "c"}, ", ") == "a, b, c".
 std::string join(const std::vector<std::string>& parts, const std::string& separator) {
-    throw "TODO";
+    std::string joined;
+
+    for (std::size_t i = 0; i < parts.size(); i++) {
+        joined += parts[i];
+
+        if (i != parts.size() - 1) {
+            joined += separator;
+        }
+    }
+
+    return joined;
 }
 
 // Remove leading and trailing whitespace (spaces, tabs, newlines).
-std::string trim(const std::string& text) { throw "TODO"; }
+std::string trim(const std::string& text) {
+    int start = 0;
+    int end = text.size() - 1;
+
+    // For leading trim
+    for (std::size_t i = 0; i < text.size(); i++) {
+        if (std::isspace(text[i])) {
+            start++;
+            continue;
+        }
+        break;
+    }
+
+    // For trailing trim
+    while (end > start && std::isspace(text[end])) {
+        end--;
+    }
+
+    // "  sdf "
+    return text.substr(start, end - start + 1);
+}
 
 // Upper-case copy of text. The parameter is taken by value on purpose: you
 // need a copy anyway, so modify the parameter and return it.
