@@ -59,23 +59,34 @@
 //
 // ./grade 03_references_pointers/01_references
 
+#include <cstddef>
 #include <vector>
+#include <algorithm>
 
 // Exchange the values of a and b.
 void swap_ints(int& a, int& b) {
-    throw "TODO";
+  int temp_a = a;
+  int temp_b = b;
+  b = temp_a;
+  a = temp_b;
 }
 
 // Double every element of values, in place.
 void double_all(std::vector<int>& values) {
-    throw "TODO";
+    for (std::size_t i = 0; i < values.size(); i++) {
+        values[i] = values[i] * 2;
+    }
 }
 
 // Write the smallest element into lo_out and the largest into hi_out.
 // values is never empty. Returning two results through references is
 // called using "out parameters".
 void min_max(const std::vector<int>& values, int& lo_out, int& hi_out) {
-    throw "TODO";
+    int smallest = *std::min_element(values.begin(), values.end());
+    int highest = *std::max_element(values.begin(), values.end());
+
+    lo_out = smallest;
+    hi_out = highest;
 }
 
 // A reference to the largest element (the first one, on ties), so callers can
