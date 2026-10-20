@@ -57,27 +57,63 @@
 #include <vector>
 
 int sum(const std::vector<int>& values) {
-    throw "TODO";
+    int sum = 0;
+
+    for (std::size_t i = 0; i < values.size(); i++) {
+        sum += values[i];
+    }
+
+    return sum;
 }
 
 // The average, or 0.0 for an empty vector.
 double mean(const std::vector<int>& values) {
-    throw "TODO";
+    if (values.empty()) return 0.0;
+    int total = sum(values);
+    return static_cast<double>(total) / values.size();
 }
 
 // The even values, in their original order.
 std::vector<int> evens(const std::vector<int>& values) {
-    throw "TODO";
+    std::vector<int> evenVals{};
+    for (std::size_t i = 0; i < values.size(); i++) {
+        if (values[i] % 2 == 0) {
+            evenVals.push_back(values[i]);
+        }
+    }
+
+    return evenVals;
 }
 
 // Index of the largest value (the first one, if it appears more than once).
 // Return -1 for an empty vector.
 int index_of_max(const std::vector<int>& values) {
-    throw "TODO";
+    if (values.empty()) return -1;
+    int currMax = values[0];
+    int maxIndex = 0;
+
+    for (std::size_t i = 0; i < values.size(); i++) {
+        if (values[i] == currMax) {  // handle duplicate
+            continue;
+        } else if (values[i] > currMax) {
+            currMax = values[i];
+            maxIndex = i;
+        }
+    }
+
+    return maxIndex;
 }
 
 // Each element is the sum of everything up to and including that position:
 // running_total({1, 2, 3, 4}) == {1, 3, 6, 10}
 std::vector<int> running_total(const std::vector<int>& values) {
-    throw "TODO";
+    int currTotal = 0;
+    std::vector<int> running_totals{};
+
+    for (std::size_t i = 0; i < values.size(); i++) {
+        currTotal += values[i];
+        running_totals.push_back(currTotal);
+    }
+
+    return running_totals;
 }
