@@ -59,13 +59,21 @@
 // ./grade 02_strings_vectors/03_split_and_join
 
 #include <cctype>
+#include <cstddef>
 #include <string>
 #include <vector>
 
 // Split on every delimiter. Empty fields are kept:
 // split("a,b,,c", ',') == {"a", "b", "", "c"}. An empty string gives {}.
 std::vector<std::string> split(const std::string& text, char delimiter) {
-    throw "TODO";
+    std::vector<std::string> split_values{};
+    std::size_t pos = 0;
+    while (pos != std::string::npos) {
+        std::size_t del_pos = text.find(delimiter, pos);
+        std::string vals = text.substr(0, del_pos);
+        split_values.push_back(vals);
+        pos = del_pos + 1;
+    }
 }
 
 // The reverse of split: join({"a", "b", "c"}, ", ") == "a, b, c".
@@ -74,12 +82,8 @@ std::string join(const std::vector<std::string>& parts, const std::string& separ
 }
 
 // Remove leading and trailing whitespace (spaces, tabs, newlines).
-std::string trim(const std::string& text) {
-    throw "TODO";
-}
+std::string trim(const std::string& text) { throw "TODO"; }
 
 // Upper-case copy of text. The parameter is taken by value on purpose: you
 // need a copy anyway, so modify the parameter and return it.
-std::string to_upper(std::string text) {
-    throw "TODO";
-}
+std::string to_upper(std::string text) { throw "TODO"; }
