@@ -53,26 +53,59 @@
 //
 // ./grade 02_strings_vectors/04_grids
 
+#include <cstddef>
 #include <string>
 #include <vector>
 
 // Rows become columns: {{1, 2, 3}, {4, 5, 6}} becomes {{1, 4}, {2, 5}, {3, 6}}.
+// 2 rows x 3 columns:
+// Input:  {{1, 2, 3},
+//          {4, 5, 6}}
+//
+// Output: {{1, 4},
+//          {2, 5},
+//          {3, 6}}
+
+// 3 rows x 2 columns:
+// Input:  {{1, 2},
+//          {3, 4},
+//          {5, 6}}
+// Output: {{1, 3, 5},
+//          {2, 4, 6}}
+
 // The matrix is rectangular; an empty matrix gives an empty result.
 std::vector<std::vector<int>> transpose(const std::vector<std::vector<int>>& matrix) {
-    throw "TODO";
+    if (matrix[0].empty() || matrix.empty()) return {};
+
+    std::vector<std::vector<int>> transposed{};
+
+    // size of first inner vector -> determines size of pairs
+    std::size_t cols = matrix[0].size();
+
+    // size of outer vector -> determines pairs
+    std::size_t rows = matrix.size();
+
+
+    for (std::size_t i = 0; i < cols; i++) {
+        std::vector<int> inner{};
+
+        for (std::size_t j = 0; j < rows; j++) {
+            inner.push_back(matrix[i][j]);
+        }
+
+        transposed.push_back(inner);
+    }
+
+    return transposed;
 }
 
 // In a grid of '#' (alive) and '.' (dead) cells, count the live cells among
 // the 8 neighbours of (row, col). Cells past the edge don't exist; there's no
 // wrap-around.
-int count_neighbors(const std::vector<std::string>& grid, int row, int col) {
-    throw "TODO";
-}
+int count_neighbors(const std::vector<std::string>& grid, int row, int col) { throw "TODO"; }
 
 // One generation of Conway's Game of Life, as a new grid:
 //   a live cell with 2 or 3 live neighbours stays alive, otherwise it dies;
 //   a dead cell with exactly 3 live neighbours comes alive.
 // Every cell updates at once, so count neighbours in the old grid only.
-std::vector<std::string> life_step(const std::vector<std::string>& grid) {
-    throw "TODO";
-}
+std::vector<std::string> life_step(const std::vector<std::string>& grid) { throw "TODO"; }
