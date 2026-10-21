@@ -76,9 +76,7 @@
 //     r = 20;
 //     p = &b;
 //     *p += 5;
-std::pair<int, int> trace_1() {
-    throw "TODO";
-}
+std::pair<int, int> trace_1() { return {10, 25}; }
 
 // Trace 2. Which of these are true? Return their numbers in order, like {2, 4}.
 //
@@ -88,23 +86,31 @@ std::pair<int, int> trace_1() {
 //     int* p = &y;
 //
 //     (1) x == y    (2) &x == &y    (3) &r == &x    (4) p == &r    (5) *p == r
-std::vector<int> trace_2() {
-    throw "TODO";
-}
+std::vector<int> trace_2() { return {1, 3, 5}; }
 
 // True when a and b are the same variable, not merely two variables with equal values.
-bool same_object(const int& a, const int& b) {
-    throw "TODO";
-}
+bool same_object(const int& a, const int& b) { return &a == &b; }
 
 // The index of the element p points at, or values.size() when p doesn't point
 // into values (including when p is nullptr).
 std::size_t index_of(const std::vector<int>& values, const int* p) {
-    throw "TODO";
+    for (std::size_t i = 0; i < values.size(); i++) {
+        if (&values[i] == p) {
+            return i;
+        }
+    }
+
+    return values.size();
 }
 
 // A pointer to each element of values, in order, so writing through result[i]
 // changes values[i].
 std::vector<int*> pointers_to_each(std::vector<int>& values) {
-    throw "TODO";
+    std::vector<int*> pointers{};
+    for (std::size_t i = 0; i < values.size(); i++) {
+        int* p = &values[i];
+        pointers.push_back(p);
+    }
+
+    return pointers;
 }
