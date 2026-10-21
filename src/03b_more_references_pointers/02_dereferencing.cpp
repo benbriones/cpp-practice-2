@@ -50,6 +50,7 @@
 //
 // ./grade 03b_more_references_pointers/02_dereferencing
 
+#include <algorithm>
 #include <utility>
 #include <vector>
 
@@ -76,12 +77,36 @@ std::pair<int, int> trace_4() { return {70, 71}; }
 
 // Rotate the three values left: a gets b's value, b gets c's, and c gets a's.
 // None of the pointers is null.
-void rotate_three(int* a, int* b, int* c) { throw "TODO"; }
+void rotate_three(int* a, int* b, int* c) {
+    int temp_a = *a;
+
+    *a = *b;
+    *b = *c;
+    *c = temp_a;
+}
 
 // Add amount to every int the pointers point at, skipping nullptrs. A pointer
 // that appears twice gets amount added twice.
-void add_to_each(const std::vector<int*>& targets, int amount) { throw "TODO"; }
+void add_to_each(const std::vector<int*>& targets, int amount) {
+    for (int* t : targets) {
+        if (!t) continue;
+
+        *t += amount;
+    }
+}
 
 // A pointer to whichever of *a and *b is larger (a on ties). Neither is null.
 // The caller can write through it: *larger_of(&x, &y) = 0 zeroes the larger.
-int* larger_of(int* a, int* b) { throw "TODO"; }
+int* larger_of(int* a, int* b) {
+    int* answer;
+
+    if (*a == *b) return a;
+    
+    if (*a > *b) {
+        answer = a;
+    } else {
+        answer = b;
+    }
+
+    return answer;
+}
