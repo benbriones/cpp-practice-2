@@ -62,7 +62,7 @@
 //     r = 30;
 //     y = 40;
 std::pair<int, int> trace_3() {
-    throw "TODO";
+return {1, 40}
 }
 
 // Trace 4. What are n and m at the end? Return {n, m}.
