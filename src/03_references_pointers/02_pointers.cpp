@@ -55,6 +55,7 @@
 //
 // ./grade 03_references_pointers/02_pointers
 
+#include <cstddef>
 #include <vector>
 
 // Store value into the int that target points at. If target is nullptr, do nothing.
@@ -66,22 +67,43 @@ void set_if_not_null(int* target, int value) {
 
 // Exchange the two ints that a and b point at. Neither is null.
 void swap_through(int* a, int* b) {
-    throw "TODO";
+    int temp_a = *a;
+    *a = *b;
+    *b = temp_a;
 }
 
 // A pointer to the first element equal to target, or nullptr if there is none.
 // The caller may write through the result to change the vector.
 int* find_value(std::vector<int>& values, int target) {
-    throw "TODO";
+    for (std::size_t i = 0; i < values.size(); i++) {
+        if (values[i] == target) {
+            int* p = &values[i];
+            return p;
+        }
+    }
+
+    return nullptr;
 }
 
 // If b is 0, return false and leave *result alone. Otherwise store a / b in
 // *result and return true. result is never null.
 bool safe_divide(int a, int b, int* result) {
-    throw "TODO";
+    if (b == 0) return false;
+
+    *result = a / b;
+
+    return true;
 }
 
 // Sum of the ints the pointers point at, skipping null pointers.
-int sum_pointed(const std::vector<const int*>& pointers) {
-    throw "TODO";
+int sum_pointed(const std::vector<const int*>& pointers) { 
+    int curr_total = 0;
+
+    for (std::size_t i = 0; i < pointers.size(); i++) {
+        if (!pointers[i]) continue;
+
+        curr_total += *pointers[i];
+    }
+
+    return curr_total;
 }
