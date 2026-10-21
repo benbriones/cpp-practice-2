@@ -59,7 +59,9 @@
 
 // Store value into the int that target points at. If target is nullptr, do nothing.
 void set_if_not_null(int* target, int value) {
-    throw "TODO";
+    if (!target) return;
+
+    *target = value;
 }
 
 // Exchange the two ints that a and b point at. Neither is null.
