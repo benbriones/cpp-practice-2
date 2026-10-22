@@ -29,7 +29,7 @@
 // later ones take whatever was left:
 //
 //     std::string banner = "SALE";
-//     for (Shop& shop : shops) {
+//     for (Shop &shop : shops) {
 //         shop.sign = std::move(banner);   // only the first shop gets "SALE"
 //     }
 //
@@ -57,14 +57,14 @@ inline int track_moves = 0;
 
 struct Track {
     explicit Track(std::string track_title) : title(std::move(track_title)) {}
-    Track(const Track& other) : title(other.title) { ++track_copies; }
-    Track(Track&& other) noexcept : title(std::move(other.title)) { ++track_moves; }
-    Track& operator=(const Track& other) {
+    Track(const Track &other) : title(other.title) { ++track_copies; }
+    Track(Track &&other) noexcept : title(std::move(other.title)) { ++track_moves; }
+    Track &operator=(const Track &other) {
         title = other.title;
         ++track_copies;
         return *this;
     }
-    Track& operator=(Track&& other) noexcept {
+    Track &operator=(Track &&other) noexcept {
         title = std::move(other.title);
         ++track_moves;
         return *this;
@@ -80,7 +80,7 @@ struct Track {
 //   roster = {"Grace"}
 //   enroll(roster, "Ada") returns "Welcome, Ada!"
 //   roster is now {"Grace", "Ada"}
-std::string enroll(std::vector<std::string>& roster, std::string name) {
+std::string enroll(std::vector<std::string> &roster, std::string name) {
     roster.push_back(std::move(name));
     return "Welcome, " + name + "!";
 }
@@ -91,7 +91,7 @@ std::string enroll(std::vector<std::string>& roster, std::string name) {
 // Example:
 //   Track track = make_track("Intro");
 //   // track.title is "Intro"; track_copies is 0, track_moves is 0.
-Track make_track(const std::string& title) {
+Track make_track(const std::string &title) {
     Track track(title);
     return std::move(track);
 }
@@ -104,9 +104,9 @@ Track make_track(const std::string& title) {
 //   tracks = {"A", "B"}, archive = {"Old"}
 //   archive_all(tracks, archive);
 //   // archive is {"Old", "A", "B"}, tracks is empty, track_copies is 0.
-void archive_all(std::vector<Track>& tracks, std::vector<Track>& archive) {
+void archive_all(std::vector<Track> &tracks, std::vector<Track> &archive) {
     archive.reserve(archive.size() + tracks.size());
-    for (const Track& track : tracks) {
+    for (const Track &track : tracks) {
         archive.push_back(std::move(track));
     }
     tracks.clear();

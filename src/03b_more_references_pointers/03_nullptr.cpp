@@ -2,7 +2,7 @@
 //
 // nullptr is a pointer value that points at no box at all:
 //
-//     int* p = nullptr;         p --> (nothing)
+//     int *p = nullptr;         p --> (nothing)
 //
 // Following it is undefined behavior. Here the sanitizers stop the program and
 // report "load of null pointer" (reading) or "store to null pointer" (writing);
@@ -14,13 +14,13 @@
 // the pointer, not the int it points at:
 //
 //     int zero = 0;
-//     int* p = &zero;
+//     int *p = &zero;
 //     if (p)  { ... }           // runs: p points somewhere
 //     if (*p) { ... }           // doesn't run: the int is 0
 //
 // Check first, return early, then do the real work. After the guard, *s is safe:
 //
-//     int length_or_zero(const std::string* s) {
+//     int length_or_zero(const std::string *s) {
 //         if (s == nullptr) return 0;
 //         return static_cast<int>(s->size());     // s->size() means (*s).size()
 //     }
@@ -31,14 +31,14 @@
 // nullptr is the natural "not found" for a search that hands back the element
 // itself, so the caller can read it or change it in place:
 //
-//     std::string* find_long(std::vector<std::string>& words) {
-//         for (std::string& w : words) {
+//     std::string *find_long(std::vector<std::string> &words) {
+//         for (std::string &w : words) {
 //             if (w.size() > 10) return &w;       // w is the element, so &w is its address
 //         }
 //         return nullptr;
 //     }
 //
-//     if (std::string* w = find_long(words)) {    // w only exists inside the if
+//     if (std::string *w = find_long(words)) {    // w only exists inside the if
 //         *w = "(too long)";
 //     }
 //
@@ -65,9 +65,9 @@
 //
 //     int zero = 0;
 //     int one = 1;
-//     int* p = &zero;
-//     int* q = nullptr;
-//     int* s = &one;
+//     int *p = &zero;
+//     int *q = nullptr;
+//     int *s = &one;
 //
 //     (1) p    (2) *p    (3) q    (4) q == nullptr    (5) s && *s == 1    (6) p == s
 std::vector<int> trace_5() {
@@ -84,7 +84,7 @@ std::vector<int> trace_5() {
 //   value_or(&zero, -1) is 0
 //
 // A pointer to 0 is still a real pointer, so it isn't treated as missing.
-int value_or(const int* p, int fallback) {
+int value_or(const int *p, int fallback) {
     throw "TODO";
 }
 
@@ -99,7 +99,7 @@ int value_or(const int* p, int fallback) {
 //   find_first_even(odds) is nullptr
 //
 // Returns a const int*, so the caller can read the element but not change it.
-const int* find_first_even(const std::vector<int>& values) {
+const int *find_first_even(const std::vector<int> &values) {
     throw "TODO";
 }
 
@@ -113,7 +113,7 @@ const int* find_first_even(const std::vector<int>& values) {
 //   *find_last(values, 5) = 0;           // values is now {5, 1, 0, 2}
 //
 // The caller may change the element through the returned pointer.
-int* find_last(std::vector<int>& values, int target) {
+int *find_last(std::vector<int> &values, int target) {
     throw "TODO";
 }
 
@@ -127,7 +127,7 @@ int* find_last(std::vector<int>& values, int target) {
 //   *find_name(names, "Bob") = "Robert";   // names is now {"Ada", "Robert", "Cy"}
 //
 // The caller may rename through the returned pointer.
-std::string* find_name(std::vector<std::string>& names, const std::string& wanted) {
+std::string *find_name(std::vector<std::string> &names, const std::string &wanted) {
     throw "TODO";
 }
 
@@ -143,6 +143,6 @@ std::string* find_name(std::vector<std::string>& names, const std::string& wante
 //   max_of(nullptr, nullptr) is nullptr
 //
 // nullptr means "no value", so any real pointer beats it, even one to a negative.
-const int* max_of(const int* a, const int* b) {
+const int *max_of(const int *a, const int *b) {
     throw "TODO";
 }

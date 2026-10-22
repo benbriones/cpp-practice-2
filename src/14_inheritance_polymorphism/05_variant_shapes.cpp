@@ -19,10 +19,10 @@
 // std::visit calls a function with whatever the variant holds. Bundle one lambda
 // per type with the `overloaded` helper below, and visit picks the match:
 //
-//     std::string describe(const Event& e) {
+//     std::string describe(const Event &e) {
 //         return std::visit(overloaded{
-//             [](const Click& c) { return "click at " + std::to_string(c.x); },
-//             [](const Key& k) { return std::string("key ") + k.ch; },
+//             [](const Click &c) { return "click at " + std::to_string(c.x); },
+//             [](const Key &k) { return std::string("key ") + k.ch; },
 //         }, e);
 //     }
 //
@@ -32,9 +32,9 @@
 // Every lambda in one visit must return the same type. When each would return
 // its own struct, give them all an explicit return type, the variant itself:
 //
-//     [](const Click& c) -> Event { return Click{c.x + 1, c.y}; }
+//     [](const Click &c) -> Event { return Click{c.x + 1, c.y}; }
 //
-// A generic lambda, [](const auto& value) { ... }, handles every type with one
+// A generic lambda, [](const auto &value) { ... }, handles every type with one
 // body, when they all support what the body does.
 //
 // Inheritance or variant? Inheritance fits an open set of types: anyone can add
@@ -74,8 +74,8 @@ struct Triangle {
 using Shape = std::variant<Circle, Rectangle, Triangle>;
 
 // Bundles several lambdas into one callable, so std::visit can pick by type:
-//   std::visit(overloaded{[](const Circle& c) { ... }, [](const Rectangle& r) { ... },
-//                         [](const Triangle& t) { ... }}, shape);
+//   std::visit(overloaded{[](const Circle &c) { ... }, [](const Rectangle &r) { ... },
+//                         [](const Triangle &t) { ... }}, shape);
 template <class... Functions>
 struct overloaded : Functions... {
     using Functions::operator()...;
@@ -91,11 +91,11 @@ struct overloaded : Functions... {
 //   area(Triangle{3, 4, 5}) is 6
 //
 // std::visit with overloaded picks the formula for whichever kind the shape holds.
-double area(const Shape& shape) {
+double area(const Shape &shape) {
     throw "TODO";
 }
 
-double perimeter(const Shape& shape) {
+double perimeter(const Shape &shape) {
     throw "TODO";
 }
 
@@ -103,7 +103,7 @@ double perimeter(const Shape& shape) {
 //
 // Example:
 //   name(Rectangle{1, 1}) is "rectangle"
-std::string name(const Shape& shape) {
+std::string name(const Shape &shape) {
     throw "TODO";
 }
 
@@ -116,7 +116,7 @@ std::string name(const Shape& shape) {
 //   scaled(Triangle{3, 4, 5}, 0.5) is Triangle{1.5, 2, 2.5}
 //
 // Area grows with the square of the factor: area(scaled(Rectangle{3, 4}, 3)) is 108.
-Shape scaled(const Shape& shape, double factor) {
+Shape scaled(const Shape &shape, double factor) {
     throw "TODO";
 }
 
@@ -127,7 +127,7 @@ Shape scaled(const Shape& shape, double factor) {
 //   count_kinds({Circle{1}, Triangle{3, 4, 5}, Circle{2}, Rectangle{1, 1}, Circle{3}})
 //   returns {3, 1, 1}
 //   count_kinds({}) returns {0, 0, 0}
-std::array<int, 3> count_kinds(const std::vector<Shape>& shapes) {
+std::array<int, 3> count_kinds(const std::vector<Shape> &shapes) {
     throw "TODO";
 }
 
@@ -138,6 +138,6 @@ std::array<int, 3> count_kinds(const std::vector<Shape>& shapes) {
 // Example:
 //   total_circle_area({Circle{1}, Rectangle{10, 10}, Circle{2}}) is 5 * pi   // pi + 4 * pi
 //   total_circle_area({Rectangle{1, 2}, Triangle{3, 4, 5}}) is 0
-double total_circle_area(const std::vector<Shape>& shapes) {
+double total_circle_area(const std::vector<Shape> &shapes) {
     throw "TODO";
 }

@@ -8,8 +8,8 @@
 int live_arrays = 0;
 int arrays_allocated = 0;
 
-void* operator new[](std::size_t size) {
-    if (void* block = std::malloc(size == 0 ? 1 : size)) {
+void *operator new[](std::size_t size) {
+    if (void *block = std::malloc(size == 0 ? 1 : size)) {
         ++live_arrays;
         ++arrays_allocated;
         return block;
@@ -17,13 +17,13 @@ void* operator new[](std::size_t size) {
     throw std::bad_alloc();
 }
 
-void operator delete[](void* block) noexcept {
+void operator delete[](void *block) noexcept {
     if (block == nullptr) return;
     --live_arrays;
     std::free(block);
 }
 
-void operator delete[](void* block, std::size_t) noexcept { operator delete[](block); }
+void operator delete[](void *block, std::size_t) noexcept { operator delete[](block); }
 
 TEST("starts empty without allocating") {
     IntArray empty;

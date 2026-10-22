@@ -81,7 +81,7 @@ bool balanced_brackets(std::string_view text) {
 //   evaluate_rpn({"3", "4", "-"}) is -1             // 3 - 4, not 4 - 3
 //   evaluate_rpn({"1", "+"}) throws std::invalid_argument
 //   evaluate_rpn({"1", "2"}) throws std::invalid_argument
-int evaluate_rpn(const std::vector<std::string>& tokens) {
+int evaluate_rpn(const std::vector<std::string> &tokens) {
     throw "TODO";
 }
 

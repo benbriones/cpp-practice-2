@@ -36,13 +36,13 @@
 //     std::vector<std::string> names{"Ada", "Bjarne", "Grace"};
 //     std::vector<std::size_t> lengths;
 //     std::transform(names.begin(), names.end(), std::back_inserter(lengths),
-//                    [](const std::string& s) { return s.size(); });
+//                    [](const std::string &s) { return s.size(); });
 //
 // std::min_element and std::max_element return an iterator, std::minmax_element a
 // pair of them. Each takes an optional comparator. On an empty range they return
 // last, which you must not dereference:
 //
-//     auto by_size = [](const std::string& a, const std::string& b) {
+//     auto by_size = [](const std::string &a, const std::string &b) {
 //         return a.size() < b.size();
 //     };
 //     auto [shortest, longest] =
@@ -74,7 +74,7 @@
 //   words = {"a", "tree", "is", "green", "and", "tall"}
 //   count_longer_than(words, 3) is 3    // "tree", "green", "tall"
 //   count_longer_than(words, 10) is 0
-int count_longer_than(const std::vector<std::string>& words, std::size_t length) {
+int count_longer_than(const std::vector<std::string> &words, std::size_t length) {
     throw "TODO";
 }
 
@@ -86,7 +86,7 @@ int count_longer_than(const std::vector<std::string>& words, std::size_t length)
 //   first_negative_index({4, 2, -1, 8, -5}) is 2
 //   first_negative_index({1, 2, 3}) is -1
 //   first_negative_index({}) is -1
-int first_negative_index(const std::vector<int>& values) {
+int first_negative_index(const std::vector<int> &values) {
     throw "TODO";
 }
 
@@ -97,7 +97,7 @@ int first_negative_index(const std::vector<int>& values) {
 //   all_positive({1, 2, 3}) is true
 //   all_positive({1, 0, 3}) is false
 //   all_positive({}) is true
-bool all_positive(const std::vector<int>& values) {
+bool all_positive(const std::vector<int> &values) {
     throw "TODO";
 }
 
@@ -108,7 +108,7 @@ bool all_positive(const std::vector<int>& values) {
 //   words = {"cat", "dog", "bird"}
 //   any_contains(words, 'o') is true    // "dog"
 //   any_contains(words, 'z') is false
-bool any_contains(const std::vector<std::string>& words, char letter) {
+bool any_contains(const std::vector<std::string> &words, char letter) {
     throw "TODO";
 }
 
@@ -120,7 +120,7 @@ bool any_contains(const std::vector<std::string>& words, char letter) {
 //   product({1, 2, 3, 4}) is 24
 //   product({7, 0, 9}) is 0
 //   product({100'000, 100'000}) is 10'000'000'000
-long long product(const std::vector<int>& values) {
+long long product(const std::vector<int> &values) {
     throw "TODO";
 }
 
@@ -130,7 +130,7 @@ long long product(const std::vector<int>& values) {
 // Example:
 //   squares({1, -2, 3}) is {1, 4, 9}
 //   squares({}) is {}
-std::vector<int> squares(const std::vector<int>& values) {
+std::vector<int> squares(const std::vector<int> &values) {
     throw "TODO";
 }
 
@@ -141,6 +141,6 @@ std::vector<int> squares(const std::vector<int>& values) {
 //   spread({3, 9, 1, 4}) is 8    // 9 - 1
 //   spread({-5, 5}) is 10
 //   spread({7}) is 0
-int spread(const std::vector<int>& values) {
+int spread(const std::vector<int> &values) {
     throw "TODO";
 }

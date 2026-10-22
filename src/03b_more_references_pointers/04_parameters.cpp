@@ -4,8 +4,8 @@
 // includes pointers:
 //
 //     void by_value(int n)     { n *= 2; }
-//     void by_pointer(int* n)  { *n *= 2; }
-//     void by_ref(int& n)      { n *= 2; }
+//     void by_pointer(int *n)  { *n *= 2; }
+//     void by_ref(int &n)      { n *= 2; }
 //
 //     int score = 10;
 //     by_value(score);          score [ 10 ]     n [ 20 ]        n is thrown away at return
@@ -18,16 +18,16 @@
 // copy. To re-point the caller's pointer, take the pointer by reference. Read
 // the type right to left:
 //
-//     void clear(int*& p) { p = nullptr; }      // int*&: reference to pointer to int
+//     void clear(int *&p) { p = nullptr; }      // int*&: reference to pointer to int
 //
-//     int* cursor = &score;
+//     int *cursor = &score;
 //     clear(cursor);            // cursor is now nullptr
 //
 // Out parameters deliver extra results. Pick the form by asking whether the
 // caller always wants one:
 //
-//     void split_seconds(int total, int& minutes, int& seconds);     // always written
-//     void range(const std::vector<int>& v, int* min_out, int* max_out);
+//     void split_seconds(int total, int &minutes, int &seconds);     // always written
+//     void range(const std::vector<int> &v, int *min_out, int *max_out);
 //     range(v, &lo, nullptr);   // a pointer lets the caller opt out with nullptr
 //
 // Check each optional out pointer before writing through it. Another common
@@ -35,7 +35,7 @@
 // parameter", leaving the out parameter alone on failure so the caller's old
 // value survives:
 //
-//     bool parse_yes_no(const std::string& text, bool& answer) {
+//     bool parse_yes_no(const std::string &text, bool &answer) {
 //         if (text == "yes") { answer = true; return true; }
 //         if (text == "no") { answer = false; return true; }
 //         return false;
@@ -65,9 +65,9 @@
 // Trace 6. What is x at the end?
 //
 //     void add_one(int n)        { n += 1; }
-//     void add_ten(int* n)       { *n += 10; }
-//     void add_hundred(int& n)   { n += 100; }
-//     void misdirect(int* n)     { int other = 0; n = &other; *n += 1000; }
+//     void add_ten(int *n)       { *n += 10; }
+//     void add_hundred(int &n)   { n += 100; }
+//     void misdirect(int *n)     { int other = 0; n = &other; *n += 1000; }
 //
 //     int x = 0;
 //     add_one(x);
@@ -86,7 +86,7 @@ int trace_6() { return 110; }
 //   parse_digit('a', digit)   // returns false, digit is still 7
 //
 // digit is an out parameter, so on failure the caller's old value survives.
-bool parse_digit(char c, int& digit) {
+bool parse_digit(char c, int &digit) {
     if (!std::isdigit(c)) return false;
 
     int converted = c - '0';  // converts to an int
@@ -107,7 +107,7 @@ bool parse_digit(char c, int& digit) {
 //   // first is "Cher", last is ""
 //
 // first and last are out parameters, overwritten whatever they held before.
-void split_name(const std::string& full, std::string& first, std::string& last) {
+void split_name(const std::string &full, std::string &first, std::string &last) {
     std::size_t spaceIndex = full.find(" ");
 
     std::cout << "spaceIndex for:" << full << " " << spaceIndex;
@@ -135,7 +135,7 @@ void split_name(const std::string& full, std::string& first, std::string& last) 
 //   sum_with_extremes({4, 9, 1}, &lo, nullptr)   // returns 14, writes only lo
 //
 // Passing nullptr lets the caller opt out of a result it doesn't need.
-int sum_with_extremes(const std::vector<int>& values, int* min_out, int* max_out) {
+int sum_with_extremes(const std::vector<int> &values, int *min_out, int *max_out) {
     if (values.empty()) return 0;
 
     int sum = 0;
@@ -172,12 +172,12 @@ int sum_with_extremes(const std::vector<int>& values, int* min_out, int* max_out
 // Example:
 //   int x = 5;
 //   int y = 9;
-//   int* best = nullptr;
+//   int *best = nullptr;
 //   keep_larger(best, &x);   // best was nullptr, so it now points at x
 //   keep_larger(best, &y);   // 9 > 5, so best now points at y
 //
 // best is a reference to a pointer, so this re-points the caller's pointer.
-void keep_larger(int*& best, int* candidate) {
+void keep_larger(int *&best, int *candidate) {
     if (best == nullptr || *candidate > *best) {
         best = candidate;
     }

@@ -42,7 +42,7 @@ TEST("Triangle rejects impossible sides") {
 
 TEST("shapes work through a Shape reference") {
     const Rectangle rect(2, 5);
-    const Shape& shape = rect;
+    const Shape &shape = rect;
     CHECK_NEAR(shape.area(), 10.0);
     CHECK_EQ(shape.name(), "rectangle");
     CHECK(std::is_abstract_v<Shape>, "Shape should stay abstract");

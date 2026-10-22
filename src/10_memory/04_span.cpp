@@ -7,7 +7,7 @@
 // still knows how many elements it got:
 //
 //     void scale(std::span<double> xs, double k) {
-//         for (double& x : xs) x *= k;          // writes through to the caller's data
+//         for (double &x : xs) x *= k;          // writes through to the caller's data
 //     }
 //     std::vector<double> prices{1, 2, 3, 4};
 //     double raw[3] = {1, 1, 1};

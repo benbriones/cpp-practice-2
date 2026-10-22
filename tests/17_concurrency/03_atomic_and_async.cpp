@@ -18,7 +18,7 @@ public:
               }
           }) {}
 
-    Worker(Worker&&) = delete;
+    Worker(Worker &&) = delete;
 
     ~Worker() {
         if (!thread_.joinable()) return;
@@ -44,7 +44,7 @@ TEST("AtomicCounter: single thread") {
     CHECK_EQ(counter.value(), 0);
     counter.increment();
     counter.increment();
-    const AtomicCounter& view = counter;
+    const AtomicCounter &view = counter;
     CHECK_EQ(view.value(), 2);
 }
 
@@ -56,7 +56,7 @@ TEST("AtomicCounter: 8 threads incrementing at once") {
             for (int i = 0; i < 20'000; ++i) counter.increment();
         });
     }
-    for (auto& thread : threads) thread.join();
+    for (auto &thread : threads) thread.join();
     CHECK_EQ(counter.value(), 160'000);
 }
 

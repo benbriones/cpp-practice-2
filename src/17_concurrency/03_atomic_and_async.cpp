@@ -114,6 +114,6 @@ int count_primes_async(int limit, int parts) {
 //   sum_parsed_async({"1", "two", "3"}) throws std::invalid_argument
 //
 // No catch is needed: get() carries the task's exception back to the caller.
-int sum_parsed_async(const std::vector<std::string>& texts) {
+int sum_parsed_async(const std::vector<std::string> &texts) {
     throw "TODO";
 }

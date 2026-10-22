@@ -11,7 +11,7 @@
 //
 //     class Guestbook {
 //     public:
-//         void sign(const std::string& name) {
+//         void sign(const std::string &name) {
 //             std::lock_guard lock(mutex_);   // locked from here...
 //             names_.push_back(name);
 //         }                                   // ...to the end of the scope
@@ -98,7 +98,7 @@ struct Account {
 //   transfer(alice, bob, 0) and transfer(alice, alice, 10) return false
 //
 // Moving the whole balance is allowed: `from` may end at exactly 0.
-bool transfer(Account& from, Account& to, long long amount) {
+bool transfer(Account &from, Account &to, long long amount) {
     throw "TODO";
 }
 
@@ -110,6 +110,6 @@ bool transfer(Account& from, Account& to, long long amount) {
 //   read_balance(alice) is 42
 //
 // Reads need the lock too, or they race with a transfer's writes.
-long long read_balance(Account& account) {
+long long read_balance(Account &account) {
     throw "TODO";
 }

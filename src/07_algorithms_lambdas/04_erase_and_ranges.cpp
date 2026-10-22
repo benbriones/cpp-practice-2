@@ -28,8 +28,8 @@
 //
 //     std::vector<std::string> names{"Ada", "Bjarne", "Grace", "Linus", "Ken"};
 //     auto initials = names
-//         | std::views::filter([](const std::string& n) { return n.size() > 3; })
-//         | std::views::transform([](const std::string& n) { return n[0]; })
+//         | std::views::filter([](const std::string &n) { return n.size() > 3; })
+//         | std::views::transform([](const std::string &n) { return n[0]; })
 //         | std::views::take(2);
 //     for (char c : initials) std::cout << c;                 // BG
 //
@@ -63,7 +63,7 @@
 //   values is now {3, 4, 9}
 //
 // Modifies the original vector, so its size shrinks; does not return anything.
-void remove_negatives(std::vector<int>& values) {
+void remove_negatives(std::vector<int> &values) {
     throw "TODO";
 }
 
@@ -76,7 +76,7 @@ void remove_negatives(std::vector<int>& values) {
 //   words is now {"tree", "green", "tall"}
 //
 // Modifies the original vector; does not return anything.
-void remove_short_words(std::vector<std::string>& words, std::size_t min_length) {
+void remove_short_words(std::vector<std::string> &words, std::size_t min_length) {
     throw "TODO";
 }
 
@@ -114,6 +114,6 @@ std::string squeeze(std::string text) {
 //   first_n_even_squares({1, 2, 3}, 5) is {4}
 //
 // The view only computes elements as the loop asks for them, then you push_back each.
-std::vector<int> first_n_even_squares(const std::vector<int>& values, std::size_t n) {
+std::vector<int> first_n_even_squares(const std::vector<int> &values, std::size_t n) {
     throw "TODO";
 }

@@ -6,7 +6,7 @@
 //
 //     class HttpError : public std::runtime_error {
 //     public:
-//         HttpError(int status, const std::string& message)
+//         HttpError(int status, const std::string &message)
 //             : std::runtime_error("HTTP " + std::to_string(status) + ": " + message),
 //               status_(status) {}
 //
@@ -35,11 +35,11 @@
 //
 //     try {
 //         fetch("/home");
-//     } catch (const NotFound&) {               // just this one kind
+//     } catch (const NotFound &) {               // just this one kind
 //         show_404_page();
-//     } catch (const HttpError& e) {            // any other HttpError
+//     } catch (const HttpError &e) {            // any other HttpError
 //         log("status " + std::to_string(e.status()));
-//     } catch (const std::exception& e) {       // anything else from the std family
+//     } catch (const std::exception &e) {       // anything else from the std family
 //         log(e.what());
 //     }
 //
@@ -80,14 +80,14 @@ public:
 //   error.what() is "missing key: port"
 //   error.key() is "port"
 //
-// A MissingKey is also a ConfigError, so catch (const ConfigError&) catches it too.
+// A MissingKey is also a ConfigError, so catch (const ConfigError &) catches it too.
 class MissingKey : public ConfigError {
 public:
-    explicit MissingKey(const std::string& key) : ConfigError("TODO") {
+    explicit MissingKey(const std::string &key) : ConfigError("TODO") {
         throw "TODO";
     }
 
-    const std::string& key() const {
+    const std::string &key() const {
         throw "TODO";
     }
 };
@@ -103,7 +103,7 @@ public:
 //   parse_config_line("query=a=b") is {"query", "a=b"}
 //   parse_config_line("oops") throws ConfigError("missing '=' in: oops")
 //   parse_config_line("=5") throws ConfigError("empty key in: =5")
-std::pair<std::string, std::string> parse_config_line(const std::string& line) {
+std::pair<std::string, std::string> parse_config_line(const std::string &line) {
     throw "TODO";
 }
 
@@ -116,7 +116,7 @@ std::pair<std::string, std::string> parse_config_line(const std::string& line) {
 //   parse_config({"# settings", "host=localhost", "", "port=8080", "port=9000"})
 //     is {{"host", "localhost"}, {"port", "9000"}}
 //   parse_config({"a=1", "broken", "b=2"}) throws ConfigError
-std::map<std::string, std::string> parse_config(const std::vector<std::string>& lines) {
+std::map<std::string, std::string> parse_config(const std::vector<std::string> &lines) {
     throw "TODO";
 }
 
@@ -127,8 +127,8 @@ std::map<std::string, std::string> parse_config(const std::vector<std::string>& 
 //   settings = {{"host", "localhost"}}
 //   get_setting(settings, "host") is "localhost"
 //   get_setting(settings, "port") throws MissingKey, and its key() is "port"
-std::string get_setting(const std::map<std::string, std::string>& settings,
-                        const std::string& key) {
+std::string get_setting(const std::map<std::string, std::string> &settings,
+                        const std::string &key) {
     throw "TODO";
 }
 
@@ -145,6 +145,6 @@ std::string get_setting(const std::map<std::string, std::string>& settings,
 //   describe_failure([] { throw std::out_of_range("too far"); }) is "error: too far"
 //
 // A catch clause also matches derived types, so the most specific clause goes first.
-std::string describe_failure(const std::function<void()>& action) {
+std::string describe_failure(const std::function<void()> &action) {
     throw "TODO";
 }

@@ -6,7 +6,7 @@
 //
 //     auto engine = std::make_unique<Engine>(150);   // std::unique_ptr<Engine>
 //     engine->horsepower;          // use it like a pointer: ->, *, and if (engine)
-//     Engine* raw = engine.get();  // a plain pointer to it; raw doesn't own it
+//     Engine *raw = engine.get();  // a plain pointer to it; raw doesn't own it
 //
 // A unique_ptr can't be copied, since two owners would delete the object twice.
 // It can be moved. std::move(p) marks p as "you may take from this", and a
@@ -29,7 +29,7 @@
 //
 //     std::unique_ptr<Engine> build();             // gives the caller ownership
 //     void install(std::unique_ptr<Engine> e);     // takes ownership from the caller
-//     void inspect(const Engine& e);               // just borrows the object
+//     void inspect(const Engine &e);               // just borrows the object
 //
 // Passing a named unique_ptr into install needs std::move(p): you're visibly
 // giving it away. A temporary such as install(std::make_unique<Engine>(90))
@@ -117,8 +117,8 @@ struct Widget {
         ++widgets_alive;
     }
     ~Widget() { --widgets_alive; }
-    Widget(const Widget&) = delete;
-    Widget& operator=(const Widget&) = delete;
+    Widget(const Widget &) = delete;
+    Widget &operator=(const Widget &) = delete;
 
     std::string name;
     int size;
@@ -132,7 +132,7 @@ struct Widget {
 //   widget.reset();   // deletes the Widget, so widgets_alive == 0
 //
 // The caller owns the Widget, which is deleted when that unique_ptr dies or resets.
-std::unique_ptr<Widget> make_widget(const std::string& name, int size) {
+std::unique_ptr<Widget> make_widget(const std::string &name, int size) {
     throw "TODO";
 }
 
@@ -144,7 +144,7 @@ std::unique_ptr<Widget> make_widget(const std::string& name, int size) {
 //   // shelf.back()->name == "bolt", and widget is now null
 //
 // The shelf owns its widgets now, so they die with the shelf.
-void adopt(std::vector<std::unique_ptr<Widget>>& shelf, std::unique_ptr<Widget> widget) {
+void adopt(std::vector<std::unique_ptr<Widget>> &shelf, std::unique_ptr<Widget> widget) {
     throw "TODO";
 }
 
@@ -157,6 +157,6 @@ void adopt(std::vector<std::unique_ptr<Widget>>& shelf, std::unique_ptr<Widget> 
 //   // taken->name == "b", and shelf now holds "a", "c"
 //
 // Nothing is destroyed: the widget lives on until the caller lets go of it.
-std::unique_ptr<Widget> take(std::vector<std::unique_ptr<Widget>>& shelf, std::size_t index) {
+std::unique_ptr<Widget> take(std::vector<std::unique_ptr<Widget>> &shelf, std::size_t index) {
     throw "TODO";
 }

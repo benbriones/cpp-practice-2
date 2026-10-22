@@ -21,7 +21,7 @@ public:
               }
           }) {}
 
-    Worker(Worker&&) = delete;
+    Worker(Worker &&) = delete;
 
     ~Worker() {
         if (!thread_.joinable()) return;
@@ -125,12 +125,12 @@ TEST("4 producers and 4 consumers: every item arrives exactly once") {
             for (int i = 0; i < 2'000; ++i) queue.push(p * 2'000 + i);
         });
     }
-    for (auto& producer : producers) producer.join();
+    for (auto &producer : producers) producer.join();
     queue.close();
-    for (auto& consumer : consumers) consumer.join();
+    for (auto &consumer : consumers) consumer.join();
 
     std::vector<int> all;
-    for (const auto& part : received) all.insert(all.end(), part.begin(), part.end());
+    for (const auto &part : received) all.insert(all.end(), part.begin(), part.end());
     std::sort(all.begin(), all.end());
     std::vector<int> expected(8'000);
     for (int i = 0; i < 8'000; ++i) expected[static_cast<std::size_t>(i)] = i;

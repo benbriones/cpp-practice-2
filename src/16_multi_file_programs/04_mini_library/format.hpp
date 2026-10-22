@@ -22,7 +22,7 @@ namespace format {
 //   format::task_line(task) is "[x] #2 Buy milk (high)"
 //
 // The priority is written with to_string from task.hpp.
-std::string task_line(const Task& task);
+std::string task_line(const Task &task);
 
 // Return how many tasks the list has and how many are done, as one line.
 // Use "task" for exactly one, and "tasks" for any other number, 0 included.
@@ -31,7 +31,7 @@ std::string task_line(const Task& task);
 //   three tasks, one of them done: "3 tasks, 1 done"
 //   one task, not done:            "1 task, 0 done"
 //   an empty list:                 "0 tasks, 0 done"
-std::string summary(const TodoList& list);
+std::string summary(const TodoList &list);
 
 // Return task_line for every pending task, in pending() order.
 // Join the lines with '\n', with no trailing newline.
@@ -45,6 +45,6 @@ std::string summary(const TodoList& list);
 //   format::pending_report(list) is "[ ] #2 Write report (high)\n[ ] #1 Buy milk (medium)"
 //
 // pending() puts the high-priority task first, so #2 comes before #1.
-std::string pending_report(const TodoList& list);
+std::string pending_report(const TodoList &list);
 
 }  // namespace format

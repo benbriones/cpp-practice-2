@@ -2,7 +2,7 @@
 #include "18_capstone_projects/04_ascii_canvas.cpp"
 
 // The canvas rows as strings, top to bottom, without the border.
-std::vector<std::string> rows(const Canvas& canvas) {
+std::vector<std::string> rows(const Canvas &canvas) {
     std::vector<std::string> out;
     for (int y = 0; y < canvas.height(); ++y) {
         std::string row;
@@ -13,9 +13,9 @@ std::vector<std::string> rows(const Canvas& canvas) {
 }
 
 // Parses each line and draws it onto a fresh canvas.
-std::vector<std::string> draw_all(int width, int height, const std::vector<std::string>& lines) {
+std::vector<std::string> draw_all(int width, int height, const std::vector<std::string> &lines) {
     Canvas canvas(width, height);
-    for (const auto& line : lines) {
+    for (const auto &line : lines) {
         std::unique_ptr<Shape> shape = parse_shape(line);
         if (!shape) throw grader::Failure{"parse_shape(\"" + line + "\") returned nullptr for a valid shape"};
         shape->draw(canvas);

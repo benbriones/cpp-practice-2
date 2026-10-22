@@ -33,7 +33,7 @@ TEST("read_lines: error message names the file") {
     try {
         read_lines("missing.txt");
         CHECK(false, "Expected read_lines(\"missing.txt\") to throw std::runtime_error");
-    } catch (const std::runtime_error& e) {
+    } catch (const std::runtime_error &e) {
         CHECK_EQ(std::string(e.what()), "can't open missing.txt");
     }
 }

@@ -27,11 +27,11 @@
 //
 //     std::vector<std::unique_ptr<Instrument>> band;
 //     band.push_back(std::make_unique<Drum>());   // unique_ptr<Drum> converts
-//     for (const auto& player : band) {
+//     for (const auto &player : band) {
 //         std::cout << player->play() << '\n';      // each object's own play()
 //     }
 //
-//     const Instrument* first = band[0].get();   // a plain pointer: look, don't own
+//     const Instrument *first = band[0].get();   // a plain pointer: look, don't own
 //
 // A function returning std::unique_ptr<Base> can create any derived class and
 // hand it to the caller, or return nullptr for "nothing".
@@ -150,7 +150,7 @@ private:
     // TODO: data members
 };
 
-double total_area(const std::vector<std::unique_ptr<Shape>>& shapes) {
+double total_area(const std::vector<std::unique_ptr<Shape>> &shapes) {
     throw "TODO";
 }
 
@@ -163,7 +163,7 @@ double total_area(const std::vector<std::unique_ptr<Shape>>& shapes) {
 //   largest({}) is nullptr
 //
 // The plain pointer only looks at the shape; the vector still owns it.
-const Shape* largest(const std::vector<std::unique_ptr<Shape>>& shapes) {
+const Shape *largest(const std::vector<std::unique_ptr<Shape>> &shapes) {
     throw "TODO";
 }
 

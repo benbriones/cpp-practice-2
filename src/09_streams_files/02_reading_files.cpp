@@ -70,7 +70,7 @@
 //   file holds "one\ntwo"      -> count_lines(path) == 2
 //   file holds "a\n\n\nb\n"    -> count_lines(path) == 4
 //   file is empty              -> count_lines(path) == 0
-std::size_t count_lines(const std::string& path) {
+std::size_t count_lines(const std::string &path) {
     throw "TODO";
 }
 
@@ -83,7 +83,7 @@ std::size_t count_lines(const std::string& path) {
 //   file holds "first\n\n  indented\nlast"
 //   read_lines(path) == {"first", "", "  indented", "last"}
 //   read_lines("missing.txt") throws, and what() is "can't open missing.txt"
-std::vector<std::string> read_lines(const std::string& path) {
+std::vector<std::string> read_lines(const std::string &path) {
     throw "TODO";
 }
 
@@ -97,7 +97,7 @@ std::vector<std::string> read_lines(const std::string& path) {
 //       {{"The", 1}, {"cat", 1}, {"end.", 1}, {"hat", 1}, {"the", 2}}
 //
 // "the" and "The" are different words, and "end." keeps its period.
-std::map<std::string, int> word_counts_in_file(const std::string& path) {
+std::map<std::string, int> word_counts_in_file(const std::string &path) {
     throw "TODO";
 }
 
@@ -111,6 +111,6 @@ std::map<std::string, int> word_counts_in_file(const std::string& path) {
 //
 // Hint: per line, read a double from an istringstream, then check that only
 // whitespace is left: (line_stream >> std::ws).eof()
-double sum_numbers_in_file(const std::string& path) {
+double sum_numbers_in_file(const std::string &path) {
     throw "TODO";
 }

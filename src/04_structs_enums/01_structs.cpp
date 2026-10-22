@@ -87,7 +87,7 @@ Point midpoint(Point a, Point b) {
     throw "TODO";
 }
 
-double area(const Rect& r) {
+double area(const Rect &r) {
     throw "TODO";
 }
 
@@ -101,7 +101,7 @@ double area(const Rect& r) {
 //   contains(r, {10, 5}) is true      // a corner counts as inside
 //   contains(r, {11, 2}) is false
 //   contains(r, {5, -0.5}) is false   // just above the top edge
-bool contains(const Rect& r, Point p) {
+bool contains(const Rect &r, Point p) {
     throw "TODO";
 }
 
@@ -115,6 +115,6 @@ bool contains(const Rect& r, Point p) {
 //   // top_left is {-2, 2}, width is 6, height is 3
 //   bounding_box({{7, -3}})
 //   // top_left is {7, -3}, width and height are 0
-Rect bounding_box(const std::vector<Point>& points) {
+Rect bounding_box(const std::vector<Point> &points) {
     throw "TODO";
 }

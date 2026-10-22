@@ -65,7 +65,7 @@ TEST("Counter: rejects a negative start") {
 TEST("value: readable through a const reference") {
     Counter counter(7);
     counter.increment();
-    const Counter& view = counter;
+    const Counter &view = counter;
     CHECK_EQ(view.value(), 8);
 }
 

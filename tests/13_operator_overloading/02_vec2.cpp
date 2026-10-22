@@ -2,7 +2,7 @@
 #include "13_operator_overloading/02_vec2.cpp"
 
 // Formats the fields directly, so most tests don't depend on your operator<<.
-std::string str(const Vec2& v) {
+std::string str(const Vec2 &v) {
     return std::format("({}, {})", v.x, v.y);
 }
 
@@ -20,7 +20,7 @@ TEST("-= subtracts from the left side") {
 
 TEST("+= returns the vector itself, so calls chain") {
     Vec2 v{1, 1};
-    Vec2& result = (v += Vec2{1, 0}) += Vec2{0, 1};
+    Vec2 &result = (v += Vec2{1, 0}) += Vec2{0, 1};
     CHECK(&result == &v, "v += w should return a reference to v");
     CHECK_EQ(str(v), "(2, 2)");
 }

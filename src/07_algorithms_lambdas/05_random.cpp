@@ -79,7 +79,7 @@ std::vector<int> shuffled_deck(unsigned seed) {
 //   int b = roll_die(rng);   // the next roll in rng's sequence, also 1 to 6
 //
 // Over 6000 rolls, each face should come up about 1000 times.
-int roll_die(std::mt19937& rng) {
+int roll_die(std::mt19937 &rng) {
     throw "TODO";
 }
 

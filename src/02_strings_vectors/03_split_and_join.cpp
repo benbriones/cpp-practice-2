@@ -14,7 +14,7 @@
 // out count to take everything to the end. pos == s.size() gives "", and
 // pos > s.size() throws std::out_of_range.
 //
-//     std::string extension(const std::string& filename) {
+//     std::string extension(const std::string &filename) {
 //         std::size_t dot = filename.rfind('.');
 //         if (dot == std::string::npos) {
 //             return "";
@@ -24,7 +24,7 @@
 //
 // To visit every match, search again from just past the previous one:
 //
-//     int count_word(const std::string& text, const std::string& word) {
+//     int count_word(const std::string &text, const std::string &word) {
 //         int count = 0;
 //         std::size_t pos = text.find(word);
 //         while (pos != std::string::npos) {
@@ -47,7 +47,7 @@
 //         return text;
 //     }
 //
-// To change characters in place, iterate by reference: for (char& c : text).
+// To change characters in place, iterate by reference: for (char &c : text).
 //
 // Read more: https://en.cppreference.com/w/cpp/string/basic_string/find
 //            https://en.cppreference.com/w/cpp/string/basic_string/substr
@@ -65,7 +65,7 @@
 
 // Split on every delimiter. Empty fields are kept:
 // split("a,b,,c", ',') == {"a", "b", "", "c"}. An empty string gives {}.
-std::vector<std::string> split(const std::string& text, char delimiter) {
+std::vector<std::string> split(const std::string &text, char delimiter) {
     std::vector<std::string> split_values{};
     std::size_t pos = 0;
 
@@ -89,7 +89,7 @@ std::vector<std::string> split(const std::string& text, char delimiter) {
 }
 
 // The reverse of split: join({"a", "b", "c"}, ", ") == "a, b, c".
-std::string join(const std::vector<std::string>& parts, const std::string& separator) {
+std::string join(const std::vector<std::string> &parts, const std::string &separator) {
     std::string joined;
 
     for (std::size_t i = 0; i < parts.size(); i++) {
@@ -104,7 +104,7 @@ std::string join(const std::vector<std::string>& parts, const std::string& separ
 }
 
 // Remove leading and trailing whitespace (spaces, tabs, newlines).
-std::string trim(const std::string& text) {
+std::string trim(const std::string &text) {
     int start = 0;
     int end = text.size() - 1;
 

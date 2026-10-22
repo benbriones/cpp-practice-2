@@ -100,7 +100,7 @@ std::function<int()> make_counter() {
 //   auto add_three = [](int x) { return x + 3; };
 //   apply_n_times(add_three, 4, 0) is 12   // 0 -> 3 -> 6 -> 9 -> 12
 //   apply_n_times(add_three, 0, 7) is 7
-int apply_n_times(const std::function<int(int)>& f, int n, int x) {
+int apply_n_times(const std::function<int(int)> &f, int n, int x) {
     throw "TODO";
 }
 
@@ -125,7 +125,7 @@ std::function<int(int)> compose(std::function<int(int)> f, std::function<int(int
 //   values = {5, 12, 7, 20, 3, 15}
 //   count_where(values, [](int x) { return x > 10; }) is 3
 //   count_where(values, [](int x) { return x % 2 == 1; }) is 4
-int count_where(const std::vector<int>& values, const std::function<bool(int)>& predicate) {
+int count_where(const std::vector<int> &values, const std::function<bool(int)> &predicate) {
     throw "TODO";
 }
 
@@ -140,6 +140,6 @@ int count_where(const std::vector<int>& values, const std::function<bool(int)>& 
 //
 // `int (*op)(int, int)` is a plain function pointer, the older C-style way to pass
 // a function. A lambda with no captures converts to one automatically.
-int fold(const std::vector<int>& values, int initial, int (*op)(int, int)) {
+int fold(const std::vector<int> &values, int initial, int (*op)(int, int)) {
     throw "TODO";
 }

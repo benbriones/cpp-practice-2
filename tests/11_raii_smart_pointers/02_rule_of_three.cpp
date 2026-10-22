@@ -71,7 +71,7 @@ TEST("copy assignment: releases the target's old block") {
 TEST("copy assignment: self-assignment is safe") {
     Buffer b(3);
     b.set(1, 5);
-    Buffer& same = b;
+    Buffer &same = b;
     b = same;
     CHECK_EQ(b.size(), 3);
     CHECK_EQ(b.get(1), 5);

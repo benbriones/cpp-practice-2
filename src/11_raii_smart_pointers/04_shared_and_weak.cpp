@@ -71,7 +71,7 @@ struct TreeNode {
 //   // root->name == "root", root->parent.lock() == nullptr, and nodes_alive == 1
 //
 // The returned shared_ptr is the node's only owner.
-std::shared_ptr<TreeNode> make_root(const std::string& name) {
+std::shared_ptr<TreeNode> make_root(const std::string &name) {
     throw "TODO";
 }
 
@@ -85,8 +85,8 @@ std::shared_ptr<TreeNode> make_root(const std::string& name) {
 //   // docs.use_count() == 2 (root->children and docs), root.use_count() == 1
 //
 // The parent owns its children; the weak parent link doesn't keep the parent alive.
-std::shared_ptr<TreeNode> add_child(const std::shared_ptr<TreeNode>& parent,
-                                    const std::string& name) {
+std::shared_ptr<TreeNode> add_child(const std::shared_ptr<TreeNode> &parent,
+                                    const std::string &name) {
     throw "TODO";
 }
 
@@ -98,7 +98,7 @@ std::shared_ptr<TreeNode> add_child(const std::shared_ptr<TreeNode>& parent,
 //   path(root) == "root"
 //   path(docs) == "root/docs"
 //   path(notes) == "root/docs/notes"
-std::string path(const std::shared_ptr<TreeNode>& node) {
+std::string path(const std::shared_ptr<TreeNode> &node) {
     throw "TODO";
 }
 
@@ -108,7 +108,7 @@ std::string path(const std::shared_ptr<TreeNode>& node) {
 // Example:
 //   root has a child a, a has a child b, and b has a child c
 //   depth(root) == 0, depth(a) == 1, depth(c) == 3
-int depth(const std::shared_ptr<TreeNode>& node) {
+int depth(const std::shared_ptr<TreeNode> &node) {
     throw "TODO";
 }
 
@@ -122,6 +122,6 @@ int depth(const std::shared_ptr<TreeNode>& node) {
 //   detach(root) == false
 //
 // A detached node lives on as long as someone still holds a shared_ptr to it.
-bool detach(const std::shared_ptr<TreeNode>& node) {
+bool detach(const std::shared_ptr<TreeNode> &node) {
     throw "TODO";
 }

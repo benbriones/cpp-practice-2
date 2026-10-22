@@ -14,14 +14,14 @@
 //
 //     try {
 //         library.lend(title, member);              // throws on any problem
-//     } catch (const std::exception& e) {
+//     } catch (const std::exception &e) {
 //         std::cout << "error: " << e.what() << '\n';
 //     }
 //
 // Validate, then change. A request that fails must leave everything as it was,
 // so make every check before the first change:
 //
-//     void Library::rename(const std::string& from, const std::string& to) {
+//     void Library::rename(const std::string &from, const std::string &to) {
 //         if (!books_.contains(from)) throw std::runtime_error("no " + from);
 //         if (books_.contains(to)) throw std::runtime_error(to + " exists");
 //         books_[to] = books_[from];   // every check passed; now change things

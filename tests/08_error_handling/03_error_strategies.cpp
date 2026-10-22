@@ -58,7 +58,7 @@ TEST("parse_age_or_throw: invalid throws with a message") {
     std::string what_for_12x = "(nothing thrown)";
     try {
         parse_age_or_throw("12x");
-    } catch (const std::invalid_argument& e) {
+    } catch (const std::invalid_argument &e) {
         what_for_12x = e.what();
     }
     CHECK_EQ(what_for_12x, "invalid age: 12x");

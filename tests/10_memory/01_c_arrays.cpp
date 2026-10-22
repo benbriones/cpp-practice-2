@@ -8,7 +8,7 @@ TEST("find_first_even: returns the first even element") {
 
 TEST("find_first_even: the pointer reaches the real element") {
     int values[] = {1, 6, 9};
-    int* found = find_first_even(values, 3);
+    int *found = find_first_even(values, 3);
     CHECK(found != nullptr, "Expected a pointer to 6, got nullptr");
     *found = 0;
     CHECK_EQ(values[1], 0);

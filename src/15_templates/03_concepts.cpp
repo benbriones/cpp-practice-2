@@ -19,12 +19,12 @@
 // never run:
 //
 //     template <typename T>
-//     concept Named = requires(const T& t) {
+//     concept Named = requires(const T &t) {
 //         t.id();                                             // must compile
 //         { t.name() } -> std::convertible_to<std::string>;   // and give text
 //     };
 //
-//     template <Named T> void greet(const T& thing);
+//     template <Named T> void greet(const T &thing);
 //     static_assert(Named<Person>);   // a concept is also a bool expression
 //
 // The parameter is const T&, so t.id() and t.name() must work on a const
@@ -35,7 +35,7 @@
 // plain `if` would have to compile every branch for every T:
 //
 //     template <typename T>
-//     std::string to_text(const T& value) {
+//     std::string to_text(const T &value) {
 //         if constexpr (std::is_same_v<T, std::string>) {
 //             return value;
 //         } else if constexpr (std::is_arithmetic_v<T>) {
@@ -92,7 +92,7 @@ T gcd(T a, T b) {
 //
 // Strings compare alphabetically, so "melon" comes after "k" and clamps down to it.
 template <typename T>
-T clamp_to(const T& value, const T& low, const T& high) {
+T clamp_to(const T &value, const T &low, const T &high) {
     throw "TODO";
 }
 
@@ -119,7 +119,7 @@ concept HasArea = true;
 //
 // A vector of a type without a numeric area() is rejected at the call.
 template <HasArea T>
-double total_area(const std::vector<T>& shapes) {
+double total_area(const std::vector<T> &shapes) {
     throw "TODO";
 }
 
@@ -134,8 +134,8 @@ double total_area(const std::vector<T>& shapes) {
 //   type_category<bool>() is "boolean"
 //   type_category<char>() is "integer"
 //   type_category<double>() is "decimal"
-//   type_category<const char*>() is "text"
-//   type_category<int*>() is "other"
+//   type_category<const char *>() is "text"
+//   type_category<int *>() is "other"
 //
 // The first true branch wins, so check bool before the general integer case.
 template <typename T>

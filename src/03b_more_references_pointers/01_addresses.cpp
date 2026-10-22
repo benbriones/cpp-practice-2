@@ -11,7 +11,7 @@
 // A pointer is a box of its own, with its own address, whose value is the
 // address of another box:
 //
-//     int* p = &x;
+//     int *p = &x;
 //
 //           p                          x
 //     +------------+            +------------+
@@ -30,7 +30,7 @@
 // A reference is not a box. It's a second name written on the same box, so it
 // has the same address as the variable it refers to:
 //
-//     int& r = x;               x, r
+//     int &r = x;               x, r
 //                          +------------+
 //                          |     10     |      &r == &x, and writing r writes x
 //                          +------------+
@@ -70,8 +70,8 @@
 //
 //     int a = 1;
 //     int b = 2;
-//     int* p = &a;
-//     int& r = b;
+//     int *p = &a;
+//     int &r = b;
 //     *p = 10;
 //     r = 20;
 //     p = &b;
@@ -82,8 +82,8 @@ std::pair<int, int> trace_1() { return {10, 25}; }
 //
 //     int x = 7;
 //     int y = 7;
-//     int& r = x;
-//     int* p = &y;
+//     int &r = x;
+//     int *p = &y;
 //
 //     (1) x == y    (2) &x == &y    (3) &r == &x    (4) p == &r    (5) *p == r
 std::vector<int> trace_2() { return {1, 3, 5}; }
@@ -95,12 +95,12 @@ std::vector<int> trace_2() { return {1, 3, 5}; }
 // Example:
 //   int x = 3;
 //   int y = 3;
-//   int& r = x;
+//   int &r = x;
 //   same_object(x, r) is true
 //   same_object(x, y) is false, even though both hold 3
 //
 // The question is "is this one box?", not "do these hold the same number?"
-bool same_object(const int& a, const int& b) { return &a == &b; }
+bool same_object(const int &a, const int &b) { return &a == &b; }
 
 // Return the index of the element that p points at.
 // If p doesn't point into values, return values.size().
@@ -114,7 +114,7 @@ bool same_object(const int& a, const int& b) { return &a == &b; }
 //   index_of(values, nullptr) is 3
 //
 // Compares addresses, not values: every element here holds 7.
-std::size_t index_of(const std::vector<int>& values, const int* p) {
+std::size_t index_of(const std::vector<int> &values, const int *p) {
     for (std::size_t i = 0; i < values.size(); i++) {
         if (&values[i] == p) {
             return i;
@@ -129,15 +129,15 @@ std::size_t index_of(const std::vector<int>& values, const int* p) {
 //
 // Example:
 //   values = {1, 2, 3}
-//   std::vector<int*> pointers = pointers_to_each(values);
+//   std::vector<int *> pointers = pointers_to_each(values);
 //   *pointers[1] = 99;   // values is now {1, 99, 3}
 //
 // The pointers lead to the elements themselves, so writing through result[i]
 // changes values[i].
-std::vector<int*> pointers_to_each(std::vector<int>& values) {
-    std::vector<int*> pointers{};
+std::vector<int *> pointers_to_each(std::vector<int> &values) {
+    std::vector<int *> pointers{};
     for (std::size_t i = 0; i < values.size(); i++) {
-        int* p = &values[i];
+        int *p = &values[i];
         pointers.push_back(p);
     }
 

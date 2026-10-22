@@ -18,11 +18,11 @@
 //         ~Indent() { --depth; }
 //     };
 //
-//     void walk(const Folder& folder) {
+//     void walk(const Folder &folder) {
 //         Indent indent;
 //         print_name(folder.name);                // indented by depth
 //         if (folder.subfolders.empty()) return;  // depth goes back down here...
-//         for (const Folder& sub : folder.subfolders) walk(sub);
+//         for (const Folder &sub : folder.subfolders) walk(sub);
 //     }                                           // ...and here, or if anything throws
 //
 // C++ has no `finally`. Where Python uses `with` and JavaScript uses try/finally,
@@ -99,8 +99,8 @@ public:
     }
 
     // Copying a guard would run its action twice, so copying is switched off.
-    ScopeGuard(const ScopeGuard&) = delete;
-    ScopeGuard& operator=(const ScopeGuard&) = delete;
+    ScopeGuard(const ScopeGuard &) = delete;
+    ScopeGuard &operator=(const ScopeGuard &) = delete;
 
 private:
     // TODO: the data members you need
@@ -118,7 +118,7 @@ private:
 //   std::vector<std::string> other;
 //   with_logging(other, [] { throw std::runtime_error("disk full"); });
 //   // throws std::runtime_error, and other is {"start", "end"}
-void with_logging(std::vector<std::string>& log, const std::function<void()>& work) {
+void with_logging(std::vector<std::string> &log, const std::function<void()> &work) {
     throw "TODO";
 }
 
@@ -135,6 +135,6 @@ void with_logging(std::vector<std::string>& log, const std::function<void()>& wo
 //   apply_to_all(balances, -3);   // throws: 1 - 3 is below zero; balances is still {5, 1, 7}
 //
 // Save a copy, guard a rollback, and dismiss the guard once everything worked.
-void apply_to_all(std::vector<int>& balances, int amount) {
+void apply_to_all(std::vector<int> &balances, int amount) {
     throw "TODO";
 }

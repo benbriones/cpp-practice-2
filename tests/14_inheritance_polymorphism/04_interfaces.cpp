@@ -22,7 +22,7 @@ TEST("MemoryLogger: keeps messages in order") {
 
 TEST("MemoryLogger: works through a Logger&") {
     MemoryLogger memory;
-    Logger& logger = memory;
+    Logger &logger = memory;
     logger.log("via the interface");
     CHECK_EQ(memory.messages(), {"via the interface"});
 }

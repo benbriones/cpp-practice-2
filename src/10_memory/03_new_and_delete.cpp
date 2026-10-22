@@ -6,14 +6,14 @@
 // There's no garbage collector: if nobody deletes it, the memory leaks.
 //
 //     struct Point { int x; int y; };
-//     Point* p = new Point{3, 4};
+//     Point *p = new Point{3, 4};
 //     p->x = 10;                         // -> reaches a member through a pointer
 //     delete p;                          // gone; p now dangles
 //
 // Arrays use their own pair of operators, and the two must match:
 //
 //     int n = 4;
-//     double* readings = new double[n]();   // n zeros; without (), garbage values
+//     double *readings = new double[n]();   // n zeros; without (), garbage values
 //     readings[0] = 1.5;
 //     delete[] readings;                    // new[] pairs with delete[]
 //
@@ -37,8 +37,8 @@
 // last node's next is nullptr, and a list is a pointer to its first node (an
 // empty list is nullptr). You visit every node by following the links:
 //
-//     struct Item { std::string name; Item* next; };
-//     for (const Item* it = first; it != nullptr; it = it->next) {
+//     struct Item { std::string name; Item *next; };
+//     for (const Item *it = first; it != nullptr; it = it->next) {
 //         std::cout << it->name << '\n';
 //     }
 //
@@ -59,12 +59,12 @@
 // count is always at least 1.
 //
 // Example:
-//   int* squares = make_squares(5);
+//   int *squares = make_squares(5);
 //   // squares holds {0, 1, 4, 9, 16}
 //   delete[] squares;
 //
 // The caller owns the array and will delete[] it.
-int* make_squares(int count) {
+int *make_squares(int count) {
     throw "TODO";
 }
 
@@ -73,12 +73,12 @@ int* make_squares(int count) {
 // Set any extra elements to 0, then delete[] the old array.
 //
 // Example:
-//   int* values = new int[3]{1, 2, 3};
+//   int *values = new int[3]{1, 2, 3};
 //   values = resize_array(values, 3, 5);   // values is now {1, 2, 3, 0, 0}
 //   values = resize_array(values, 5, 2);   // values is now {1, 2}
 //
 // old_values is freed, so the caller must switch to the returned pointer.
-int* resize_array(int* old_values, int old_size, int new_size) {
+int *resize_array(int *old_values, int old_size, int new_size) {
     throw "TODO";
 }
 
@@ -87,10 +87,10 @@ int* resize_array(int* old_values, int old_size, int new_size) {
 // these are covered properly in module 11.)
 struct Node {
     int value;
-    Node* next;
+    Node *next;
 
     inline static int live = 0;
-    Node(int v, Node* n) : value(v), next(n) { ++live; }
+    Node(int v, Node *n) : value(v), next(n) { ++live; }
     ~Node() { --live; }
 };
 
@@ -98,12 +98,12 @@ struct Node {
 // head may be nullptr (an empty list). The new node's next is the old head.
 //
 // Example:
-//   Node* list = nullptr;
+//   Node *list = nullptr;
 //   list = push_front(list, 3);
 //   list = push_front(list, 1);     // list is now 1 -> 3
 //
 // The node is made with new, so whoever owns the list must delete it later.
-Node* push_front(Node* head, int value) {
+Node *push_front(Node *head, int value) {
     throw "TODO";
 }
 
@@ -114,7 +114,7 @@ Node* push_front(Node* head, int value) {
 //   list is 10 -> -1 -> 4
 //   list_sum(list) == 13
 //   list_sum(nullptr) == 0
-int list_sum(const Node* head) {
+int list_sum(const Node *head) {
     throw "TODO";
 }
 
@@ -128,7 +128,7 @@ int list_sum(const Node* head) {
 //   // list is now 3 -> 2 -> 1, and the node holding 1 is last (its next is nullptr)
 //
 // Only the next pointers change; each node keeps its value.
-Node* reverse_list(Node* head) {
+Node *reverse_list(Node *head) {
     throw "TODO";
 }
 
@@ -141,6 +141,6 @@ Node* reverse_list(Node* head) {
 //   // all three nodes are deleted, so Node::live drops by 3
 //
 // Careful: read node->next before deleting node.
-void free_list(Node* head) {
+void free_list(Node *head) {
     throw "TODO";
 }

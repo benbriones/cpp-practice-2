@@ -16,7 +16,7 @@
 //         // A named constructor: a static function that builds a ready-made object.
 //         static Image square(int side) { return Image(side, side); }
 //
-//         int& operator()(int x, int y) { return pixels_[y * width_ + x]; }
+//         int &operator()(int x, int y) { return pixels_[y * width_ + x]; }
 //         int operator()(int x, int y) const { return pixels_[y * width_ + x]; }
 //
 //     private:
@@ -98,7 +98,7 @@ public:
     //   m(2, 0), m(0, 3) and m(-1, 0) throw std::out_of_range
     //
     // The non-const version lets you write: m(0, 1) = 5;
-    double& operator()(int row, int col) {
+    double &operator()(int row, int col) {
         throw "TODO";
     }
 
@@ -119,7 +119,7 @@ private:
 //   a * b is {{19, 22}, {43, 50}}    // result(0, 0) = 1*5 + 2*7 = 19
 //   b * a is {{23, 34}, {31, 46}}    // order matters
 //   Matrix(2, 3) * Matrix(2, 3) throws std::invalid_argument
-Matrix operator*(const Matrix& a, const Matrix& b) {
+Matrix operator*(const Matrix &a, const Matrix &b) {
     throw "TODO";
 }
 
@@ -129,7 +129,7 @@ Matrix operator*(const Matrix& a, const Matrix& b) {
 //   {{1, 2}, {3, 4}} == {{1, 2}, {3, 4}} is true
 //   {{1, 2}, {3, 4}} == {{1, 2}, {3, 5}} is false
 //   Matrix(1, 4) == Matrix(2, 2) is false: same element count, different shape
-bool operator==(const Matrix& a, const Matrix& b) {
+bool operator==(const Matrix &a, const Matrix &b) {
     throw "TODO";
 }
 
@@ -140,6 +140,6 @@ bool operator==(const Matrix& a, const Matrix& b) {
 // Example:
 //   {{1, 2}, {3, 4}} prints "1 2\n3 4\n"
 //   {{1, 2}, {3, 4.5}} prints "1 2\n3 4.5\n"
-std::ostream& operator<<(std::ostream& out, const Matrix& m) {
+std::ostream &operator<<(std::ostream &out, const Matrix &m) {
     throw "TODO";
 }

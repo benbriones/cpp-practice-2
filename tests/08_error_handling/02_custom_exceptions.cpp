@@ -11,7 +11,7 @@ TEST("MissingKey: can be caught as a ConfigError") {
     std::string caught_as_config_error = "(nothing caught)";
     try {
         throw MissingKey("host");
-    } catch (const ConfigError& e) {
+    } catch (const ConfigError &e) {
         caught_as_config_error = e.what();
     }
     CHECK_EQ(caught_as_config_error, "missing key: host");
@@ -33,14 +33,14 @@ TEST("parse_config_line: errors") {
     std::string what_for_oops = "(nothing thrown)";
     try {
         parse_config_line("oops");
-    } catch (const ConfigError& e) {
+    } catch (const ConfigError &e) {
         what_for_oops = e.what();
     }
     CHECK_EQ(what_for_oops, "missing '=' in: oops");
     std::string what_for_equals_5 = "(nothing thrown)";
     try {
         parse_config_line("=5");
-    } catch (const ConfigError& e) {
+    } catch (const ConfigError &e) {
         what_for_equals_5 = e.what();
     }
     CHECK_EQ(what_for_equals_5, "empty key in: =5");
@@ -67,7 +67,7 @@ TEST("get_setting: missing key throws MissingKey") {
     std::string key_of_thrown_error = "(nothing thrown)";
     try {
         get_setting(settings, "port");
-    } catch (const MissingKey& e) {
+    } catch (const MissingKey &e) {
         key_of_thrown_error = e.key();
     }
     CHECK_EQ(key_of_thrown_error, "port");

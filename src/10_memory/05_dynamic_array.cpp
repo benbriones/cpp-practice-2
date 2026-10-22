@@ -35,7 +35,7 @@
 //         explicit Scratch(std::size_t n) : data_(new char[n]()), size_(n) {}
 //         ~Scratch() { delete[] data_; }    // runs when a Scratch dies
 //     private:
-//         char* data_ = nullptr;            // default member initializers
+//         char *data_ = nullptr;            // default member initializers
 //         std::size_t size_ = 0;
 //     };
 //
@@ -75,8 +75,8 @@ public:
 
     // Copying is switched off: two IntArrays sharing one block would both
     // delete it. Module 11 shows how to make copies safely.
-    IntArray(const IntArray&) = delete;
-    IntArray& operator=(const IntArray&) = delete;
+    IntArray(const IntArray &) = delete;
+    IntArray &operator=(const IntArray &) = delete;
 
     std::size_t size() const {
         throw "TODO";

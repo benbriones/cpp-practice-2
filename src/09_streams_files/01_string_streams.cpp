@@ -65,7 +65,7 @@
 //   parse_ints("hello 1 2") == {}
 //
 // Once a >> fails, the stream stays failed, so a plain while (in >> n) loop stops there.
-std::vector<int> parse_ints(const std::string& text) {
+std::vector<int> parse_ints(const std::string &text) {
     throw "TODO";
 }
 
@@ -79,7 +79,7 @@ std::vector<int> parse_ints(const std::string& text) {
 //
 // Hint: after a failed read, clear() the stream, then read the bad token into a
 // std::string to get past it.
-std::vector<int> read_valid_ints(std::istream& in) {
+std::vector<int> read_valid_ints(std::istream &in) {
     throw "TODO";
 }
 
@@ -93,7 +93,7 @@ std::vector<int> read_valid_ints(std::istream& in) {
 //   format_row("Extra-long name", 1, 0.5) == "Extra-long name    1      0.50"
 //
 // The column widths do all the spacing: no separators, no trailing newline.
-std::string format_row(const std::string& name, int quantity, double price) {
+std::string format_row(const std::string &name, int quantity, double price) {
     throw "TODO";
 }
 

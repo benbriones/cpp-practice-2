@@ -14,7 +14,7 @@
 //
 //     try {
 //         std::cout << ratio(3, 0) << '\n';         // throws: the print never runs
-//     } catch (const std::invalid_argument& e) {
+//     } catch (const std::invalid_argument &e) {
 //         std::cout << "bad input: " << e.what() << '\n';
 //     }
 //
@@ -30,7 +30,7 @@
 // and std::stoi throws std::invalid_argument when the text doesn't start with a
 // number (after any spaces) and std::out_of_range when it doesn't fit in an int.
 //
-// Catch by const reference: const std::invalid_argument& e. Several catch clauses
+// Catch by const reference: const std::invalid_argument &e. Several catch clauses
 // can follow one try, and the first one whose type matches wins. If nothing
 // catches an exception, the program ends with std::terminate.
 //
@@ -68,7 +68,7 @@
 //
 // std::stoi throws both of these itself, but it also accepts "12abc" and " 12",
 // so check the characters first.
-int parse_positive(const std::string& text) {
+int parse_positive(const std::string &text) {
     throw "TODO";
 }
 
@@ -81,7 +81,7 @@ int parse_positive(const std::string& text) {
 //   checked_at(values, 2) is 30
 //   checked_at(values, 5) throws, and what() is "index 5 out of range for size 3"
 //   checked_at(values, -1) throws, and what() is "index -1 out of range for size 3"
-int checked_at(const std::vector<int>& values, int index) {
+int checked_at(const std::vector<int> &values, int index) {
     throw "TODO";
 }
 
@@ -105,7 +105,7 @@ double safe_divide(double a, double b) {
 //   sum_valid({"x", "y"}) is 0
 //
 // One bad text skips only itself; it doesn't stop the rest from being added.
-int sum_valid(const std::vector<std::string>& texts) {
+int sum_valid(const std::vector<std::string> &texts) {
     throw "TODO";
 }
 
@@ -120,6 +120,6 @@ int sum_valid(const std::vector<std::string>& texts) {
 //   try_parse("4x2") is "invalid argument"
 //   try_parse("0") is "out of range"
 //   try_parse("5000000000") is "out of range"
-std::string try_parse(const std::string& text) {
+std::string try_parse(const std::string &text) {
     throw "TODO";
 }

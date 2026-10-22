@@ -48,17 +48,17 @@ struct Entry {
     std::optional<ProgramTest> program{};
 };
 
-inline std::vector<Entry>& registry() {
+inline std::vector<Entry> &registry() {
     static std::vector<Entry> entries;
     return entries;
 }
 
-inline bool add_test(const char* name, void (*body)()) {
+inline bool add_test(const char *name, void (*body)()) {
     registry().push_back({name, body, std::nullopt});
     return true;
 }
 
-inline bool add_program_test(const char* name, ProgramTest test) {
+inline bool add_program_test(const char *name, ProgramTest test) {
     registry().push_back({name, nullptr, std::move(test)});
     return true;
 }
@@ -67,9 +67,9 @@ inline bool add_program_test(const char* name, ProgramTest test) {
 
 // ---- Describing values in failure messages ----
 
-inline std::string demangle(const char* mangled) {
+inline std::string demangle(const char *mangled) {
     int status = 0;
-    std::unique_ptr<char, void (*)(void*)> out(abi::__cxa_demangle(mangled, nullptr, nullptr, &status),
+    std::unique_ptr<char, void (*)(void *)> out(abi::__cxa_demangle(mangled, nullptr, nullptr, &status),
                                                std::free);
     std::string name = status == 0 ? out.get() : mangled;
     // libc++ hides std types in an inline namespace; drop it so messages read std::string.
@@ -113,10 +113,10 @@ template <class... T>
 struct is_variant<std::variant<T...>> : std::true_type {};
 
 template <class T>
-concept Streamable = requires(std::ostream& os, const T& value) { os << value; };
+concept Streamable = requires(std::ostream &os, const T &value) { os << value; };
 
 template <class T>
-concept Iterable = requires(const T& range) {
+concept Iterable = requires(const T &range) {
     std::begin(range);
     std::end(range);
 };
@@ -125,13 +125,13 @@ template <class T>
 concept TupleLike = requires { std::tuple_size<T>::value; };
 
 template <class T>
-concept SmartPointer = requires(const T& p) {
-    { p.get() } -> std::convertible_to<const volatile void*>;
+concept SmartPointer = requires(const T &p) {
+    { p.get() } -> std::convertible_to<const volatile void *>;
     typename T::element_type;
 };
 
 template <class T>
-std::string describe(const T& value);
+std::string describe(const T &value);
 
 inline std::string describe_double(double value) {
     // Show 2.0 rather than 2 so doubles never look like ints; otherwise shortest round-trip form.
@@ -142,7 +142,7 @@ inline std::string describe_double(double value) {
 }
 
 template <class T>
-std::string describe(const T& value) {
+std::string describe(const T &value) {
     using std::begin, std::end;
     if constexpr (std::is_same_v<T, bool>) {
         return value ? "true" : "false";
@@ -165,7 +165,7 @@ std::string describe(const T& value) {
     } else if constexpr (SmartPointer<T>) {
         if (!value) return "nullptr";
         return "owning pointer to " + describe(*value);
-    } else if constexpr (std::is_convertible_v<const T&, std::string_view>) {
+    } else if constexpr (std::is_convertible_v<const T &, std::string_view>) {
         return quote(std::string_view(value));
     } else if constexpr (std::is_enum_v<T>) {
         return type_name<T>() + "(" +
@@ -178,7 +178,7 @@ std::string describe(const T& value) {
     } else if constexpr (is_optional<T>::value) {
         return value ? describe(*value) : "std::nullopt";
     } else if constexpr (is_variant<T>::value) {
-        return std::visit([](const auto& alt) { return describe(alt); }, value);
+        return std::visit([](const auto &alt) { return describe(alt); }, value);
     } else if constexpr (Iterable<T>) {
         std::string out = "{";
         std::size_t count = 0;
@@ -194,7 +194,7 @@ std::string describe(const T& value) {
     } else if constexpr (TupleLike<T>) {
         std::string out = "{";
         std::apply(
-            [&out](const auto&... parts) {
+            [&out](const auto &...parts) {
                 std::size_t i = 0;
                 ((out += (i++ ? ", " : "") + describe(parts)), ...);
             },
@@ -221,7 +221,7 @@ concept CharPointer = std::is_pointer_v<T> &&
                       std::is_same_v<std::remove_cv_t<std::remove_pointer_t<T>>, char>;
 
 template <class A, class E>
-bool equal(const A& actual, const E& expected) {
+bool equal(const A &actual, const E &expected) {
     if constexpr (PlainInteger<A> && PlainInteger<E>) {
         return std::cmp_equal(actual, expected);
     } else if constexpr (CharPointer<A> || CharPointer<E>) {
@@ -261,7 +261,7 @@ inline std::string_view first_argument(std::string_view text) {
 }
 
 template <class A>
-void check_eq(std::string_view text, const A& actual, const std::type_identity_t<A>& expected) {
+void check_eq(std::string_view text, const A &actual, const std::type_identity_t<A> &expected) {
     if (!equal(actual, expected)) {
         fail(std::string(first_argument(text)) + "\nExpected: " + describe(expected) +
              "\nReceived: " + describe(actual));
@@ -269,7 +269,7 @@ void check_eq(std::string_view text, const A& actual, const std::type_identity_t
 }
 
 template <class A, class E>
-void check_near(std::string_view text, const A& actual, const E& expected, double tolerance = 1e-6) {
+void check_near(std::string_view text, const A &actual, const E &expected, double tolerance = 1e-6) {
     double a = static_cast<double>(actual);
     double e = static_cast<double>(expected);
     if (!(std::fabs(a - e) <= tolerance)) {
@@ -279,22 +279,22 @@ void check_near(std::string_view text, const A& actual, const E& expected, doubl
 }
 
 template <class C>
-void check_true(std::string_view text, const C& condition, std::string_view message = {}) {
+void check_true(std::string_view text, const C &condition, std::string_view message = {}) {
     if (!static_cast<bool>(condition)) {
         fail(message.empty() ? "Check failed: " + std::string(text) : std::string(message));
     }
 }
 
 template <class Ex, class F>
-void check_throws(std::string_view text, F&& run) {
+void check_throws(std::string_view text, F &&run) {
     std::string expected = "Expected: throws " + type_name<Ex>();
     try {
         run();
-    } catch (const Ex&) {
+    } catch (const Ex &) {
         return;
-    } catch (const char*) {
+    } catch (const char *) {
         throw;  // a TODO stub, reported as "not implemented"
-    } catch (const std::exception& e) {
+    } catch (const std::exception &e) {
         fail(std::string(text) + "\n" + expected + "\nReceived: threw " + demangle(typeid(e).name()) +
              " (" + quote(e.what()) + ")");
     } catch (...) {
@@ -307,9 +307,9 @@ void check_throws(std::string_view text, F&& run) {
 
 // Runs `body` and returns everything it wrote to std::cout.
 template <class F>
-std::string capture_stdout(F&& body) {
+std::string capture_stdout(F &&body) {
     std::ostringstream captured;
-    std::streambuf* original = std::cout.rdbuf(captured.rdbuf());
+    std::streambuf *original = std::cout.rdbuf(captured.rdbuf());
     try {
         body();
     } catch (...) {
@@ -321,11 +321,11 @@ std::string capture_stdout(F&& body) {
 }
 
 // Each test runs in its own empty temp directory, so relative paths are safe to use.
-inline void write_file(const std::string& path, std::string_view content) {
+inline void write_file(const std::string &path, std::string_view content) {
     std::ofstream(path, std::ios::binary) << content;
 }
 
-inline std::string read_file(const std::string& path) {
+inline std::string read_file(const std::string &path) {
     std::ifstream in(path, std::ios::binary);
     return std::string(std::istreambuf_iterator<char>(in), std::istreambuf_iterator<char>());
 }

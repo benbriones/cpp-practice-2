@@ -5,7 +5,7 @@
 // without a pointer. It's like `number | undefined` in TypeScript, except that
 // nothing forces you to check before you use the value.
 //
-//     std::optional<int> day_number(const std::string& name) {
+//     std::optional<int> day_number(const std::string &name) {
 //         if (name == "Mon") return 1;    // a T converts to an optional holding it
 //         if (name == "Tue") return 2;
 //         return std::nullopt;            // the empty optional
@@ -55,23 +55,23 @@
 // nothing else (no spaces, no decimal point). Return std::nullopt for anything
 // else, including numbers outside the range of int. Don't use std::stoi:
 // build the value digit by digit, and stop before anything overflows.
-std::optional<int> parse_int(const std::string& text) {
+std::optional<int> parse_int(const std::string &text) {
     throw "TODO";
 }
 
 // Index of the first element equal to target, or std::nullopt.
-std::optional<std::size_t> find_index(const std::vector<std::string>& items,
-                                      const std::string& target) {
+std::optional<std::size_t> find_index(const std::vector<std::string> &items,
+                                      const std::string &target) {
     throw "TODO";
 }
 
 // The first negative number, or std::nullopt if there are none.
 // (No sentinel value could work here: every int is a possible answer.)
-std::optional<int> first_negative(const std::vector<int>& values) {
+std::optional<int> first_negative(const std::vector<int> &values) {
     throw "TODO";
 }
 
 // The average, or std::nullopt for an empty vector.
-std::optional<double> average(const std::vector<int>& values) {
+std::optional<double> average(const std::vector<int> &values) {
     throw "TODO";
 }

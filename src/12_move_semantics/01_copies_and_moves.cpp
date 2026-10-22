@@ -11,8 +11,8 @@
 // of type T&& (an "rvalue reference") binds only to rvalues, so overloading on
 // const T& and T&& lets one function tell the two apart:
 //
-//     void take(const std::string& s);   // binds to anything
-//     void take(std::string&& s);        // binds only to rvalues, and wins for them
+//     void take(const std::string &s);   // binds to anything
+//     void take(std::string &&s);        // binds only to rvalues, and wins for them
 //
 //     std::string name = "Ada";
 //     take(name);                 // name is an lvalue: the const& version
@@ -21,11 +21,11 @@
 //
 // std::move doesn't move anything. It's a cast that says "treat this as an
 // rvalue; I'm done with it". Whatever receives it does the moving. And inside
-// take(std::string&& s), s has a name, so it's an lvalue again: to pass the move
+// take(std::string &&s), s has a name, so it's an lvalue again: to pass the move
 // on to something else, you write std::move(s) once more.
 //
-// Classes get the same pair of overloads as special members: Message(Message&&)
-// is the move constructor and operator=(Message&&) the move assignment, next to
+// Classes get the same pair of overloads as special members: Message(Message &&)
+// is the move constructor and operator=(Message &&) the move assignment, next to
 // the copy versions. Mark moves noexcept when they can't throw (they usually
 // just shuffle pointers): std::vector only moves its elements while growing if
 // the move constructor promises not to throw. Otherwise it copies them.
@@ -70,7 +70,7 @@ public:
     //   Message original("hello");
     //   Message copy(original);
     //   // copy.text() and original.text() are both "hello"; copies is 1, moves is 0.
-    Message(const Message& other) {
+    Message(const Message &other) {
         throw "TODO";
     }
 
@@ -85,7 +85,7 @@ public:
     //   // moved.text() is "hello", original.text() is ""; moves is 1, copies is 0.
     //
     // The buffer changes owner instead of being duplicated.
-    Message(Message&& other) {
+    Message(Message &&other) {
         throw "TODO";
     }
 
@@ -97,7 +97,7 @@ public:
     //   Message target("target");
     //   target = source;
     //   // target.text() and source.text() are both "source"; copies is 1.
-    Message& operator=(const Message& other) {
+    Message &operator=(const Message &other) {
         throw "TODO";
     }
 
@@ -109,11 +109,11 @@ public:
     //   Message target("target");
     //   target = std::move(source);
     //   // target.text() is "source", source.text() is ""; moves is 1, copies is 0.
-    Message& operator=(Message&& other) {
+    Message &operator=(Message &&other) {
         throw "TODO";
     }
 
-    const std::string& text() const { return text_; }
+    const std::string &text() const { return text_; }
 
 private:
     std::string text_;
@@ -130,7 +130,7 @@ private:
 //   store(box, std::move(give));   // copies 0, moves 2
 //
 // Inside store, message has a name, so moving it on needs std::move(message).
-void store(std::vector<Message>& box, Message message) {
+void store(std::vector<Message> &box, Message message) {
     throw "TODO";
 }
 
@@ -142,7 +142,7 @@ void store(std::vector<Message>& box, Message message) {
 // Example:
 //   Message m = make_message("built in place");
 //   // m.text() is "built in place"; copies is 0, moves is 0.
-Message make_message(const std::string& text) {
+Message make_message(const std::string &text) {
     throw "TODO";
 }
 

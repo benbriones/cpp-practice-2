@@ -9,7 +9,7 @@
 //     class Playlist {
 //     public:
 //         Playlist();
-//         void add(const std::string& song, int seconds = 180);
+//         void add(const std::string &song, int seconds = 180);
 //         int total_seconds() const;
 //         static int playlists_made();
 //     private:
@@ -21,7 +21,7 @@
 //     #include "playlist.hpp"
 //     int Playlist::made_ = 0;   // the one definition; no `static` here
 //     Playlist::Playlist() { ++made_; }
-//     void Playlist::add(const std::string& song, int seconds) { ... }   // no default
+//     void Playlist::add(const std::string &song, int seconds) { ... }   // no default
 //     int Playlist::total_seconds() const { ... }   // const must be repeated
 //     int Playlist::playlists_made() { return made_; }   // no `static` here
 //
@@ -42,7 +42,7 @@
 //
 //     // pick.hpp
 //     template <typename T>
-//     const T& pick(bool first, const T& a, const T& b) { return first ? a : b; }
+//     const T &pick(bool first, const T &a, const T &b) { return first ? a : b; }
 //
 // Templates are exempt from "define it only once", like inline functions.
 //
@@ -55,7 +55,7 @@
 //
 //   1. inventory.cpp is missing some of Inventory's member functions. Define
 //      them there, outside the class:
-//          int Inventory::count(const std::string& item) const { ... }
+//          int Inventory::count(const std::string &item) const { ... }
 //   2. The static data member created_ (below) is declared but never defined.
 //      Give it exactly one definition in inventory.cpp:  int Inventory::created_ = 0;
 //      (or declare it `inline static int created_ = 0;` here instead).
@@ -89,14 +89,14 @@ public:
     //   add("pear", 5) then add("pear", -8): the count clamps to 0, so pear is dropped
     //
     // A missing item counts as 0, so add("kiwi", -3) stores nothing.
-    void add(const std::string& item, int quantity);
+    void add(const std::string &item, int quantity);
 
     // Return item's count, or 0 if it isn't stocked.
     //
     // Example:
     //   after add("apple", 5) and add("apple", 3): count("apple") is 8
     //   count("kiwi") is 0 when no kiwi was ever added
-    int count(const std::string& item) const;
+    int count(const std::string &item) const;
 
     // Return the sum of every item's count.
     //

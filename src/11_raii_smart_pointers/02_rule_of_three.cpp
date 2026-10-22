@@ -6,7 +6,7 @@
 // a "shallow copy", leaving two objects that both think they own the same block.
 //
 //     struct Holder {
-//         int* value = new int(0);
+//         int *value = new int(0);
 //         ~Holder() { delete value; }
 //     };
 //
@@ -19,9 +19,9 @@
 // A "deep copy" gives the new object its own block with the same contents. There
 // are two copy operations to write, and they start from different places:
 //
-//     Holder(const Holder& other);             // copy constructor: Holder b = a;
+//     Holder(const Holder &other);             // copy constructor: Holder b = a;
 //                                              // b is brand new and owns nothing yet
-//     Holder& operator=(const Holder& other);  // copy assignment: b = a;
+//     Holder &operator=(const Holder &other);  // copy assignment: b = a;
 //                                              // b already exists and owns a block
 //
 // Copy assignment is the tricky one:
@@ -58,12 +58,12 @@
 inline int live_blocks = 0;
 
 // A block of `size` zeros.
-int* allocate(int size) {
+int *allocate(int size) {
     ++live_blocks;
     return new int[static_cast<std::size_t>(size)]();
 }
 
-void release(int* block) {
+void release(int *block) {
     if (block != nullptr) {
         --live_blocks;
         delete[] block;
@@ -102,7 +102,7 @@ public:
     //   copy.set(0, 99);          // original.get(0) is still 7
     //
     // Each buffer owns its own block, so each destructor releases a different one.
-    Buffer(const Buffer& other) {
+    Buffer(const Buffer &other) {
         throw "TODO";
     }
 
@@ -117,7 +117,7 @@ public:
     //   b = b;        // b still holds {0, 8}, and nothing leaks
     //
     // Returning *this is what lets a = b = c work: b = c runs first, then a = b.
-    Buffer& operator=(const Buffer& other) {
+    Buffer &operator=(const Buffer &other) {
         throw "TODO";
     }
 
@@ -127,5 +127,5 @@ public:
 
 private:
     int size_;
-    int* data_;
+    int *data_;
 };

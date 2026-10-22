@@ -9,27 +9,27 @@
 // null reference:
 //
 //     int score = 10;
-//     int& alias = score;    // alias is score, under another name
+//     int &alias = score;    // alias is score, under another name
 //     alias += 5;            // score is now 15
 //
 // Parameters are where references earn their keep:
 //
 //     void clear_all(std::vector<int> v);        // gets a copy: caller sees nothing
-//     void clear_all(std::vector<int>& v);       // works on the caller's vector
-//     int total(const std::vector<int>& v);      // no copy, and can't modify it
+//     void clear_all(std::vector<int> &v);       // works on the caller's vector
+//     int total(const std::vector<int> &v);      // no copy, and can't modify it
 //
-// A non-const reference can't bind to a temporary: with `void bump(int& n)`,
+// A non-const reference can't bind to a temporary: with `void bump(int &n)`,
 // bump(5) doesn't compile. A const& can, so total({1, 2, 3}) works.
 //
 // The same choice exists in a range-for loop:
 //
 //     for (std::string s : names) s += "!";      // edits copies: names unchanged
-//     for (std::string& s : names) s += "!";     // edits the strings in names
+//     for (std::string &s : names) s += "!";     // edits the strings in names
 //
 // Out parameters. A function returns one value, but it can also write results
 // into references the caller passes in:
 //
-//     void split_seconds(int total, int& minutes, int& seconds) {
+//     void split_seconds(int total, int &minutes, int &seconds) {
 //         minutes = total / 60;
 //         seconds = total % 60;
 //     }
@@ -39,11 +39,11 @@
 // Returning a reference gives the caller access to an object that outlives the
 // call, such as an element of a vector the caller passed in:
 //
-//     int& first(std::vector<int>& v) { return v[0]; }
+//     int &first(std::vector<int> &v) { return v[0]; }
 //
 //     first(v) = 99;                 // assigns to v[0]
 //     int copy = first(v);           // a copy: changing it won't touch v
-//     int& same = first(v);          // another name for v[0]
+//     int &same = first(v);          // another name for v[0]
 //
 // Never return a reference to a local variable. It's destroyed when the function
 // returns, and the caller is left holding a dangling reference.
@@ -64,7 +64,7 @@
 #include <algorithm>
 
 // Exchange the values of a and b.
-void swap_ints(int& a, int& b) {
+void swap_ints(int &a, int &b) {
   int temp_a = a;
   int temp_b = b;
   b = temp_a;
@@ -72,7 +72,7 @@ void swap_ints(int& a, int& b) {
 }
 
 // Double every element of values, in place.
-void double_all(std::vector<int>& values) {
+void double_all(std::vector<int> &values) {
     for (std::size_t i = 0; i < values.size(); i++) {
         values[i] = values[i] * 2;
     }
@@ -81,7 +81,7 @@ void double_all(std::vector<int>& values) {
 // Write the smallest element into lo_out and the largest into hi_out.
 // values is never empty. Returning two results through references is
 // called using "out parameters".
-void min_max(const std::vector<int>& values, int& lo_out, int& hi_out) {
+void min_max(const std::vector<int> &values, int &lo_out, int &hi_out) {
     int smallest = *std::min_element(values.begin(), values.end());
     int highest = *std::max_element(values.begin(), values.end());
 
@@ -91,6 +91,6 @@ void min_max(const std::vector<int>& values, int& lo_out, int& hi_out) {
 
 // A reference to the largest element (the first one, on ties), so callers can
 // change it in place. values is never empty.
-int& largest(std::vector<int>& values) {
+int &largest(std::vector<int> &values) {
     throw "TODO";
 }

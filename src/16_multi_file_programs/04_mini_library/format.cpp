@@ -6,15 +6,15 @@
 
 namespace format {
 
-std::string task_line(const Task& task) {
+std::string task_line(const Task &task) {
     throw "TODO";
 }
 
-std::string summary(const TodoList& list) {
+std::string summary(const TodoList &list) {
     throw "TODO";
 }
 
-std::string pending_report(const TodoList& list) {
+std::string pending_report(const TodoList &list) {
     throw "TODO";
 }
 

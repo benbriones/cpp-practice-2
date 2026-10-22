@@ -21,8 +21,8 @@
 //
 //     class Phonebook {
 //     public:
-//         bool change_number(const std::string& name, const std::string& number) {
-//             Entry* entry = find(name);
+//         bool change_number(const std::string &name, const std::string &number) {
+//             Entry *entry = find(name);
 //             if (entry == nullptr) return false;
 //             entry->number = number;
 //             return true;
@@ -34,14 +34,14 @@
 //             std::string number;
 //         };
 //
-//         Entry* find(const std::string& name) {
-//             for (Entry& e : entries_) {
+//         Entry *find(const std::string &name) {
+//             for (Entry &e : entries_) {
 //                 if (e.name == name) return &e;
 //             }
 //             return nullptr;
 //         }
 //         // A const twin, so const member functions can search as well.
-//         const Entry* find(const std::string& name) const { ... same loop ... }
+//         const Entry *find(const std::string &name) const { ... same loop ... }
 //
 //         std::vector<Entry> entries_;
 //     };
@@ -78,7 +78,7 @@ public:
     // Example:
     //   library.add_book("Dune", "Herbert");        // true; size() is 1
     //   library.add_book("Dune", "Someone Else");   // false; size() is still 1
-    bool add_book(const std::string& title, const std::string& author) {
+    bool add_book(const std::string &title, const std::string &author) {
         throw "TODO";
     }
 
@@ -93,7 +93,7 @@ public:
     //   library.checkout("Dune", "ada");          // true
     //   library.checkout("Persuasion", "ada");    // true: ada now holds 3 books
     //   library.checkout("Neuromancer", "ada");   // false: ada already holds kMaxLoans
-    bool checkout(const std::string& title, const std::string& member) {
+    bool checkout(const std::string &title, const std::string &member) {
         throw "TODO";
     }
 
@@ -107,7 +107,7 @@ public:
     //   library.return_book("Ulysses");   // false: no such title
     //
     // Returning a book frees one of the member's kMaxLoans slots.
-    bool return_book(const std::string& title) {
+    bool return_book(const std::string &title) {
         throw "TODO";
     }
 
@@ -118,7 +118,7 @@ public:
     //   library.add_book("Dune", "Herbert");
     //   library.is_available("Dune") is true
     //   library.is_available("Ulysses") is false   // no such title
-    bool is_available(const std::string& title) const {
+    bool is_available(const std::string &title) const {
         throw "TODO";
     }
 
@@ -128,7 +128,7 @@ public:
     // Example (Dune by Herbert, then Emma and Persuasion by Austen):
     //   library.books_by("Austen") is {"Emma", "Persuasion"}
     //   library.books_by("Nobody") is {}
-    std::vector<std::string> books_by(const std::string& author) const {
+    std::vector<std::string> books_by(const std::string &author) const {
         throw "TODO";
     }
 
@@ -142,7 +142,7 @@ public:
     //   library.checkout("Emma", "grace");
     //   library.loans_of("ada") is {"Dune", "Neuromancer"}
     //   library.loans_of("grace") is {"Emma"}
-    std::vector<std::string> loans_of(const std::string& member) const {
+    std::vector<std::string> loans_of(const std::string &member) const {
         throw "TODO";
     }
 

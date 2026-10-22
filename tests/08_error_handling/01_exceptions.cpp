@@ -45,14 +45,14 @@ TEST("checked_at: the message") {
     std::string what_for_index_5 = "(nothing thrown)";
     try {
         checked_at(values, 5);
-    } catch (const std::out_of_range& e) {
+    } catch (const std::out_of_range &e) {
         what_for_index_5 = e.what();
     }
     CHECK_EQ(what_for_index_5, "index 5 out of range for size 3");
     std::string what_for_index_minus_1 = "(nothing thrown)";
     try {
         checked_at(values, -1);
-    } catch (const std::out_of_range& e) {
+    } catch (const std::out_of_range &e) {
         what_for_index_minus_1 = e.what();
     }
     CHECK_EQ(what_for_index_minus_1, "index -1 out of range for size 3");
@@ -68,7 +68,7 @@ TEST("safe_divide: by zero") {
     std::string what_for_divide_by_zero = "(nothing thrown)";
     try {
         safe_divide(1, 0);
-    } catch (const std::domain_error& e) {
+    } catch (const std::domain_error &e) {
         what_for_divide_by_zero = e.what();
     }
     CHECK_EQ(what_for_divide_by_zero, "division by zero");

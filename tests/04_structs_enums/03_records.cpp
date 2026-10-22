@@ -29,7 +29,7 @@ TEST("names_in: unknown department") {
 
 TEST("highest_paid: the first of two equal salaries") {
     const auto staff = sample_staff();
-    const Employee* best = highest_paid(staff);
+    const Employee *best = highest_paid(staff);
     CHECK(best != nullptr, "highest_paid returned nullptr for a non-empty list");
     CHECK_EQ(best->name, "Grace");
 }

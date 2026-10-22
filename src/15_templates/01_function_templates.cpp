@@ -5,7 +5,7 @@
 // ("instantiates") a separate copy with T filled in:
 //
 //     template <typename T>
-//     std::vector<T> repeat(const T& value, int times) {
+//     std::vector<T> repeat(const T &value, int times) {
 //         std::vector<T> result;
 //         for (int i = 0; i < times; ++i) result.push_back(value);
 //         return result;
@@ -38,7 +38,7 @@
 // turns out to be, so C++ needs `typename` in front to know it names a type:
 //
 //     template <typename Container>
-//     typename Container::value_type first(const Container& c) { return *c.begin(); }
+//     typename Container::value_type first(const Container &c) { return *c.begin(); }
 //
 // T{} is a value-initialized T: 0 for numbers, "" for std::string, an empty
 // vector for std::vector. It's the generic way to write "a zero of this type".
@@ -72,7 +72,7 @@
 //
 // The same body works for any T that can be compared with <.
 template <typename T>
-T largest(const std::vector<T>& values) {
+T largest(const std::vector<T> &values) {
     throw "TODO";
 }
 
@@ -86,7 +86,7 @@ T largest(const std::vector<T>& values) {
 //
 // target has the same type T as the elements, so pass std::string("the"), not "the".
 template <typename T>
-std::size_t count_matching(const std::vector<T>& values, const T& target) {
+std::size_t count_matching(const std::vector<T> &values, const T &target) {
     throw "TODO";
 }
 
@@ -101,7 +101,7 @@ std::size_t count_matching(const std::vector<T>& values, const T& target) {
 //
 // a and b are references, so the swap changes the caller's variables.
 template <typename T>
-void swap_values(T& a, T& b) {
+void swap_values(T &a, T &b) {
     throw "TODO";
 }
 
@@ -117,7 +117,7 @@ void swap_values(T& a, T& b) {
 //
 // A std::map is sorted by key, so "last" means the largest key with that value.
 template <typename K, typename V>
-std::map<V, K> invert(const std::map<K, V>& original) {
+std::map<V, K> invert(const std::map<K, V> &original) {
     throw "TODO";
 }
 
@@ -133,6 +133,6 @@ std::map<V, K> invert(const std::map<K, V>& original) {
 //   sum(std::vector<std::string>{"ab", "cd", "e"}) is "abcde"
 //   sum(std::vector<int>{}) is 0
 template <typename Container>
-typename Container::value_type sum(const Container& values) {
+typename Container::value_type sum(const Container &values) {
     throw "TODO";
 }

@@ -7,7 +7,7 @@
 //     template <typename T, std::size_t Width, std::size_t Height>
 //     class Grid {
 //     public:
-//         T& at(std::size_t x, std::size_t y) { return cells_[y * Width + x]; }
+//         T &at(std::size_t x, std::size_t y) { return cells_[y * Width + x]; }
 //         std::size_t cell_count() const { return Width * Height; }
 //
 //     private:
@@ -65,7 +65,7 @@
 template <typename T>
 class Stack {
 public:
-    void push(const T& value) { throw "TODO"; }
+    void push(const T &value) { throw "TODO"; }
 
     // Remove the top value and return it.
     // Throw std::out_of_range if the stack is empty.
@@ -85,7 +85,7 @@ public:
     //   stack.push("a");
     //   stack.push("b");
     //   stack.top() is "b", and size() is still 2.
-    const T& top() const { throw "TODO"; }
+    const T &top() const { throw "TODO"; }
 
     std::size_t size() const { throw "TODO"; }
     bool empty() const { throw "TODO"; }
@@ -105,7 +105,7 @@ private:
 template <typename T, std::size_t N>
 class RingBuffer {
 public:
-    void push(const T& value) { throw "TODO"; }
+    void push(const T &value) { throw "TODO"; }
 
     // Return how many values are held right now, never more than N.
     //
@@ -127,7 +127,7 @@ public:
     //   buffer.at(2) throws std::out_of_range
     //
     // Once the buffer wraps around, the oldest value may no longer be in slots_[0].
-    const T& at(std::size_t i) const { throw "TODO"; }
+    const T &at(std::size_t i) const { throw "TODO"; }
 
     // Return every value held, oldest first.
     // An empty buffer gives an empty vector.

@@ -2,4 +2,5 @@ BasedOnStyle: Google
 IndentWidth: 4
 ColumnLimit: 100
 AccessModifierOffset: -4
-PointerAlignment: Left
+PointerAlignment: Right
+DerivePointerAlignment: false

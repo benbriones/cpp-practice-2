@@ -14,12 +14,12 @@
 //
 //     // report.hpp
 //     class Account;                                  // "Account is a class"
-//     std::string describe(const Account& account);   // fine: just a reference
+//     std::string describe(const Account &account);   // fine: just a reference
 //
 //     // report.cpp
 //     #include "report.hpp"
 //     #include "account.hpp"   // the full class, needed to call its members
-//     std::string describe(const Account& account) { return account.owner(); }
+//     std::string describe(const Account &account) { return account.owner(); }
 //
 // You need the full definition (its #include) to create an object, hold one by
 // value as a member, call a member function, or use sizeof. Declaring a
@@ -75,7 +75,7 @@ public:
     //   list.add("two", Priority::High) returns 2
     //   list.remove(2);
     //   list.add("three") returns 3, not 2
-    int add(const std::string& title, Priority priority = Priority::Medium);
+    int add(const std::string &title, Priority priority = Priority::Medium);
 
     // Mark the task with this id as done and return true.
     // Return false if there's no task with that id.
@@ -105,7 +105,7 @@ public:
     //   list.find(99) is nullptr
     //
     // A pointer can say "none" with nullptr, which a reference can't.
-    const Task* find(int id) const;
+    const Task *find(int id) const;
 
     // Return copies of the tasks not yet done.
     // Put the highest priority first; tasks with the same priority go by id, lowest first.

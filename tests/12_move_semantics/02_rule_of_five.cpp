@@ -6,7 +6,7 @@
 TEST("move constructor: takes the block without allocating") {
     Buffer source(3);
     source.set(0, 7);
-    const int* block = source.data();
+    const int *block = source.data();
     Buffer moved(std::move(source));
     CHECK(moved.data() == block, "the new buffer should own the very same block");
     CHECK_EQ(moved.size(), 3);
@@ -39,7 +39,7 @@ TEST("move constructor: no double release") {
 TEST("move assignment: takes the block and frees the old one") {
     Buffer source(3);
     source.set(2, 9);
-    const int* block = source.data();
+    const int *block = source.data();
     Buffer target(10);
     target = std::move(source);
     CHECK(target.data() == block, "the target should now own source's block");
@@ -54,7 +54,7 @@ TEST("move assignment: takes the block and frees the old one") {
 TEST("move assignment: is noexcept and returns *this") {
     Buffer source(1);
     Buffer target(1);
-    Buffer& result = (target = std::move(source));
+    Buffer &result = (target = std::move(source));
     CHECK(&result == &target, "operator= should return *this");
     CHECK(std::is_nothrow_move_assignable_v<Buffer>, "mark the move assignment noexcept");
 }

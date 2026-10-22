@@ -14,7 +14,7 @@
 // the reads worked *and* that nothing is left over:
 //
 //     // Accepts exactly two whole numbers, like "3 -4".
-//     bool parse_point(const std::string& line, int& x, int& y) {
+//     bool parse_point(const std::string &line, int &x, int &y) {
 //         std::istringstream in(line);
 //         std::string extra;
 //         return (in >> x >> y) && !(in >> extra);
@@ -32,10 +32,10 @@
 //
 //     std::map<std::string, double> temps{{"oslo", 4.5}, {"lima", 19.0}};
 //     std::vector<std::pair<std::string, double>> rows(temps.begin(), temps.end());
-//     std::sort(rows.begin(), rows.end(), [](const auto& a, const auto& b) {
+//     std::sort(rows.begin(), rows.end(), [](const auto &a, const auto &b) {
 //         return a.second > b.second;                  // warmest first
 //     });
-//     for (const auto& [city, temp] : rows) std::cout << city << ' ' << temp << '\n';
+//     for (const auto &[city, temp] : rows) std::cout << city << ' ' << temp << '\n';
 //
 // A lambda parameter declared `const auto&` takes whatever type it's given,
 // which saves spelling out std::pair<std::string, double>.

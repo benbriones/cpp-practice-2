@@ -20,7 +20,7 @@
 //         Rgb inverted() const { return Rgb(255 - r_, 255 - g_, 255 - b_); }
 //
 //         // Access is per class, not per object: other's private members are visible.
-//         bool brighter_than(const Rgb& other) const {
+//         bool brighter_than(const Rgb &other) const {
 //             return r_ + g_ + b_ > other.r_ + other.g_ + other.b_;
 //         }
 //
@@ -128,7 +128,7 @@ public:
     //   Time(9, 59).is_before(Time(10, 0)) is true
     //   Time(10, 0).is_before(Time(9, 0)) is false
     //   Time(10, 0).is_before(Time(10, 0)) is false
-    bool is_before(const Time& other) const {
+    bool is_before(const Time &other) const {
         throw "TODO";
     }
 

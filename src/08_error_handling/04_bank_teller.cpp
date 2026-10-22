@@ -19,7 +19,7 @@
 //     while (std::getline(std::cin, line)) {
 //         try {
 //             handle(line);                         // may throw from deep inside
-//         } catch (const std::exception& e) {       // every standard exception
+//         } catch (const std::exception &e) {       // every standard exception
 //             std::cout << "problem: " << e.what() << '\n';
 //         }
 //     }
@@ -28,10 +28,10 @@
 // ("stoi: no conversion" with libc++), not something to show a user. Catch them
 // close to where they happen and throw your own exception with a useful message:
 //
-//     int parse_port(const std::string& text) {
+//     int parse_port(const std::string &text) {
 //         try {
 //             return std::stoi(text);
-//         } catch (const std::exception&) {
+//         } catch (const std::exception &) {
 //             throw std::invalid_argument("not a port number: '" + text + "'");
 //         }
 //     }

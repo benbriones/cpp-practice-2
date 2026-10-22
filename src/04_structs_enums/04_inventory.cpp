@@ -25,7 +25,7 @@
 // Finding a record: a helper that returns a pointer to the matching element, or
 // nullptr, lets the caller both test for it and update it:
 //
-//     Player* p = find_player(team, "ada");      // a helper you'd write
+//     Player *p = find_player(team, "ada");      // a helper you'd write
 //     if (p == nullptr) { ... } else { p->score += 10; }
 //
 // That pointer points into the vector's storage. push_back may move every

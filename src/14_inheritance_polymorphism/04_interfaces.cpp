@@ -24,12 +24,12 @@
 //
 //     class Greeter {
 //     public:
-//         explicit Greeter(const Clock& clock) : clock_(clock) {}
+//         explicit Greeter(const Clock &clock) : clock_(clock) {}
 //         std::string greet() const {
 //             return clock_.hour() < 12 ? "Good morning" : "Hello";
 //         }
 //     private:
-//         const Clock& clock_;   // uses the caller's clock; doesn't own or copy it
+//         const Clock &clock_;   // uses the caller's clock; doesn't own or copy it
 //     };
 //
 //     FixedClock nine_am(9);
@@ -85,7 +85,7 @@ public:
         throw "TODO";
     }
 
-    const std::vector<std::string>& messages() const {
+    const std::vector<std::string> &messages() const {
         throw "TODO";
     }
 
@@ -104,7 +104,7 @@ private:
 //   // out.str() is "hello\nworld\n"
 class StreamLogger : public Logger {
 public:
-    explicit StreamLogger(std::ostream& out) {
+    explicit StreamLogger(std::ostream &out) {
         throw "TODO";
     }
 
@@ -128,7 +128,7 @@ private:
 //   outer.log("message");   // memory gets "[inner] [outer] message"
 class PrefixLogger : public Logger {
 public:
-    PrefixLogger(std::string prefix, Logger& inner) {
+    PrefixLogger(std::string prefix, Logger &inner) {
         throw "TODO";
     }
 
@@ -142,7 +142,7 @@ private:
 
 class OrderService {
 public:
-    explicit OrderService(Logger& logger) {
+    explicit OrderService(Logger &logger) {
         throw "TODO";
     }
 
@@ -157,7 +157,7 @@ public:
     //   service.place_order("tea", 2);     // true, logs "order #2: 2 x tea"
     //
     // It logs through whichever Logger it was handed, without knowing which kind.
-    bool place_order(const std::string& item, int quantity) {
+    bool place_order(const std::string &item, int quantity) {
         throw "TODO";
     }
 

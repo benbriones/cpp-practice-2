@@ -28,7 +28,7 @@ TEST("swap_through: works on vector elements") {
 
 TEST("find_value: points at the matching element") {
     std::vector<int> values{4, 8, 15, 16};
-    int* found = find_value(values, 15);
+    int *found = find_value(values, 15);
     CHECK(found != nullptr, "find_value returned nullptr, but 15 is in the vector");
     CHECK(found == &values[2], "should point at values[2] itself, not at a copy");
 }
@@ -83,7 +83,7 @@ TEST("sum_pointed: skips null pointers") {
 TEST("sum_pointed: sees changes made after the pointers were taken") {
     int a = 1;
     int b = 2;
-    std::vector<const int*> pointers{&a, &b};
+    std::vector<const int *> pointers{&a, &b};
     a = 100;
     CHECK_EQ(sum_pointed(pointers), 102);
 }

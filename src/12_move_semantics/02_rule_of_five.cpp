@@ -4,10 +4,10 @@
 // has five special members to think about:
 //
 //     ~T();                                // destructor
-//     T(const T& other);                   // copy constructor
-//     T& operator=(const T& other);        // copy assignment
-//     T(T&& other) noexcept;               // move constructor
-//     T& operator=(T&& other) noexcept;    // move assignment
+//     T(const T &other);                   // copy constructor
+//     T &operator=(const T &other);        // copy assignment
+//     T(T &&other) noexcept;               // move constructor
+//     T &operator=(T &&other) noexcept;    // move assignment
 //
 // The rule of five: if you write any of them, think about all five. One trap
 // makes it a rule: once you declare a destructor or a copy operation, the
@@ -60,13 +60,13 @@
 inline int live_blocks = 0;
 inline int allocations = 0;
 
-int* allocate(int size) {
+int *allocate(int size) {
     ++live_blocks;
     ++allocations;
     return new int[static_cast<std::size_t>(size)]();
 }
 
-void release(int* block) {
+void release(int *block) {
     if (block != nullptr) {
         --live_blocks;
         delete[] block;
@@ -79,13 +79,13 @@ public:
 
     ~Buffer() { release(data_); }
 
-    Buffer(const Buffer& other) : size_(other.size_), data_(allocate(other.size_)) {
+    Buffer(const Buffer &other) : size_(other.size_), data_(allocate(other.size_)) {
         for (int i = 0; i < size_; ++i) data_[i] = other.data_[i];
     }
 
-    Buffer& operator=(const Buffer& other) {
+    Buffer &operator=(const Buffer &other) {
         if (this != &other) {
-            int* fresh = allocate(other.size_);
+            int *fresh = allocate(other.size_);
             for (int i = 0; i < other.size_; ++i) fresh[i] = other.data_[i];
             release(data_);
             data_ = fresh;
@@ -106,7 +106,7 @@ public:
     //   // source.size() is 0, source.data() is nullptr; allocations is still 1.
     //
     // An empty source releases nothing in its destructor, so the block is freed once.
-    Buffer(Buffer&& other) {
+    Buffer(Buffer &&other) {
         throw "TODO";
     }
 
@@ -122,16 +122,16 @@ public:
     //   // source.size() is 0, source.data() is nullptr; live_blocks is 1.
     //
     // Unlike the move constructor, the target already owns a block that must be released.
-    Buffer& operator=(Buffer&& other) {
+    Buffer &operator=(Buffer &&other) {
         throw "TODO";
     }
 
     int size() const { return size_; }
-    const int* data() const { return data_; }
+    const int *data() const { return data_; }
     int get(int index) const { return data_[index]; }
     void set(int index, int value) { data_[index] = value; }
 
 private:
     int size_;
-    int* data_;
+    int *data_;
 };

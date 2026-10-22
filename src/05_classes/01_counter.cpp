@@ -38,7 +38,7 @@
 // const member functions can be called on a const object or through a const
 // reference, so mark every member function that only reads:
 //
-//     void report(const Rectangle& r) {
+//     void report(const Rectangle &r) {
 //         r.area();         // fine
 //         r.scale(2);       // compile error: scale() isn't const
 //     }

@@ -26,7 +26,7 @@
 // through the data each time:
 //
 //     std::unordered_map<std::string, int> visits;
-//     for (const std::string& page : page_views) {
+//     for (const std::string &page : page_views) {
 //         if (++visits[page] == 2) std::cout << "first repeat visit: " << page << '\n';
 //     }
 //
@@ -68,7 +68,7 @@
 //   two_sum({1, 4, 4, 3, 0}, 4) is {0, 3}   // j = 3 is the smallest j that works
 //   two_sum({3, 3}, 6) is {0, 1}            // equal values at different indices are fine
 //   two_sum({3, 5}, 6) is std::nullopt      // the same index can't be used twice
-std::optional<std::pair<std::size_t, std::size_t>> two_sum(const std::vector<int>& values,
+std::optional<std::pair<std::size_t, std::size_t>> two_sum(const std::vector<int> &values,
                                                            int target) {
     throw "TODO";
 }
@@ -95,6 +95,6 @@ std::optional<std::size_t> first_unique_char(std::string_view text) {
 //   group_anagrams({}) is {}
 //
 // Hint: anagrams are equal once sorted: std::sort(key.begin(), key.end()) on a copy.
-std::vector<std::vector<std::string>> group_anagrams(const std::vector<std::string>& words) {
+std::vector<std::vector<std::string>> group_anagrams(const std::vector<std::string> &words) {
     throw "TODO";
 }

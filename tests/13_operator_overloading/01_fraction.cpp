@@ -2,7 +2,7 @@
 #include "13_operator_overloading/01_fraction.cpp"
 
 // Reads the parts directly, so most tests don't depend on your operator<<.
-std::string parts(const Fraction& f) {
+std::string parts(const Fraction &f) {
     return std::to_string(f.numerator()) + "/" + std::to_string(f.denominator());
 }
 

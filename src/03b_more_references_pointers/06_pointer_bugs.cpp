@@ -10,9 +10,9 @@
 //
 // 2. Copying when you meant to alias. int x = v[0], auto x = f() and
 //    for (int x : v) all make copies, and writing to a copy changes nothing
-//    else. Use int&, auto& or for (int& x : v) to change the original.
+//    else. Use int&, auto& or for (int &x : v) to change the original.
 //
-// 3. Expecting a reference to move. int& r = a; r = b; doesn't make r name b:
+// 3. Expecting a reference to move. int &r = a; r = b; doesn't make r name b:
 //    it copies b's value into a. To track "the best element so far" in a loop,
 //    use a pointer or an index, which can move.
 //
@@ -48,8 +48,8 @@
 //   int y = 2;
 //   swap_values(&x, &y);
 //   // x is now 2, y is now 1
-void swap_values(int* a, int* b) {
-    int* temp = a;
+void swap_values(int *a, int *b) {
+    int *temp = a;
     a = b;
     b = temp;
 }
@@ -61,7 +61,7 @@ void swap_values(int* a, int* b) {
 //   scores = {70, 85, 90}
 //   add_bonus(scores, 5);
 //   // scores is now {75, 90, 95}
-void add_bonus(std::vector<int>& scores, int bonus) {
+void add_bonus(std::vector<int> &scores, int bonus) {
     for (int score : scores) {
         score += bonus;
     }
@@ -74,7 +74,7 @@ void add_bonus(std::vector<int>& scores, int bonus) {
 //   int count = -1;
 //   count_negatives({3, -1, 0, -7, 2}, &count);
 //   // count is now 2
-void count_negatives(const std::vector<int>& values, int* count_out) {
+void count_negatives(const std::vector<int> &values, int *count_out) {
     int count = 0;
     for (int value : values) {
         if (value < 0) ++count;
@@ -90,8 +90,8 @@ void count_negatives(const std::vector<int>& values, int* count_out) {
 //   values = {4, 9, 9}
 //   zero_largest(values);
 //   // values is now {4, 0, 9}
-void zero_largest(std::vector<int>& values) {
-    int& best = values[0];
+void zero_largest(std::vector<int> &values) {
+    int &best = values[0];
     for (std::size_t i = 1; i < values.size(); ++i) {
         if (values[i] > best) best = values[i];
     }
@@ -105,9 +105,9 @@ void zero_largest(std::vector<int>& values) {
 //   int zero = 0;
 //   int five = 5;
 //   count_filled({&zero, nullptr, &five}) is 2
-int count_filled(const std::vector<const int*>& slots) {
+int count_filled(const std::vector<const int *> &slots) {
     int count = 0;
-    for (const int* slot : slots) {
+    for (const int *slot : slots) {
         if (*slot) ++count;
     }
     return count;
@@ -121,8 +121,8 @@ int count_filled(const std::vector<const int*>& slots) {
 //   int y = 10;
 //   bump_all({&x, nullptr, &y, &x});
 //   // x is now 2, y is now 11
-void bump_all(const std::vector<int*>& counters) {
-    for (int* p : counters) {
+void bump_all(const std::vector<int *> &counters) {
+    for (int *p : counters) {
         if (p) *p++;
     }
 }
@@ -134,7 +134,7 @@ void bump_all(const std::vector<int*>& counters) {
 // Example:
 //   ages = {30, 72, 45, 72}
 //   &oldest(ages) == &ages[1]   // the first 72
-int& oldest(std::vector<int>& ages) {
+int &oldest(std::vector<int> &ages) {
     std::size_t best = 0;
     for (std::size_t i = 1; i < ages.size(); ++i) {
         if (ages[i] > ages[best]) best = i;
@@ -150,7 +150,7 @@ int& oldest(std::vector<int>& ages) {
 //   ages = {30, 72, 45}
 //   birthday_for_oldest(ages);
 //   // ages is now {30, 73, 45}
-void birthday_for_oldest(std::vector<int>& ages) {
+void birthday_for_oldest(std::vector<int> &ages) {
     auto age = oldest(ages);
     age += 1;
 }

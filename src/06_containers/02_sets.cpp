@@ -20,7 +20,7 @@
 //     if (tags.contains("cpp")) { ... }          // C++20; count("cpp") gives 0 or 1
 //     auto [pos, added] = tags.insert("cpp");    // added == false: already there
 //
-//     for (const std::string& tag : tags) {      // algorithms, cpp
+//     for (const std::string &tag : tags) {      // algorithms, cpp
 //         std::cout << tag << '\n';
 //     }
 //
@@ -62,7 +62,7 @@
 //   unique_sorted({3, 1, 3, 2}) is {1, 2, 3}
 //   unique_sorted({5, -2, 5, 5, -2, 0}) is {-2, 0, 5}
 //   unique_sorted({}) is {}
-std::vector<int> unique_sorted(const std::vector<int>& values) {
+std::vector<int> unique_sorted(const std::vector<int> &values) {
     throw "TODO";
 }
 
@@ -75,7 +75,7 @@ std::vector<int> unique_sorted(const std::vector<int>& values) {
 //   common_elements({1, 2}, {3, 4}) is {}
 //
 // The result is a std::set, so the values come out smallest first.
-std::set<int> common_elements(const std::vector<int>& a, const std::vector<int>& b) {
+std::set<int> common_elements(const std::vector<int> &a, const std::vector<int> &b) {
     throw "TODO";
 }
 
@@ -89,7 +89,7 @@ std::set<int> common_elements(const std::vector<int>& a, const std::vector<int>&
 //   has_duplicates({"Red", "red"}) is false
 //
 // It must stay fast for 100'000 words: one hash-set check per word, not a scan.
-bool has_duplicates(const std::vector<std::string>& words) {
+bool has_duplicates(const std::vector<std::string> &words) {
     throw "TODO";
 }
 

@@ -57,7 +57,7 @@ TEST("a mixed collection, all through the same functions") {
     const std::vector<Shape> shapes{Rectangle{2, 2}, Triangle{3, 4, 5}, Circle{1}};
     double total = 0;
     std::string names;
-    for (const Shape& shape : shapes) {
+    for (const Shape &shape : shapes) {
         total += area(shape);
         names += name(shape) + " ";
     }

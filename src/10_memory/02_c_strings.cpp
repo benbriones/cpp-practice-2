@@ -6,7 +6,7 @@
 //
 //     char word[] = "hey";          // 4 chars: 'h', 'e', 'y', '\0'
 //     sizeof("hello")               // 6: a literal includes its '\0'
-//     const char* name = "Ada";     // points at a read-only literal
+//     const char *name = "Ada";     // points at a read-only literal
 //
 // A string literal has type const char[N]. You can read it through a
 // const char*, but you can't change it: passing "hey" to a char* parameter is
@@ -17,7 +17,7 @@
 // you can advance it freely; the caller's pointer doesn't move:
 //
 //     // Replace every space with '_', in place.
-//     void underscore(char* s) {
+//     void underscore(char *s) {
 //         for (; *s != '\0'; ++s) {
 //             if (*s == ' ') *s = '_';
 //         }
@@ -59,7 +59,7 @@
 //   my_strlen("") == 0
 //
 // The length isn't stored anywhere, so walk forward until you meet the '\0'.
-std::size_t my_strlen(const char* s) {
+std::size_t my_strlen(const char *s) {
     throw "TODO";
 }
 
@@ -72,7 +72,7 @@ std::size_t my_strlen(const char* s) {
 //   my_strcmp("apple", "banana") < 0
 //   my_strcmp("banana", "apple") > 0
 //   my_strcmp("app", "apple") < 0
-int my_strcmp(const char* a, const char* b) {
+int my_strcmp(const char *a, const char *b) {
     throw "TODO";
 }
 
@@ -86,7 +86,7 @@ int my_strcmp(const char* a, const char* b) {
 //   // buffer now starts with 'h', 'e', 'l', 'l', 'o', '\0'
 //
 // Without the '\0', dest has no end, and the next reader runs off it.
-char* my_strcpy(char* dest, const char* src) {
+char *my_strcpy(char *dest, const char *src) {
     throw "TODO";
 }
 
@@ -94,11 +94,11 @@ char* my_strcpy(char* dest, const char* src) {
 // Return nullptr if s doesn't contain c. An empty string contains nothing.
 //
 // Example:
-//   const char* text = "hello world";
+//   const char *text = "hello world";
 //   find_char(text, 'o') == text + 4
 //   find_char(text, 'z') == nullptr
 //
 // The result points into s itself, so it's a const char* like s.
-const char* find_char(const char* s, char c) {
+const char *find_char(const char *s, char c) {
     throw "TODO";
 }

@@ -2,7 +2,7 @@
 #include "05_classes/02_time_of_day.cpp"
 
 // {hours, minutes}, so failures print as {0, 15}.
-static std::pair<int, int> hm(const Time& t) { return {t.hours(), t.minutes()}; }
+static std::pair<int, int> hm(const Time &t) { return {t.hours(), t.minutes()}; }
 
 TEST("Time: stores hours and minutes") {
     Time t(9, 5);

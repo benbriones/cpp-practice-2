@@ -18,7 +18,7 @@ public:
               }
           }) {}
 
-    Worker(Worker&&) = delete;
+    Worker(Worker &&) = delete;
 
     ~Worker() {
         if (!thread_.joinable()) return;
@@ -44,7 +44,7 @@ TEST("SafeCounter: single thread") {
     counter.increment();
     counter.increment();
     counter.add(5);
-    const SafeCounter& view = counter;
+    const SafeCounter &view = counter;
     CHECK_EQ(view.value(), 7);
 }
 
@@ -61,7 +61,7 @@ TEST("SafeCounter: 8 threads incrementing at once") {
             for (int i = 0; i < 20'000; ++i) counter.increment();
         });
     }
-    for (auto& thread : threads) thread.join();
+    for (auto &thread : threads) thread.join();
     CHECK_EQ(counter.value(), 160'000);
 }
 
@@ -76,7 +76,7 @@ TEST("SafeCounter: add and increment mixed across threads") {
             }
         });
     }
-    for (auto& thread : threads) thread.join();
+    for (auto &thread : threads) thread.join();
     CHECK_EQ(counter.value(), 160'000);
 }
 
@@ -138,7 +138,7 @@ TEST("transfer: opposite directions at once, no deadlock, money conserved") {
             (void)total;
         }
     });
-    for (auto& thread : threads) thread.join();
+    for (auto &thread : threads) thread.join();
     CHECK_EQ(a.balance + b.balance, 2'000'000);
     CHECK_EQ(a.balance, 1'000'000 - 2 * 5'000 * 3 + 2 * 5'000 * 2);
 }

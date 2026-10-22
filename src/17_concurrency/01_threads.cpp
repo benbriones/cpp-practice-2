@@ -26,7 +26,7 @@
 //             words[i] = count_words(pages[i]);
 //         });
 //     }
-//     for (std::thread& w : workers) w.join();     // now words is safe to read
+//     for (std::thread &w : workers) w.join();     // now words is safe to read
 //
 // Capture the loop index by value ([i]), never by reference: by the time the
 // thread runs, the loop may have moved on.
@@ -77,7 +77,7 @@ std::vector<int> chunk_bounds(int size, int parts) {
 //   parallel_sum({}, 3) == 0
 //
 // The answer must match a plain loop's for every thread_count.
-long long parallel_sum(const std::vector<int>& values, int thread_count) {
+long long parallel_sum(const std::vector<int> &values, int thread_count) {
     throw "TODO";
 }
 
@@ -91,6 +91,6 @@ long long parallel_sum(const std::vector<int>& values, int thread_count) {
 //   values is now {1, 4, 9, 16, 10'000'000'000}
 //
 // Different elements are different memory, so threads on separate chunks need no lock.
-void parallel_square(std::vector<long long>& values, int thread_count) {
+void parallel_square(std::vector<long long> &values, int thread_count) {
     throw "TODO";
 }

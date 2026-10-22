@@ -1,9 +1,9 @@
 #include "grader.hpp"
 #include "07_algorithms_lambdas/02_sorting.cpp"
 
-static std::vector<std::string> names_of(const std::vector<Person>& people) {
+static std::vector<std::string> names_of(const std::vector<Person> &people) {
     std::vector<std::string> names;
-    for (const auto& person : people) names.push_back(person.name);
+    for (const auto &person : people) names.push_back(person.name);
     return names;
 }
 

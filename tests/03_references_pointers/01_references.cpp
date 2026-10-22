@@ -61,7 +61,7 @@ TEST("min_max: negatives and a single element") {
 
 TEST("largest: refers to the element inside the vector") {
     std::vector<int> values{3, 8, 5};
-    int& big = largest(values);
+    int &big = largest(values);
     CHECK_EQ(big, 8);
     CHECK(&big == &values[1], "largest should return a reference to values[1], not to a copy");
 }

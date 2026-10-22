@@ -4,7 +4,7 @@
 // (...args) in JavaScript, except that every call is type-checked:
 //
 //     template <typename... Args>          // Args: a pack of types
-//     void log_all(const Args&... args);   // args: a pack of parameters
+//     void log_all(const Args &...args);   // args: a pack of parameters
 //
 //     log_all();                // Args is empty
 //     log_all(1, "two", 3.0);   // Args is int, char[4], double
@@ -24,7 +24,7 @@
 //     (init op ... op args)     // ((init op a1) op a2) ...  binary fold, with a start
 //
 //     template <typename... Ts>
-//     auto product(const Ts&... xs) { return (1 * ... * xs); }   // product() == 1
+//     auto product(const Ts &...xs) { return (1 * ... * xs); }   // product() == 1
 //
 // The pack can sit inside a bigger expression, which is repeated for each
 // element: (... && (args > 0)) is true when every argument is positive.
@@ -37,7 +37,7 @@
 // statement once per argument, left to right, and can update local state:
 //
 //     template <typename... Args>
-//     void print_numbered(const Args&... args) {
+//     void print_numbered(const Args &...args) {
 //         int n = 0;
 //         ((std::cout << ++n << ": " << args << '\n'), ...);
 //     }
@@ -65,7 +65,7 @@
 //   count_args(42) == 1
 //   count_args(1, "two", 3.0) == 3
 template <typename... Args>
-std::size_t count_args(const Args&... args) {
+std::size_t count_args(const Args &...args) {
     throw "TODO";
 }
 
@@ -80,7 +80,7 @@ std::size_t count_args(const Args&... args) {
 //
 // There's always at least one argument, so a fold needs no start value.
 template <typename... Args>
-std::common_type_t<Args...> sum_all(const Args&... args) {
+std::common_type_t<Args...> sum_all(const Args &...args) {
     throw "TODO";
 }
 
@@ -96,7 +96,7 @@ std::common_type_t<Args...> sum_all(const Args&... args) {
 //
 // An empty && fold gives true, which matches "nothing failed".
 template <typename... Args>
-bool all_true(const Args&... args) {
+bool all_true(const Args &...args) {
     throw "TODO";
 }
 
@@ -111,7 +111,7 @@ bool all_true(const Args&... args) {
 //
 // The first argument is the target; only the rest are compared with it.
 template <typename T, typename... Args>
-bool any_equal(const T& target, const Args&... args) {
+bool any_equal(const T &target, const Args &...args) {
     throw "TODO";
 }
 
@@ -127,6 +127,6 @@ bool any_equal(const T& target, const Args&... args) {
 //
 // A std::ostringstream lets << build the text for any mix of types.
 template <typename... Args>
-std::string join_all(const std::string& separator, const Args&... args) {
+std::string join_all(const std::string &separator, const Args &...args) {
     throw "TODO";
 }

@@ -20,7 +20,7 @@
 //         it->second -= 1;                  // it->first is the key
 //     }
 //
-//     for (const auto& [fruit, count] : stock) {   // apple, kiwi, plum
+//     for (const auto &[fruit, count] : stock) {   // apple, kiwi, plum
 //         std::cout << fruit << ": " << count << '\n';
 //     }
 //
@@ -37,7 +37,7 @@
 // Each element is a std::pair<const Key, Value>. Keys can't change in place
 // (that would break the sorting), but values can, through a reference:
 //
-//     for (auto& [fruit, count] : stock) count *= 2;
+//     for (auto &[fruit, count] : stock) count *= 2;
 //
 // `using` gives a long type a short name:  using Stock = std::map<std::string, int>;
 //
@@ -69,7 +69,7 @@ using WordCounts = std::map<std::string, int>;
 //   word_counts(" 123 !? ") is {}
 //
 // The map keeps its keys sorted, so the words come out in alphabetical order.
-WordCounts word_counts(const std::string& text) {
+WordCounts word_counts(const std::string &text) {
     throw "TODO";
 }
 
@@ -83,7 +83,7 @@ WordCounts word_counts(const std::string& text) {
 //   most_common({}) is ""
 //
 // counts is const, so read it with a loop, find() or at(); [] won't compile.
-std::string most_common(const WordCounts& counts) {
+std::string most_common(const WordCounts &counts) {
     throw "TODO";
 }
 
@@ -95,7 +95,7 @@ std::string most_common(const WordCounts& counts) {
 //   merge({}, {"x": 4}) is {"x": 4}
 //
 // a is taken by value, so the function changes its own copy and returns it.
-WordCounts merge(WordCounts a, const WordCounts& b) {
+WordCounts merge(WordCounts a, const WordCounts &b) {
     throw "TODO";
 }
 
@@ -110,6 +110,6 @@ WordCounts merge(WordCounts a, const WordCounts& b) {
 //
 // The map keeps its keys sorted, so the shortest length comes first.
 std::map<std::size_t, std::vector<std::string>> group_by_length(
-    const std::vector<std::string>& words) {
+    const std::vector<std::string> &words) {
     throw "TODO";
 }

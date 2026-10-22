@@ -61,11 +61,11 @@ struct Color {
     std::uint8_t b = 0;
     std::uint8_t a = 255;
 
-    bool operator==(const Color&) const = default;
+    bool operator==(const Color &) const = default;
 };
 
 // Given: prints Color(255, 128, 0, 255) in test messages.
-std::ostream& operator<<(std::ostream& out, const Color& c) {
+std::ostream &operator<<(std::ostream &out, const Color &c) {
     return out << "Color(" << int{c.r} << ", " << int{c.g} << ", " << int{c.b} << ", " << int{c.a} << ")";
 }
 

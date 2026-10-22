@@ -32,7 +32,7 @@
 // later, for as long as its element lives. When you erase an element, also
 // erase everything that refers to it.
 //
-// A structured binding names the parts of a pair: auto& [key, value] = *it;
+// A structured binding names the parts of a pair: auto &[key, value] = *it;
 //
 // Read more: https://en.cppreference.com/w/cpp/container/list/splice
 //            https://en.cppreference.com/w/cpp/container

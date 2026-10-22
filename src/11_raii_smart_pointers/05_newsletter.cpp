@@ -19,7 +19,7 @@
 //
 //     std::map<std::string, std::weak_ptr<Image>> cache;
 //
-//     std::shared_ptr<Image> load(const std::string& path) {
+//     std::shared_ptr<Image> load(const std::string &path) {
 //         if (auto cached = cache[path].lock()) return cached;  // still in use
 //         auto image = std::make_shared<Image>(read_image(path));
 //         cache[path] = image;     // remember it without keeping it alive
@@ -52,9 +52,9 @@ class Subscriber {
 public:
     explicit Subscriber(std::string name) : name_(std::move(name)) {}
 
-    const std::string& name() const { return name_; }
-    const std::vector<std::string>& inbox() const { return inbox_; }
-    void receive(const std::string& message) { inbox_.push_back(message); }
+    const std::string &name() const { return name_; }
+    const std::vector<std::string> &inbox() const { return inbox_; }
+    void receive(const std::string &message) { inbox_.push_back(message); }
 
 private:
     std::string name_;
@@ -72,7 +72,7 @@ public:
     //   news.subscribe(ada);   // no change: news.subscriber_count() is still 1
     //
     // The newsletter doesn't own ada: once her last shared_ptr is gone, she's destroyed.
-    void subscribe(const std::shared_ptr<Subscriber>& subscriber) {
+    void subscribe(const std::shared_ptr<Subscriber> &subscriber) {
         throw "TODO";
     }
 
@@ -83,7 +83,7 @@ public:
     //   news has subscribers ada and bob
     //   news.unsubscribe(ada) == true    // publish now reaches only bob
     //   news.unsubscribe(ada) == false   // ada isn't subscribed any more
-    bool unsubscribe(const std::shared_ptr<Subscriber>& subscriber) {
+    bool unsubscribe(const std::shared_ptr<Subscriber> &subscriber) {
         throw "TODO";
     }
 
@@ -98,7 +98,7 @@ public:
     //   news.publish("news") == 1    // only Bob receives it
     //
     // lock() each weak_ptr; a null result means that subscriber is gone.
-    int publish(const std::string& message) {
+    int publish(const std::string &message) {
         throw "TODO";
     }
 

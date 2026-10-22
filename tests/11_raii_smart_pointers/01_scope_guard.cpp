@@ -15,7 +15,7 @@ TEST("ScopeGuard: runs when an exception leaves the scope") {
     try {
         ScopeGuard guard([&] { ++calls; });
         throw std::runtime_error("boom");
-    } catch (const std::runtime_error&) {
+    } catch (const std::runtime_error &) {
     }
     CHECK_EQ(calls, 1);
 }

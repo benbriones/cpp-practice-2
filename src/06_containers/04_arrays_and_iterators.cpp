@@ -86,7 +86,7 @@ std::array<int, 26> letter_counts(std::string_view text) {
 //   scores is now {"ada": 90, "cy": 75}
 //
 // Modifies the caller's map; does not return anything.
-void remove_below(std::map<std::string, int>& scores, int threshold) {
+void remove_below(std::map<std::string, int> &scores, int threshold) {
     throw "TODO";
 }
 
@@ -100,7 +100,7 @@ void remove_below(std::map<std::string, int>& scores, int threshold) {
 //   words is now {"tree", "tall", "green"}
 //
 // Modifies the caller's vector; does not return anything.
-void remove_short_words(std::vector<std::string>& words, std::size_t min_length) {
+void remove_short_words(std::vector<std::string> &words, std::size_t min_length) {
     throw "TODO";
 }
 
@@ -114,6 +114,6 @@ void remove_short_words(std::vector<std::string>& words, std::size_t min_length)
 //   insert_sorted(values, 9);   // values is now {1, 3, 4, 5, 9}
 //
 // If no element is greater, the iterator ends at values.end() and insert appends.
-void insert_sorted(std::vector<int>& values, int value) {
+void insert_sorted(std::vector<int> &values, int value) {
     throw "TODO";
 }

@@ -108,11 +108,11 @@ TEST("type_category: decimals") {
 TEST("type_category: text") {
     CHECK_EQ(type_category<std::string>(), "text");
     CHECK_EQ(type_category<std::string_view>(), "text");
-    CHECK_EQ(type_category<const char*>(), "text");
+    CHECK_EQ(type_category<const char *>(), "text");
 }
 
 TEST("type_category: everything else") {
     CHECK_EQ(type_category<std::vector<int>>(), "other");
     CHECK_EQ(type_category<Square>(), "other");
-    CHECK_EQ(type_category<int*>(), "other");
+    CHECK_EQ(type_category<int *>(), "other");
 }

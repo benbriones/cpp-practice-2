@@ -8,7 +8,7 @@ Inventory::Inventory() {
     ++created_;
 }
 
-void Inventory::add(const std::string& item, int quantity) {
+void Inventory::add(const std::string &item, int quantity) {
     throw "TODO";
 }
 

@@ -42,7 +42,7 @@
 //
 // A function returning T& hands back the original instead. The same trap hides
 // on the calling side: auto x = f(); copies even when f returns a reference,
-// while auto& x = f(); keeps the reference. No warning catches this one; a
+// while auto &x = f(); keeps the reference. No warning catches this one; a
 // failing test does.
 //
 // Two more classics: a member with no initializer, like int count_;, holds
@@ -84,14 +84,14 @@ public:
     Gradebook(std::string course, double passing)
         : course_(course), passing_(passing), honors_(passing_ + 20) {}
 
-    const std::string& course() const { return course_; }
+    const std::string &course() const { return course_; }
 
     void set_course(std::string course) { course = course; }
 
     double passing_threshold() const { return passing_; }
     double honors_threshold() const { return honors_; }
 
-    void add_student(const std::string& name) { students_.push_back({name, {}}); }
+    void add_student(const std::string &name) { students_.push_back({name, {}}); }
 
     // Return the record for the student called `name`, so callers can update it.
     // Throw std::out_of_range if no student has that name.
@@ -100,14 +100,14 @@ public:
     //   book.add_student("ada");
     //   book.student("ada").scores.push_back(70);   // ada now has one score, 70
     //   book.student("grace");                      // throws std::out_of_range
-    Student student(const std::string& name) {
-        for (Student& s : students_) {
+    Student student(const std::string &name) {
+        for (Student &s : students_) {
             if (s.name == name) return s;
         }
         throw std::out_of_range("no student named " + name);
     }
 
-    void add_score(const std::string& name, int score) { student(name).scores.push_back(score); }
+    void add_score(const std::string &name, int score) { student(name).scores.push_back(score); }
 
     // Return the student's average score.
     // Return 0.0 for a student with no scores yet.
@@ -118,8 +118,8 @@ public:
     //   book.add_score("ada", 90);
     //   book.add_score("ada", 70);
     //   book.average("ada") is 80.0
-    double average(const std::string& name) const {
-        const Student& s = find(name);
+    double average(const std::string &name) const {
+        const Student &s = find(name);
         if (s.scores.empty()) return 0.0;
         double total = 0.0;
         for (int score : s.scores) total += score;
@@ -134,7 +134,7 @@ public:
     //   average 80 gives "honors"
     //   average 60 gives "pass"
     //   average 59 gives "fail"
-    std::string standing(const std::string& name) const {
+    std::string standing(const std::string &name) const {
         double avg = average(name);
         if (avg >= honors_) return "honors";
         if (avg >= passing_) return "pass";
@@ -142,8 +142,8 @@ public:
     }
 
 private:
-    const Student& find(const std::string& name) const {
-        for (const Student& s : students_) {
+    const Student &find(const std::string &name) const {
+        for (const Student &s : students_) {
             if (s.name == name) return s;
         }
         throw std::out_of_range("no student named " + name);

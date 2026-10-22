@@ -5,7 +5,7 @@
 //
 //     struct LongerThan {
 //         std::size_t limit = 0;
-//         bool operator()(const std::string& s) const { return s.size() > limit; }
+//         bool operator()(const std::string &s) const { return s.size() > limit; }
 //     };
 //
 //     LongerThan long_word{5};
@@ -30,7 +30,7 @@
 // hasher type as the next template argument:
 //
 //     struct UsernameHash {
-//         std::size_t operator()(const Username& u) const {
+//         std::size_t operator()(const Username &u) const {
 //             return std::hash<std::string>{}(u.text);   // reuse a standard hash
 //         }
 //     };
@@ -75,7 +75,7 @@
 //   less("aa", "ab") is true, less("ab", "aa") is false  // same length: alphabetical
 //   less("same", "same") is false
 struct ByLength {
-    bool operator()(const std::string& a, const std::string& b) const {
+    bool operator()(const std::string &a, const std::string &b) const {
         throw "TODO";
     }
 };
@@ -86,7 +86,7 @@ struct ByLength {
 //   words = {"ccc", "a", "bb", "aa", "b"}
 //   sort_by_length(words);
 //   // words is now {"a", "b", "aa", "bb", "ccc"}
-void sort_by_length(std::vector<std::string>& words) {
+void sort_by_length(std::vector<std::string> &words) {
     throw "TODO";
 }
 
@@ -99,7 +99,7 @@ void sort_by_length(std::vector<std::string>& words) {
 //   returns {"fig", "kiwi", "pear", "apple"}
 //
 // The set sorts with ByLength, so its elements are already in the right order.
-std::vector<std::string> distinct_by_length(const std::vector<std::string>& words) {
+std::vector<std::string> distinct_by_length(const std::vector<std::string> &words) {
     throw "TODO";
 }
 
@@ -125,7 +125,7 @@ struct InRange {
 //   count_in_range({1, 5, 10, 15, 20}, 5, 15) returns 3   // 5, 10 and 15
 //   count_in_range({-3, -2, 0, 2}, -2, 1) returns 2       // -2 and 0
 //   count_in_range({}, 0, 100) returns 0
-int count_in_range(const std::vector<int>& values, int low, int high) {
+int count_in_range(const std::vector<int> &values, int low, int high) {
     throw "TODO";
 }
 
@@ -133,10 +133,10 @@ struct Point {
     int x = 0;
     int y = 0;
 
-    bool operator==(const Point&) const = default;
+    bool operator==(const Point &) const = default;
 };
 
-std::ostream& operator<<(std::ostream& out, const Point& p) {
+std::ostream &operator<<(std::ostream &out, const Point &p) {
     return out << "(" << p.x << ", " << p.y << ")";
 }
 
@@ -150,7 +150,7 @@ std::ostream& operator<<(std::ostream& out, const Point& p) {
 //   hash(Point{3, 4}) == hash(Point{3, 4})
 //   hash(Point{1, 2}) != hash(Point{2, 1})   // order matters
 struct PointHash {
-    std::size_t operator()(const Point& p) const {
+    std::size_t operator()(const Point &p) const {
         throw "TODO";
     }
 };
@@ -161,7 +161,7 @@ struct PointHash {
 // Example:
 //   count_distinct({{0, 0}, {1, 2}, {0, 0}, {2, 1}, {1, 2}}) returns 3
 //   count_distinct({}) returns 0
-std::size_t count_distinct(const std::vector<Point>& points) {
+std::size_t count_distinct(const std::vector<Point> &points) {
     throw "TODO";
 }
 
@@ -176,6 +176,6 @@ std::size_t count_distinct(const std::vector<Point>& points) {
 //   most_visited({}) is std::nullopt
 //
 // The map iterates in no particular order, so settle ties by walking the list.
-std::optional<Point> most_visited(const std::vector<Point>& points) {
+std::optional<Point> most_visited(const std::vector<Point> &points) {
     throw "TODO";
 }

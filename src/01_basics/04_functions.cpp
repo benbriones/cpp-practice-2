@@ -20,7 +20,7 @@
 // Default arguments fill in trailing parameters the caller leaves out. Only
 // the last parameters can have them:
 //
-//     std::string greet(const std::string& name, const std::string& word = "Hello") {
+//     std::string greet(const std::string &name, const std::string &word = "Hello") {
 //         return word + ", " + name + "!";
 //     }
 //     greet("Ada");          // "Hello, Ada!"
@@ -79,7 +79,7 @@ double max_of(double a, double b) {
 
 // `text` repeated `times` times with `separator` between copies.
 // repeat("ab") == "abab", repeat("ab", 3, "-") == "ab-ab-ab", times <= 0 gives "".
-std::string repeat(const std::string& text, int times = 2, const std::string& separator = "") {
+std::string repeat(const std::string &text, int times = 2, const std::string &separator = "") {
     throw "TODO";
 }
 

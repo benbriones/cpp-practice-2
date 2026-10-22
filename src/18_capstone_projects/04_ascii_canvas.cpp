@@ -22,7 +22,7 @@
 //
 //     std::vector<std::unique_ptr<Animal>> zoo;
 //     if (auto animal = make_animal("dog")) zoo.push_back(std::move(animal));
-//     for (const auto& a : zoo) std::cout << a->sound() << '\n';
+//     for (const auto &a : zoo) std::cout << a->sound() << '\n';
 //
 // Strict number parsing. std::stoi("3x") returns 3 and std::stoi(" 3") skips
 // the space; to reject such input, use std::from_chars from <charconv>. It never
@@ -154,7 +154,7 @@ private:
 class Shape {
 public:
     virtual ~Shape() = default;
-    virtual void draw(Canvas& canvas) const = 0;
+    virtual void draw(Canvas &canvas) const = 0;
 };
 
 // TODO: your shape classes

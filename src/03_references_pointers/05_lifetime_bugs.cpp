@@ -11,7 +11,7 @@
 // 1. Referring to a local after its function returns. Locals are destroyed at
 //    the closing brace:
 //
-//        const std::vector<int>& evens(int n) {
+//        const std::vector<int> &evens(int n) {
 //            std::vector<int> result;
 //            for (int i = 0; i <= n; i += 2) result.push_back(i);
 //            return result;            // result is destroyed right here
@@ -34,7 +34,7 @@
 //    hidden iterators of a range-for loop over it:
 //
 //        std::vector<int> v{1, 2, 3};
-//        int& first = v[0];
+//        int &first = v[0];
 //        v.push_back(4);         // may reallocate
 //        first = 10;             // may write into freed memory
 //
@@ -66,7 +66,7 @@
 #include <vector>
 
 // Appends a doubled copy of every element: {1, 2, 3} becomes {1, 2, 3, 2, 4, 6}.
-void append_doubles(std::vector<int>& values) {
+void append_doubles(std::vector<int> &values) {
     for (int x : values) {
         values.push_back(x * 2);
     }
@@ -74,14 +74,14 @@ void append_doubles(std::vector<int>& values) {
 
 // "Hello, Ada! Welcome to the course." for name "Ada".
 // (You may change the return type.)
-std::string_view make_greeting(const std::string& name) {
+std::string_view make_greeting(const std::string &name) {
     std::string greeting = "Hello, " + name + "! Welcome to the course.";
     return greeting;
 }
 
 // The first name in the list, or "anonymous user (no name given)" if the list is empty.
 // (You may change the return type.)
-const std::string& first_or_default(const std::vector<std::string>& names) {
+const std::string &first_or_default(const std::vector<std::string> &names) {
     std::string fallback = "anonymous user (no name given)";
     if (names.empty()) {
         return fallback;
@@ -90,7 +90,7 @@ const std::string& first_or_default(const std::vector<std::string>& names) {
 }
 
 std::string to_upper(std::string text) {
-    for (char& c : text) {
+    for (char &c : text) {
         c = static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
     }
     return text;
@@ -98,9 +98,9 @@ std::string to_upper(std::string text) {
 
 // Every word in upper case: {"hi", "there"} becomes {"HI", "THERE"}.
 // (You may change the vector's element type.)
-std::vector<std::string_view> shout_all(const std::vector<std::string>& words) {
+std::vector<std::string_view> shout_all(const std::vector<std::string> &words) {
     std::vector<std::string_view> shouted;
-    for (const std::string& word : words) {
+    for (const std::string &word : words) {
         std::string upper = to_upper(word);
         shouted.push_back(upper);
     }

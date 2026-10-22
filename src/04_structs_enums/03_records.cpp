@@ -13,8 +13,8 @@
 // The loop variable decides whether you get copies or the elements themselves:
 //
 //     for (Book b : shelf) b.year = 0;          // copies: shelf is unchanged
-//     for (const Book& b : shelf) { ... }       // read, without copying
-//     for (Book& b : shelf) b.title += "!";     // changes the books in shelf
+//     for (const Book &b : shelf) { ... }       // read, without copying
+//     for (Book &b : shelf) b.title += "!";     // changes the books in shelf
 //
 // Copying a Book copies its whole title string, so read-only loops should use
 // const&. In a reference loop, &b is the address of the element in the vector.
@@ -23,7 +23,7 @@
 //
 // A pointer to a struct reaches its members with ->, short for (*p).member:
 //
-//     const Book* p = &shelf[1];
+//     const Book *p = &shelf[1];
 //     std::cout << p->title;                    // same as (*p).title
 //
 // A `const Book*` lets you read the book but not change it, which is what a
@@ -58,7 +58,7 @@ struct Employee {
     double salary{};
 };
 
-double total_payroll(const std::vector<Employee>& staff) {
+double total_payroll(const std::vector<Employee> &staff) {
     throw "TODO";
 }
 
@@ -71,8 +71,8 @@ double total_payroll(const std::vector<Employee>& staff) {
 //            {"Grace", "Engineering", 135000}}
 //   names_in(staff, "Engineering") is {"Ada", "Grace"}
 //   names_in(staff, "Marketing") is {}
-std::vector<std::string> names_in(const std::vector<Employee>& staff,
-                                  const std::string& department) {
+std::vector<std::string> names_in(const std::vector<Employee> &staff,
+                                  const std::string &department) {
     throw "TODO";
 }
 
@@ -84,11 +84,11 @@ std::vector<std::string> names_in(const std::vector<Employee>& staff,
 //   staff = {{"Ada", "Engineering", 120000},
 //            {"Grace", "Engineering", 135000},
 //            {"Barbara", "Research", 135000}}
-//   const Employee* best = highest_paid(staff);
+//   const Employee *best = highest_paid(staff);
 //   // best == &staff[1], so best->name is "Grace"
 //
 // Reach members through a pointer with ->:  best->name
-const Employee* highest_paid(const std::vector<Employee>& staff) {
+const Employee *highest_paid(const std::vector<Employee> &staff) {
     throw "TODO";
 }
 
@@ -103,7 +103,7 @@ const Employee* highest_paid(const std::vector<Employee>& staff) {
 //   // Ada's salary is now 132000, Linus's is still 90000
 //
 // Changes the employees in the caller's vector; returns nothing.
-void give_raise(std::vector<Employee>& staff, const std::string& department, double percent) {
+void give_raise(std::vector<Employee> &staff, const std::string &department, double percent) {
     throw "TODO";
 }
 
@@ -118,6 +118,6 @@ void give_raise(std::vector<Employee>& staff, const std::string& department, dou
 //   // low is 85000, high is 120000
 //
 // Callers can unpack the pair with a structured binding, as above.
-std::pair<double, double> salary_range(const std::vector<Employee>& staff) {
+std::pair<double, double> salary_range(const std::vector<Employee> &staff) {
     throw "TODO";
 }

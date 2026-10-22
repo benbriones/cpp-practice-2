@@ -89,11 +89,11 @@ struct Token {
     TokenKind kind;
     double value = 0;  // only used by Number tokens
 
-    bool operator==(const Token&) const = default;
+    bool operator==(const Token &) const = default;
 };
 
 // Given: prints a token in test messages, e.g. Number(2.5) or Plus.
-std::ostream& operator<<(std::ostream& out, const Token& token) {
+std::ostream &operator<<(std::ostream &out, const Token &token) {
     switch (token.kind) {
         case TokenKind::Number: return out << "Number(" << token.value << ")";
         case TokenKind::Plus: return out << "Plus";

@@ -35,7 +35,7 @@
 // char (a negative value is undefined behavior), and cast toupper's int result
 // back to char:
 //
-//     std::string without_digits(const std::string& text) {
+//     std::string without_digits(const std::string &text) {
 //         std::string result;
 //         for (char c : text) {
 //             if (!std::isdigit(static_cast<unsigned char>(c))) {
@@ -66,7 +66,7 @@
 #include <string>
 
 // How many times c appears in text.
-int count_char(const std::string& text, char c) {
+int count_char(const std::string &text, char c) {
     int count = 0;
     for (std::size_t i = 0; i < text.size(); i++) {
         if (text[i] == c) count++;
@@ -76,7 +76,7 @@ int count_char(const std::string& text, char c) {
 }
 
 // text backwards: reverse_string("abc") == "cba".
-std::string reverse_string(const std::string& text) {
+std::string reverse_string(const std::string &text) {
     std::string s = "";
     int textSize = text.size();
 
@@ -89,7 +89,7 @@ std::string reverse_string(const std::string& text) {
 
 // True if text reads the same both ways, ignoring case and anything that
 // isn't a letter: "A man, a plan, a canal: Panama!" is a palindrome.
-bool is_palindrome(const std::string& text) {
+bool is_palindrome(const std::string &text) {
     std::string cleaned;
 
     // Get rid of any upper case letters and spaces
@@ -118,7 +118,7 @@ bool is_palindrome(const std::string& text) {
 
 // The upper-case first letter of each word: initials("ada king lovelace") == "AKL".
 // Words are separated by one or more spaces.
-std::string initials(const std::string& full_name) {
+std::string initials(const std::string &full_name) {
     std::string initials;
 
     for (std::size_t i = 0; i < full_name.size(); i++) {

@@ -16,7 +16,7 @@
 //
 //     Derived d;
 //     Base copy = d;   // sliced: copy.who() is "base"
-//     Base& ref = d;   // no copy: ref.who() is "derived"
+//     Base &ref = d;   // no copy: ref.who() is "derived"
 //
 // The same happens when a function takes a Base by value, or when derived
 // objects are stored in a container of Base values. Polymorphism needs a
@@ -36,12 +36,12 @@
 //
 //     Square sq;
 //     sq.kind();                              // "square"
-//     static_cast<const Shape&>(sq).kind();   // "shape"
+//     static_cast<const Shape &>(sq).kind();   // "shape"
 //
 // Writing `override` on every replacement turns this mistake into a compile
 // error, because override is only allowed when the base function is virtual.
 //
-// dynamic_cast<const Derived*>(p) checks at run time whether p points at a
+// dynamic_cast<const Derived *>(p) checks at run time whether p points at a
 // Derived (or a class derived from it) and gives nullptr if not. It needs a
 // class with at least one virtual function.
 //
@@ -67,7 +67,7 @@ public:
     explicit Animal(std::string name) : name_(std::move(name)) {}
     ~Animal() {}
 
-    const std::string& name() const { return name_; }
+    const std::string &name() const { return name_; }
     virtual std::string sound() const { return "..."; }
     std::string how_it_moves() const { return "walks"; }
 
@@ -117,9 +117,9 @@ std::vector<Animal> make_zoo() {
 //
 // Example:
 //   chorus(make_zoo()) is {"Rex says Woof", "Tom says Meow"}
-std::vector<std::string> chorus(const std::vector<Animal>& zoo) {
+std::vector<std::string> chorus(const std::vector<Animal> &zoo) {
     std::vector<std::string> lines;
-    for (const Animal& animal : zoo) lines.push_back(animal.describe());
+    for (const Animal &animal : zoo) lines.push_back(animal.describe());
     return lines;
 }
 
@@ -128,7 +128,7 @@ std::vector<std::string> chorus(const std::vector<Animal>& zoo) {
 // Example:
 //   auto pet = adopt_dog("Fido");
 //   // pet->describe() is "Fido says Woof"
-std::unique_ptr<Animal> adopt_dog(const std::string& name) {
+std::unique_ptr<Animal> adopt_dog(const std::string &name) {
     return std::make_unique<Dog>(name);
 }
 
@@ -137,18 +137,18 @@ std::unique_ptr<Animal> adopt_dog(const std::string& name) {
 // Example:
 //   travel(Bird("Tweety")) is "Tweety flies"
 //   travel(Dog("Rex")) is "Rex walks"
-std::string travel(const Animal& animal) {
+std::string travel(const Animal &animal) {
     return animal.name() + " " + animal.how_it_moves();
 }
 
 // Return how many of the animals are Dogs. An empty list returns 0.
-// dynamic_cast<const Dog*>(p) gives nullptr
+// dynamic_cast<const Dog *>(p) gives nullptr
 // when p doesn't point at a Dog (or something derived from Dog).
 //
 // Example:
 //   rex and fido are Dogs, tom is a Cat, tweety is a Bird
 //   count_dogs({&rex, &tom, &tweety, &fido}) returns 2
 //   count_dogs({&tom, &tweety}) returns 0
-int count_dogs(const std::vector<const Animal*>& animals) {
+int count_dogs(const std::vector<const Animal *> &animals) {
     throw "TODO";
 }

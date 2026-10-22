@@ -55,7 +55,7 @@ TEST("copy assignment: self-assignment is safe") {
     Playlist p("Self");
     p.add("A");
     p.add("B");
-    Playlist& same = p;
+    Playlist &same = p;
     p = same;
     CHECK_EQ(p.size(), 2);
     CHECK_EQ(p.song(1), "B");

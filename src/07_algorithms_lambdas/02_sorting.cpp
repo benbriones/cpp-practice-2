@@ -11,7 +11,7 @@
 // key= function or JavaScript's negative/zero/positive compare:
 //
 //     struct City { std::string country; int population; };
-//     std::sort(cities.begin(), cities.end(), [](const City& a, const City& b) {
+//     std::sort(cities.begin(), cities.end(), [](const City &a, const City &b) {
 //         if (a.country != b.country) return a.country < b.country;  // A to Z
 //         return a.population > b.population;          // then biggest first
 //     });
@@ -92,7 +92,7 @@ std::vector<std::string> sort_by_length(std::vector<std::string> words) {
 //   // the names are now in this order: Abe, Dan, Ann, Bob, Cara
 //
 // Modifies the original vector; does not return anything.
-void sort_people(std::vector<Person>& people) {
+void sort_people(std::vector<Person> &people) {
     throw "TODO";
 }
 

@@ -106,7 +106,7 @@ TEST("loans_of: in library order, per member") {
 TEST("const Library can be queried") {
     Library library = sample();
     library.checkout("Dune", "ada");
-    const Library& view = library;
+    const Library &view = library;
     CHECK_EQ(view.available_count(), 3);
     CHECK_EQ(view.size(), 4);
     CHECK_EQ(view.is_available("Emma"), true);

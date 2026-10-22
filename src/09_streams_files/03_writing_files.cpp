@@ -20,7 +20,7 @@
 //         throw std::runtime_error("can't write scores.csv");
 //     }
 //     out << "name,points\n";
-//     for (const auto& [name, points] : table) {   // a map<string, int>
+//     for (const auto &[name, points] : table) {   // a map<string, int>
 //         out << std::format("{},{}\n", name, points);
 //     }
 //
@@ -58,7 +58,7 @@
 //   // out.txt now holds "alpha\nbeta\ngamma\n"
 //
 // Opening the stream empties the file, even before anything is written.
-void write_lines(const std::string& path, const std::vector<std::string>& lines) {
+void write_lines(const std::string &path, const std::vector<std::string> &lines) {
     throw "TODO";
 }
 
@@ -71,7 +71,7 @@ void write_lines(const std::string& path, const std::vector<std::string>& lines)
 //   // file now holds "line 1\nline 2\n"
 //
 // Unlike write_lines, nothing already in the file is lost.
-void append_line(const std::string& path, const std::string& text) {
+void append_line(const std::string &path, const std::string &text) {
     throw "TODO";
 }
 
@@ -95,7 +95,7 @@ struct Score {
 //     total           49
 //
 // With no scores, the file holds just the header, the dashed line and a total of 0.
-void write_report(const std::string& path, const std::vector<Score>& scores) {
+void write_report(const std::string &path, const std::vector<Score> &scores) {
     throw "TODO";
 }
 
@@ -108,6 +108,6 @@ void write_report(const std::string& path, const std::vector<Score>& scores) {
 //   copy_file("ghost.txt", "new.txt") == false     // ghost.txt is missing; no new.txt
 //
 // Hint: open both with std::ios::binary; `out << in.rdbuf();` copies everything.
-bool copy_file(const std::string& src, const std::string& dst) {
+bool copy_file(const std::string &src, const std::string &dst) {
     throw "TODO";
 }

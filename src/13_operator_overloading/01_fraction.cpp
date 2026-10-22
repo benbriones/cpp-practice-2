@@ -9,7 +9,7 @@
 //         Money(long long c = 0) : cents(c) {}   // not explicit: 5 converts to Money
 //     };
 //
-//     Money operator+(const Money& a, const Money& b) {
+//     Money operator+(const Money &a, const Money &b) {
 //         return Money(a.cents + b.cents);
 //     }
 //
@@ -18,7 +18,7 @@
 //     5 + m;   // works too: a free function converts either side
 //
 // Member or free function? A member operator needs its left operand to already be
-// the class type, so with a member `Money operator+(const Money&) const`, 5 + m
+// the class type, so with a member `Money operator+(const Money &) const`, 5 + m
 // wouldn't compile. Symmetric operators (+ - * / == <=>) are usually free.
 // Arithmetic operators return a new value and leave their operands alone.
 //
@@ -26,7 +26,7 @@
 // (the "spaceship") and it derives < <= > >= from it. Built-in types already
 // have <=>, which returns an ordering (less, equal or greater):
 //
-//     std::strong_ordering operator<=>(const Money& a, const Money& b) {
+//     std::strong_ordering operator<=>(const Money &a, const Money &b) {
 //         return a.cents <=> b.cents;
 //     }
 //
@@ -35,7 +35,7 @@
 // Printing: operator<< takes the stream by reference and returns it, so that
 // out << a << b runs as operator<<(operator<<(out, a), b):
 //
-//     std::ostream& operator<<(std::ostream& out, const Money& m) {
+//     std::ostream &operator<<(std::ostream &out, const Money &m) {
 //         return out << m.cents << "c";
 //     }
 //
@@ -109,15 +109,15 @@ private:
     // TODO: data members
 };
 
-Fraction operator+(const Fraction& a, const Fraction& b) {
+Fraction operator+(const Fraction &a, const Fraction &b) {
     throw "TODO";
 }
 
-Fraction operator-(const Fraction& a, const Fraction& b) {
+Fraction operator-(const Fraction &a, const Fraction &b) {
     throw "TODO";
 }
 
-Fraction operator*(const Fraction& a, const Fraction& b) {
+Fraction operator*(const Fraction &a, const Fraction &b) {
     throw "TODO";
 }
 
@@ -128,11 +128,11 @@ Fraction operator*(const Fraction& a, const Fraction& b) {
 //   Fraction(1, 2) / Fraction(1, 4) is 2/1
 //   Fraction(1, 2) / Fraction(-1, 4) is -2/1
 //   Fraction(1, 2) / Fraction(0) throws std::invalid_argument
-Fraction operator/(const Fraction& a, const Fraction& b) {
+Fraction operator/(const Fraction &a, const Fraction &b) {
     throw "TODO";
 }
 
-bool operator==(const Fraction& a, const Fraction& b) {
+bool operator==(const Fraction &a, const Fraction &b) {
     throw "TODO";
 }
 
@@ -146,7 +146,7 @@ bool operator==(const Fraction& a, const Fraction& b) {
 //   Fraction(2, 4) <= Fraction(1, 2)     // equal: both are 1/2
 //
 // The compiler derives < <= > >= from this one function.
-std::strong_ordering operator<=>(const Fraction& a, const Fraction& b) {
+std::strong_ordering operator<=>(const Fraction &a, const Fraction &b) {
     throw "TODO";
 }
 
@@ -157,6 +157,6 @@ std::strong_ordering operator<=>(const Fraction& a, const Fraction& b) {
 // Example:
 //   out << Fraction(3, 4) << " " << Fraction(4, 2);    // prints "3/4 2"
 //   out << Fraction(1, -2) << " " << Fraction(0);      // prints "-1/2 0"
-std::ostream& operator<<(std::ostream& out, const Fraction& f) {
+std::ostream &operator<<(std::ostream &out, const Fraction &f) {
     throw "TODO";
 }

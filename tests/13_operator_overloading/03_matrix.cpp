@@ -2,7 +2,7 @@
 #include "13_operator_overloading/03_matrix.cpp"
 
 // Builds a Matrix from rows, using your constructor and operator().
-Matrix make(const std::vector<std::vector<double>>& values) {
+Matrix make(const std::vector<std::vector<double>> &values) {
     Matrix m(static_cast<int>(values.size()), static_cast<int>(values[0].size()));
     for (int r = 0; r < m.rows(); ++r) {
         for (int c = 0; c < m.cols(); ++c) m(r, c) = values[r][c];
@@ -11,7 +11,7 @@ Matrix make(const std::vector<std::vector<double>>& values) {
 }
 
 // Reads every element back through the const operator().
-std::vector<std::vector<double>> rows_of(const Matrix& m) {
+std::vector<std::vector<double>> rows_of(const Matrix &m) {
     std::vector<std::vector<double>> values(m.rows(), std::vector<double>(m.cols()));
     for (int r = 0; r < m.rows(); ++r) {
         for (int c = 0; c < m.cols(); ++c) values[r][c] = m(r, c);
@@ -35,7 +35,7 @@ TEST("operator(): write, then read through a const reference") {
     Matrix m(2, 2);
     m(0, 1) = 5;
     m(1, 0) = -2.5;
-    const Matrix& view = m;
+    const Matrix &view = m;
     CHECK_EQ(view(0, 1), 5.0);
     CHECK_EQ(view(1, 0), -2.5);
     CHECK_EQ(view(0, 0), 0.0);
@@ -49,7 +49,7 @@ TEST("operator(): rows and columns aren't mixed up") {
 
 TEST("operator(): out-of-range positions throw") {
     Matrix m(2, 3);
-    const Matrix& view = m;
+    const Matrix &view = m;
     CHECK_THROWS(std::out_of_range, m(2, 0));
     CHECK_THROWS(std::out_of_range, m(0, 3));
     CHECK_THROWS(std::out_of_range, m(-1, 0));

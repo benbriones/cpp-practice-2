@@ -2,7 +2,7 @@
 #include "10_memory/02_c_strings.cpp"
 
 // Where p points inside text (-1 for nullptr), so failures show positions, not strings.
-long position(const char* p, const char* text) { return p == nullptr ? -1 : p - text; }
+long position(const char *p, const char *text) { return p == nullptr ? -1 : p - text; }
 
 TEST("my_strlen") {
     CHECK_EQ(my_strlen("hello"), 5);
@@ -34,7 +34,7 @@ TEST("my_strcmp: one string is a prefix of the other") {
 
 TEST("my_strcpy: copies the characters and the terminator") {
     char buffer[16];
-    for (char& c : buffer) c = 'x';
+    for (char &c : buffer) c = 'x';
     my_strcpy(buffer, "hello");
     CHECK_EQ(std::string(buffer), "hello");
     CHECK_EQ(buffer[5], '\0');
@@ -48,15 +48,15 @@ TEST("my_strcpy: returns dest and handles empty strings") {
 }
 
 TEST("find_char: points at the first match") {
-    const char* text = "hello world";
+    const char *text = "hello world";
     CHECK_EQ(position(find_char(text, 'o'), text), 4);
     CHECK_EQ(position(find_char(text, 'h'), text), 0);
     CHECK_EQ(position(find_char(text, 'd'), text), 10);
 }
 
 TEST("find_char: not found returns nullptr") {
-    const char* text = "hello";
+    const char *text = "hello";
     CHECK_EQ(position(find_char(text, 'z'), text), -1);
-    const char* empty = "";
+    const char *empty = "";
     CHECK_EQ(position(find_char(empty, 'a'), empty), -1);
 }

@@ -42,8 +42,8 @@ TEST("copy assignment: copies the text, counts one copy") {
 
 TEST("copy assignment: returns *this, and a = a is safe") {
     Message a("same");
-    Message& alias = a;
-    Message& result = (a = alias);
+    Message &alias = a;
+    Message &result = (a = alias);
     CHECK(&result == &a, "operator= should return *this");
     CHECK_EQ(a.text(), "same");
 }

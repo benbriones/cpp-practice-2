@@ -4,7 +4,7 @@
 
 #include <algorithm>
 
-int TodoList::add(const std::string& title, Priority priority) {
+int TodoList::add(const std::string &title, Priority priority) {
     throw "TODO";
 }
 
@@ -16,7 +16,7 @@ bool TodoList::remove(int id) {
     throw "TODO";
 }
 
-const Task* TodoList::find(int id) const {
+const Task *TodoList::find(int id) const {
     throw "TODO";
 }
 

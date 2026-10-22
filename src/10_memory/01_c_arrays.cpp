@@ -10,13 +10,13 @@
 // Decay. An array can't be passed or returned by value. Pass one to a function
 // and what arrives is a pointer to its first element; the size is lost, so it
 // has to travel as a separate argument. `int values[]` in a parameter list is
-// just another spelling of `int* values`, and sizeof there gives the size of a
+// just another spelling of `int *values`, and sizeof there gives the size of a
 // pointer (clang warns about it).
 //
 // Pointer arithmetic. Adding n to a pointer moves it n *elements*, not bytes,
 // and p[i] is defined as *(p + i):
 //
-//     int* p = values;              // same as &values[0]
+//     int *p = values;              // same as &values[0]
 //     *(p + 2)                      // 8, same as p[2] and values[2]
 //     p + 5                         // one past the end: fine to compare against,
 //                                   // never to dereference
@@ -27,8 +27,8 @@
 // begin == end, the loop needs no index, and this is exactly the convention of
 // begin()/end() on every standard container:
 //
-//     void fill(int* begin, int* end, int value) {
-//         for (int* p = begin; p != end; ++p) {
+//     void fill(int *begin, int *end, int value) {
+//         for (int *p = begin; p != end; ++p) {
 //             *p = value;
 //         }
 //     }
@@ -61,11 +61,11 @@
 //   find_first_even(values, 2) == nullptr      // only 7 and 3 are checked
 //
 // The pointer reaches the real element, so writing through it changes the array.
-int* find_first_even(int values[], int count) {
+int *find_first_even(int values[], int count) {
     throw "TODO";
 }
 
-int sum_array(const int* values, int count) {
+int sum_array(const int *values, int count) {
     throw "TODO";
 }
 
@@ -78,7 +78,7 @@ int sum_array(const int* values, int count) {
 //   // values is now {3, 2, 1, 9, 9}
 //
 // Nothing is returned: the caller's array itself is changed.
-void reverse_array(int* values, int count) {
+void reverse_array(int *values, int count) {
     throw "TODO";
 }
 
@@ -92,6 +92,6 @@ void reverse_array(int* values, int count) {
 //   count_in_range(values + 1, values + 4, 1, 5) == 2   // range {1, 9, 3}: 1 and 3
 //
 // Walk the range with a pointer (++p) rather than an index.
-int count_in_range(const int* begin, const int* end, int lo, int hi) {
+int count_in_range(const int *begin, const int *end, int lo, int hi) {
     throw "TODO";
 }

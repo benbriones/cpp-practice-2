@@ -78,12 +78,12 @@ TEST("CheckingAccount: rejects bad amounts") {
 
 TEST("Derived rules apply through an Account&") {
     CheckingAccount checking(100, 50);
-    Account& as_base = checking;
+    Account &as_base = checking;
     CHECK_EQ(as_base.withdraw(120), true);
     CHECK_NEAR(as_base.balance(), -20.0);
 
     SavingsAccount savings(1000, 0.01);
-    Account& savings_as_base = savings;
+    Account &savings_as_base = savings;
     savings_as_base.withdraw(1);
     savings_as_base.withdraw(1);
     savings_as_base.withdraw(1);
@@ -94,7 +94,7 @@ TEST("withdraw_from_all") {
     Account plain(50);
     SavingsAccount savings(500, 0.01);
     CheckingAccount checking(50, 100);
-    std::vector<Account*> accounts{&plain, &savings, &checking};
+    std::vector<Account *> accounts{&plain, &savings, &checking};
     CHECK_EQ(withdraw_from_all(accounts, 60), 2);
     CHECK_NEAR(plain.balance(), 50.0);
     CHECK_NEAR(savings.balance(), 440.0);

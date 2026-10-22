@@ -20,15 +20,15 @@
 // Don't write the logic three times. Write it once, in the style that fits it
 // best, and make the others thin wrappers around it:
 //
-//     std::optional<int> find_id(const std::map<std::string, int>& ids,
-//                                const std::string& name) {
+//     std::optional<int> find_id(const std::map<std::string, int> &ids,
+//                                const std::string &name) {
 //         auto it = ids.find(name);
 //         if (it == ids.end()) return std::nullopt;
 //         return it->second;
 //     }
 //
-//     int find_id_or_throw(const std::map<std::string, int>& ids,
-//                          const std::string& name) {
+//     int find_id_or_throw(const std::map<std::string, int> &ids,
+//                          const std::string &name) {
 //         if (auto id = find_id(ids, name)) return *id;
 //         throw std::invalid_argument("no user named " + name);
 //     }
@@ -73,7 +73,7 @@
 //   try_parse_age("151", age) is false, and age is still 7
 //
 // Leaving out alone on failure means the caller's earlier value survives.
-bool try_parse_age(std::string_view text, int& out) {
+bool try_parse_age(std::string_view text, int &out) {
     throw "TODO";
 }
 
@@ -107,6 +107,6 @@ int parse_age_or_throw(std::string_view text) {
 //   average_age({"20", "30"}) is 25.0
 //   average_age({"20", "abc", "31", "500"}) is 25.5   // (20 + 31) / 2
 //   average_age({"x", "-1"}) is std::nullopt
-std::optional<double> average_age(const std::vector<std::string>& texts) {
+std::optional<double> average_age(const std::vector<std::string> &texts) {
     throw "TODO";
 }

@@ -4,7 +4,7 @@
 // box itself, so it can sit on either side of =:
 //
 //     int x = 10;
-//     int* p = &x;
+//     int *p = &x;
 //     int n = *p;               // reads x: n is 10, in a box of its own
 //     *p = 99;                  // writes x: x is now 99, without naming x
 //
@@ -12,14 +12,14 @@
 //
 //     int x = 10;
 //     int y = 20;
-//     int* p = &x;              p --> x:10      y:20
+//     int *p = &x;              p --> x:10      y:20
 //     p = &y;                   p --> y:20      x:10    p moved; no int changed
 //     *p = 5;                   p --> y:5       x:10    the box p points at changed
 //
 // A reference can't be re-pointed. Once r names x, every use of r is x, so
 // assigning to r copies a value into x:
 //
-//     int& r = x;
+//     int &r = x;
 //     r = y;                    // means x = y. r still names x, not y
 //
 // So use a pointer when you need to switch targets, and a reference when the
@@ -28,8 +28,8 @@
 // * and & each have two jobs. Next to a type they declare; in an expression
 // they act:
 //
-//     int* p = &x;              // declares a pointer; takes x's address
-//     int& r = *p;              // declares a reference; follows p to x
+//     int *p = &x;              // declares a pointer; takes x's address
+//     int &r = *p;              // declares a reference; follows p to x
 //
 // Precedence. Postfix ++ and [] bind tighter than *:
 //
@@ -38,7 +38,7 @@
 //     *ptrs[i]                  // *(ptrs[i]): follow the i-th pointer in a vector
 //
 // const on a vector of pointers protects the vector, not the ints. With
-// const std::vector<int*>& ptrs you can't add, remove or re-point ptrs[i], but
+// const std::vector<int *> &ptrs you can't add, remove or re-point ptrs[i], but
 // *ptrs[i] = 0 compiles, because the elements are int*, not const int*.
 //
 // Read more: https://www.learncpp.com/cpp-tutorial/introduction-to-pointers/
@@ -58,7 +58,7 @@
 //
 //     int x = 1;
 //     int y = 2;
-//     int& r = x;
+//     int &r = x;
 //     r = y;
 //     r = 30;
 //     y = 40;
@@ -67,7 +67,7 @@ std::pair<int, int> trace_3() { return {30, 40}; }
 // Trace 4. What are n and m at the end? Return {n, m}.
 //
 //     int n = 5;
-//     int* p = &n;
+//     int *p = &n;
 //     ++*p;
 //     (*p)++;
 //     *p = *p * 10;
@@ -87,7 +87,7 @@ std::pair<int, int> trace_4() { return {70, 71}; }
 //   // x is now 2, y is 3, z is 1
 //
 // Writes through the pointers, so the caller's variables change.
-void rotate_three(int* a, int* b, int* c) {
+void rotate_three(int *a, int *b, int *c) {
     int temp_a = *a;
 
     *a = *b;
@@ -106,8 +106,8 @@ void rotate_three(int* a, int* b, int* c) {
 //   add_to_each({nullptr, &y}, 1);  // y is now 4
 //
 // targets is const, but the ints it points at can still be changed.
-void add_to_each(const std::vector<int*>& targets, int amount) {
-    for (int* t : targets) {
+void add_to_each(const std::vector<int *> &targets, int amount) {
+    for (int *t : targets) {
         if (!t) continue;
 
         *t += amount;
@@ -125,8 +125,8 @@ void add_to_each(const std::vector<int*>& targets, int amount) {
 //   // x is still 3, y is now 0
 //
 // The result points at the caller's variable, so writing through it changes that variable.
-int* larger_of(int* a, int* b) {
-    int* answer;
+int *larger_of(int *a, int *b) {
+    int *answer;
 
     if (*a == *b) return a;
     

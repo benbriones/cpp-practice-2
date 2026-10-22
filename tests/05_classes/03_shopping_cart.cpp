@@ -1,9 +1,9 @@
 #include "grader.hpp"
 #include "05_classes/03_shopping_cart.cpp"
 
-static std::vector<std::string> names(const Cart& cart) {
+static std::vector<std::string> names(const Cart &cart) {
     std::vector<std::string> out;
-    for (const Item& item : cart.items()) out.push_back(item.name);
+    for (const Item &item : cart.items()) out.push_back(item.name);
     return out;
 }
 
@@ -93,7 +93,7 @@ TEST("remove: missing items return false") {
 TEST("Cart: readable through a const reference") {
     Cart cart;
     cart.add("tea", 3.5, 2);
-    const Cart& view = cart;
+    const Cart &view = cart;
     CHECK_EQ(view.item_count(), 2);
     CHECK_NEAR(view.total(), 7.0);
     CHECK_EQ(view.items().size(), 1);

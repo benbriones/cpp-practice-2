@@ -7,7 +7,7 @@
 #include <vector>
 
 template <class T, class C>
-std::vector<T> contents(const SortedVector<T, C>& sorted) {
+std::vector<T> contents(const SortedVector<T, C> &sorted) {
     return std::vector<T>(sorted.begin(), sorted.end());
 }
 
@@ -76,7 +76,7 @@ TEST("custom comparator: equal keys stay in insertion order") {
         std::string name;
     };
     struct ByPriority {
-        bool operator()(const Task& a, const Task& b) const { return a.priority < b.priority; }
+        bool operator()(const Task &a, const Task &b) const { return a.priority < b.priority; }
     };
     SortedVector<Task, ByPriority> tasks;
     tasks.insert({2, "write"});
@@ -84,7 +84,7 @@ TEST("custom comparator: equal keys stay in insertion order") {
     tasks.insert({2, "test"});
     tasks.insert({1, "think"});
     std::vector<std::string> names;
-    for (const Task& task : tasks) names.push_back(task.name);
+    for (const Task &task : tasks) names.push_back(task.name);
     CHECK_EQ(names, {"plan", "think", "write", "test"});
 }
 
@@ -100,7 +100,7 @@ TEST("works with range-for and algorithms") {
 TEST("iterators are read-only") {
     SortedVector<int> sorted{1};
     CHECK_EQ(*sorted.begin(), 1);
-    CHECK((std::is_same_v<decltype(*sorted.begin()), const int&>),
+    CHECK((std::is_same_v<decltype(*sorted.begin()), const int &>),
           "begin() should return a const_iterator");
 }
 

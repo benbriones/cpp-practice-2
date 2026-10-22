@@ -29,7 +29,7 @@
 //     };
 //
 //     Manager boss(80'000, 4);
-//     Employee& someone = boss;
+//     Employee &someone = boss;
 //     someone.bonus();   // 4400: the Manager version, even through an Employee&
 //
 // A derived constructor can't set base members itself. It passes arguments to a
@@ -188,6 +188,6 @@ private:
 //   // plain refuses and stays 50; savings drops to 440; checking drops to -10.
 //
 // withdraw is virtual, so each call runs the version for the account's real type.
-int withdraw_from_all(const std::vector<Account*>& accounts, double amount) {
+int withdraw_from_all(const std::vector<Account *> &accounts, double amount) {
     throw "TODO";
 }

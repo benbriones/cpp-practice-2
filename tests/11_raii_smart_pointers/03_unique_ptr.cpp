@@ -39,7 +39,7 @@ TEST("IntStack: pop and top throw on an empty stack") {
 TEST("IntStack: top() works on a const stack") {
     IntStack stack;
     stack.push(4);
-    const IntStack& view = stack;
+    const IntStack &view = stack;
     CHECK_EQ(view.top(), 4);
     CHECK_EQ(view.size(), 1);
 }

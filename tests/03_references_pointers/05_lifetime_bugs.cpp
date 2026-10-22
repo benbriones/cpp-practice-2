@@ -26,13 +26,13 @@ TEST("make_greeting") {
 
 TEST("first_or_default: non-empty list") {
     const std::vector<std::string> names{"Grace", "Alan"};
-    const std::string& first = first_or_default(names);
+    const std::string &first = first_or_default(names);
     CHECK_EQ(first, "Grace");
 }
 
 TEST("first_or_default: empty list") {
     const std::vector<std::string> names;
-    const std::string& first = first_or_default(names);
+    const std::string &first = first_or_default(names);
     CHECK_EQ(first, "anonymous user (no name given)");
 }
 

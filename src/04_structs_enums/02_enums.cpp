@@ -64,11 +64,11 @@ struct Position {
     int x{};
     int y{};
     // Lets you compare positions with ==. Operator overloading comes in module 13.
-    bool operator==(const Position&) const = default;
+    bool operator==(const Position &) const = default;
 };
 
 // Prints a Position as (x, y), so test failures read nicely.
-inline std::ostream& operator<<(std::ostream& out, Position p) {
+inline std::ostream &operator<<(std::ostream &out, Position p) {
     return out << "(" << p.x << ", " << p.y << ")";
 }
 

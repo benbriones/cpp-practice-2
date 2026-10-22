@@ -5,9 +5,9 @@
 #include <string>
 #include <vector>
 
-std::vector<int> ids(const std::vector<Task>& tasks) {
+std::vector<int> ids(const std::vector<Task> &tasks) {
     std::vector<int> out;
-    for (const Task& task : tasks) out.push_back(task.id);
+    for (const Task &task : tasks) out.push_back(task.id);
     return out;
 }
 
@@ -41,7 +41,7 @@ TEST("TodoList::find") {
     TodoList list;
     list.add("Buy milk");
     const int report = list.add("Write report", Priority::High);
-    const Task* task = list.find(report);
+    const Task *task = list.find(report);
     CHECK(task != nullptr, "find(2) returned nullptr");
     CHECK_EQ(task->id, 2);
     CHECK_EQ(task->title, "Write report");
