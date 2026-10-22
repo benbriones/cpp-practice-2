@@ -64,37 +64,59 @@
 //     alias = 30;
 //     int& again = first;
 //     again += 5;
-std::vector<int> trace_7() {
-    throw "TODO";
-}
+std::vector<int> trace_7() { return {15, 2, 30}; }
 
-// Clamp every element into [lo, hi] in place: below lo becomes lo, above hi becomes hi.
+// Clamp every element into [lo, hi] in place.
+// Values below lo become lo, values above hi become hi.
+// Values already within the range stay unchanged.
+//
+// Example:
+//   values = {2, 5, 10, 15, 20}
+//   clamp_all(values, 5, 15);
+//   values is now {5, 5, 10, 15, 15}
+//
+// Modifies the original vector; does not return anything.
 void clamp_all(std::vector<int>& values, int lo, int hi) {
-    throw "TODO";
+    for (int& v : values) {
+        if (v > hi) {
+            v = hi;
+        } else if (v < lo) {
+            v = lo;
+        }
+    }
 }
 
-// Whichever of a and b holds the larger value (a on ties). max_ref(x, y) = 0
-// zeroes the larger variable.
+// Return a reference to whichever variable has the larger value.
+// If both values are equal, return a reference to a.
+//
+// Example:
+//   int x = 10;
+//   int y = 20;
+//   max_ref(x, y) = 0;
+//   // x is still 10, y is now 0.
+//
+// Since the function returns a reference, assigning to its result
+// modifies the original variable, not a copy.
+
 int& max_ref(int& a, int& b) {
-    throw "TODO";
+    if (a == b) return a;
+
+    if (a > b) return a;
+
+    return b;
 }
 
 // The longest word (the first one on ties), without copying it. words is never empty.
-const std::string& longest(const std::vector<std::string>& words) {
-    throw "TODO";
-}
+const std::string& longest(const std::vector<std::string>& words) { throw "TODO"; }
 
 // The element at index, Python style: -1 is the last element, -2 the one before,
 // and indexes past either end wrap around, so index 3 of a 3-element vector is
 // element 0. values is never empty.
-int& at_wrapped(std::vector<int>& values, int index) {
-    throw "TODO";
-}
+int& at_wrapped(std::vector<int>& values, int index) { throw "TODO"; }
 
 // names[i]'s count is counts[i], and the two vectors are always the same size.
 // Return name's count, adding name with a count of 0 first if it isn't there:
 // ++count_for(names, counts, "ada") counts one more "ada".
-int& count_for(std::vector<std::string>& names, std::vector<int>& counts,
-               const std::string& name) {
+int& count_for(std::vector<std::string>& names, std::vector<int>& counts, const std::string& name) {
     throw "TODO";
 }
