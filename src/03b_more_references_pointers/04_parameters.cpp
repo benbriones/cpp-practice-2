@@ -56,6 +56,9 @@
 //
 // ./grade 03b_more_references_pointers/04_parameters
 
+#include <cctype>
+#include <cstddef>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -71,31 +74,75 @@
 //     add_ten(&x);
 //     add_hundred(x);
 //     misdirect(&x);
-int trace_6() {
-    throw "TODO";
-}
+int trace_6() { return 110; }
 
 // If c is a digit, write its value into digit ('7' gives 7) and return true.
 // Otherwise return false and leave digit alone.
 bool parse_digit(char c, int& digit) {
-    throw "TODO";
+    if (!std::isdigit(c)) return false;
+
+    int converted = c - '0';  // converts to an int
+
+    digit = converted;
+
+    return true;
 }
 
 // Split full at its first space: "Ada Lovelace" gives first "Ada" and last
 // "Lovelace". With no space, first is all of full and last is "".
 void split_name(const std::string& full, std::string& first, std::string& last) {
-    throw "TODO";
+    std::size_t spaceIndex = full.find(" ");
+
+    std::cout << "spaceIndex for:" << full << " " << spaceIndex;
+
+    if (spaceIndex == std::string::npos) {
+        first = full;
+        last = "";
+        return;
+    }
+
+    first = full.substr(0, spaceIndex);
+    last = full.substr(spaceIndex + 1);
+    return;
 }
 
 // Return the sum of values, and write the smallest into *min_out and the largest
 // into *max_out, skipping either one that is nullptr. If values is empty, return
 // 0 and write nothing.
 int sum_with_extremes(const std::vector<int>& values, int* min_out, int* max_out) {
-    throw "TODO";
+    if (values.empty()) return 0;
+
+    int sum = 0;
+    int currMin = values[0];
+    int currMax = values[0];
+
+    for (int v : values) {
+        if (!v) continue;
+
+        sum += v;
+
+        if (v > currMax) {
+            currMax = v;
+        }
+        if (v < currMin) {
+            currMin = v;
+        };
+    }
+
+    if (min_out != nullptr) {
+        *min_out = currMin;
+    }
+    if (max_out != nullptr) {
+        *max_out = currMax;
+    }
+
+    return sum;
 }
 
 // Make best point at candidate when best is nullptr or *candidate > *best.
 // candidate is never null.
 void keep_larger(int*& best, int* candidate) {
-    throw "TODO";
-}
+    if (best == nullptr || *candidate > *best) {
+        best = candidate;
+    }
+ }
