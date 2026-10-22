@@ -76,8 +76,16 @@
 //     misdirect(&x);
 int trace_6() { return 110; }
 
-// If c is a digit, write its value into digit ('7' gives 7) and return true.
-// Otherwise return false and leave digit alone.
+// Write the value of the digit character c into digit, and return true.
+// '7' gives 7, '0' gives 0, '9' gives 9.
+// If c isn't a digit, return false and leave digit alone.
+//
+// Example:
+//   int digit = 123;
+//   parse_digit('7', digit)   // returns true, digit is now 7
+//   parse_digit('a', digit)   // returns false, digit is still 7
+//
+// digit is an out parameter, so on failure the caller's old value survives.
 bool parse_digit(char c, int& digit) {
     if (!std::isdigit(c)) return false;
 
@@ -88,8 +96,17 @@ bool parse_digit(char c, int& digit) {
     return true;
 }
 
-// Split full at its first space: "Ada Lovelace" gives first "Ada" and last
-// "Lovelace". With no space, first is all of full and last is "".
+// Split full at its first space, writing the two parts into first and last.
+// Everything after that first space goes into last, including any later spaces.
+// With no space, first is all of full and last is "".
+//
+// Example:
+//   split_name("Ada Lovelace", first, last);
+//   // first is "Ada", last is "Lovelace"
+//   split_name("Cher", first, last);
+//   // first is "Cher", last is ""
+//
+// first and last are out parameters, overwritten whatever they held before.
 void split_name(const std::string& full, std::string& first, std::string& last) {
     std::size_t spaceIndex = full.find(" ");
 
@@ -106,9 +123,18 @@ void split_name(const std::string& full, std::string& first, std::string& last) 
     return;
 }
 
-// Return the sum of values, and write the smallest into *min_out and the largest
-// into *max_out, skipping either one that is nullptr. If values is empty, return
-// 0 and write nothing.
+// Return the sum of values.
+// Also write the smallest value into *min_out and the largest into *max_out.
+// Skip either out pointer that is nullptr.
+// If values is empty, return 0 and write nothing.
+//
+// Example:
+//   int lo = -999;
+//   int hi = -999;
+//   sum_with_extremes({4, 9, 1, 7}, &lo, &hi)    // returns 21, lo is 1, hi is 9
+//   sum_with_extremes({4, 9, 1}, &lo, nullptr)   // returns 14, writes only lo
+//
+// Passing nullptr lets the caller opt out of a result it doesn't need.
 int sum_with_extremes(const std::vector<int>& values, int* min_out, int* max_out) {
     if (values.empty()) return 0;
 
@@ -140,7 +166,17 @@ int sum_with_extremes(const std::vector<int>& values, int* min_out, int* max_out
 }
 
 // Make best point at candidate when best is nullptr or *candidate > *best.
+// Otherwise leave best alone, including on a tie.
 // candidate is never null.
+//
+// Example:
+//   int x = 5;
+//   int y = 9;
+//   int* best = nullptr;
+//   keep_larger(best, &x);   // best was nullptr, so it now points at x
+//   keep_larger(best, &y);   // 9 > 5, so best now points at y
+//
+// best is a reference to a pointer, so this re-points the caller's pointer.
 void keep_larger(int*& best, int* candidate) {
     if (best == nullptr || *candidate > *best) {
         best = candidate;

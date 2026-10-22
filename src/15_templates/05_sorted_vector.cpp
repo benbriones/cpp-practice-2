@@ -70,26 +70,71 @@ public:
     SortedVector() = default;
 
     // Start with these values, given in any order.
+    // Store them sorted by Compare; duplicates are kept.
+    //
+    // Example:
+    //   SortedVector<int> sorted{3, 1, 2};                    // holds {1, 2, 3}
+    //   SortedVector<int, std::greater<int>> desc{1, 3, 2};   // holds {3, 2, 1}
     SortedVector(std::initializer_list<T> values) { throw "TODO"; }
 
-    // Insert in order. A value equal to existing ones goes after them.
+    // Insert value at its place in the order, so the elements stay sorted.
+    // A value equal to existing ones goes after them.
+    //
+    // Example:
+    //   SortedVector<int> sorted;
+    //   for (int x : {5, 1, 4, 1, 3}) sorted.insert(x);
+    //   // sorted now holds {1, 1, 3, 4, 5}.
+    //
+    // "Equal" means neither goes before the other under Compare. With a comparator
+    // on priority only, inserting {2, "write"} then {2, "test"} keeps "write" first.
     void insert(const T& value) { throw "TODO"; }
 
     bool contains(const T& value) const { throw "TODO"; }
 
-    // How many elements are equal to value.
+    // Return how many elements are equal to value.
+    // Equal means neither goes before the other under Compare.
+    //
+    // Example:
+    //   SortedVector<int> sorted{2, 2, 1, 2, 3};
+    //   sorted.count(2) is 3, sorted.count(1) is 1, sorted.count(7) is 0
+    //
+    // Equal elements sit side by side, so binary search can find the whole run.
     std::size_t count(const T& value) const { throw "TODO"; }
 
-    // Remove one element equal to value. Return false if there wasn't one.
+    // Remove one element equal to value and return true.
+    // Return false, changing nothing, if there wasn't one.
+    //
+    // Example:
+    //   SortedVector<int> sorted{1, 2, 2, 3};
+    //   sorted.erase(2) returns true, and sorted holds {1, 2, 3}
+    //   sorted.erase(9) returns false, and size() is still 3
+    //
+    // Only one copy goes, even when several elements are equal to value.
     bool erase(const T& value) { throw "TODO"; }
 
     std::size_t size() const { throw "TODO"; }
 
-    // Read-only access by position: sorted[0] is the first element in order.
+    // Return the element at position index, read-only.
+    // sorted[0] is the first element in order.
+    //
+    // Example:
+    //   SortedVector<std::string> sorted{"pear", "apple", "fig"};
+    //   sorted[0] is "apple", sorted[1] is "fig", sorted[2] is "pear"
+    //
+    // It returns a const reference, so nobody can break the order by writing through it.
     const T& operator[](std::size_t index) const { throw "TODO"; }
 
-    // Read-only iterators, so range-for and <algorithm> work but nobody can
-    // break the order by writing through them.
+    // Return read-only iterators: begin() to the first element, end() one past the last.
+    // Range-for and <algorithm> work with them, but nobody can break the order
+    // by writing through them.
+    //
+    // Example:
+    //   SortedVector<int> sorted{4, 1, 3};
+    //   int total = 0;
+    //   for (int x : sorted) total += x;   // visits 1, 3, 4: total is 8
+    //   *sorted.begin() = 0;               // doesn't compile: the element is const
+    //
+    // That's why they return a const_iterator: *begin() is a const T&.
     const_iterator begin() const { throw "TODO"; }
     const_iterator end() const { throw "TODO"; }
 

@@ -55,15 +55,29 @@
 //
 // ./grade 10_memory/03_new_and_delete
 
-// A new heap array of `count` ints (count >= 1) holding the square of each
-// index: 0, 1, 4, 9, ... The caller owns it and will delete[] it.
+// Return a new heap array of `count` ints holding the square of each index.
+// count is always at least 1.
+//
+// Example:
+//   int* squares = make_squares(5);
+//   // squares holds {0, 1, 4, 9, 16}
+//   delete[] squares;
+//
+// The caller owns the array and will delete[] it.
 int* make_squares(int count) {
     throw "TODO";
 }
 
-// Resize a heap array: allocate new_size ints, copy as many old values as fit,
-// set any extra elements to 0, delete[] the old array, and return the new one.
-// resize_array({1, 2, 3}, 3, 5) gives {1, 2, 3, 0, 0}.
+// Resize a heap array and return the new one.
+// Allocate new_size ints, then copy in as many old values as fit.
+// Set any extra elements to 0, then delete[] the old array.
+//
+// Example:
+//   int* values = new int[3]{1, 2, 3};
+//   values = resize_array(values, 3, 5);   // values is now {1, 2, 3, 0, 0}
+//   values = resize_array(values, 5, 2);   // values is now {1, 2}
+//
+// old_values is freed, so the caller must switch to the returned pointer.
 int* resize_array(int* old_values, int old_size, int new_size) {
     throw "TODO";
 }
@@ -81,25 +95,52 @@ struct Node {
 };
 
 // Put a new node holding `value` in front of head and return it as the new head.
-//     Node* list = nullptr;
-//     list = push_front(list, 3);
-//     list = push_front(list, 1);     // list is now 1 -> 3
+// head may be nullptr (an empty list). The new node's next is the old head.
+//
+// Example:
+//   Node* list = nullptr;
+//   list = push_front(list, 3);
+//   list = push_front(list, 1);     // list is now 1 -> 3
+//
+// The node is made with new, so whoever owns the list must delete it later.
 Node* push_front(Node* head, int value) {
     throw "TODO";
 }
 
-// Sum of every value in the list; an empty list (nullptr) sums to 0.
+// Return the sum of every value in the list that starts at head.
+// An empty list (nullptr) sums to 0.
+//
+// Example:
+//   list is 10 -> -1 -> 4
+//   list_sum(list) == 13
+//   list_sum(nullptr) == 0
 int list_sum(const Node* head) {
     throw "TODO";
 }
 
-// Reverse the list by re-linking the existing nodes (create no new ones) and
-// return the new head: 1 -> 2 -> 3 becomes 3 -> 2 -> 1.
+// Reverse the list and return the new head.
+// Re-link the existing nodes: create no new ones.
+// An empty list (nullptr) or a one-node list comes back as it was.
+//
+// Example:
+//   list is 1 -> 2 -> 3
+//   list = reverse_list(list);
+//   // list is now 3 -> 2 -> 1, and the node holding 1 is last (its next is nullptr)
+//
+// Only the next pointers change; each node keeps its value.
 Node* reverse_list(Node* head) {
     throw "TODO";
 }
 
-// Delete every node. Careful: read node->next before deleting node.
+// Delete every node in the list that starts at head.
+// An empty list (nullptr) is fine: there's nothing to delete.
+//
+// Example:
+//   list is 1 -> 2 -> 3
+//   free_list(list);
+//   // all three nodes are deleted, so Node::live drops by 3
+//
+// Careful: read node->next before deleting node.
 void free_list(Node* head) {
     throw "TODO";
 }

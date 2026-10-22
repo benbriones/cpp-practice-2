@@ -49,13 +49,28 @@
 #include <string>
 #include <vector>
 
-// Write each line followed by '\n', replacing any existing content.
-// Throws std::runtime_error("can't write " + path) if the file can't be opened.
+// Write each line to the file at path, followed by '\n'.
+// Replace any existing content. An empty lines vector leaves an empty file.
+// Throw std::runtime_error("can't write " + path) if the file can't be opened.
+//
+// Example:
+//   write_lines("out.txt", {"alpha", "beta", "gamma"});
+//   // out.txt now holds "alpha\nbeta\ngamma\n"
+//
+// Opening the stream empties the file, even before anything is written.
 void write_lines(const std::string& path, const std::vector<std::string>& lines) {
     throw "TODO";
 }
 
-// Add text plus '\n' to the end of the file, creating the file if needed.
+// Add text plus '\n' to the end of the file at path.
+// Create the file if it doesn't exist yet. Keep whatever it already holds.
+//
+// Example:
+//   file holds "line 1\n"
+//   append_line(path, "line 2");
+//   // file now holds "line 1\nline 2\n"
+//
+// Unlike write_lines, nothing already in the file is lost.
 void append_line(const std::string& path, const std::string& text) {
     throw "TODO";
 }
@@ -65,7 +80,13 @@ struct Score {
     int points = 0;
 };
 
-// Write a report: names left-aligned in 10 columns, numbers right-aligned in 8.
+// Write a score report to the file at path: a header, one row per score, a total.
+// Names are left-aligned in 10 columns, numbers right-aligned in 8.
+// The dashed line is 18 '-' characters. Every line ends with '\n'.
+// Throw std::runtime_error("can't write " + path) if the file can't be opened.
+//
+// Example:
+//   write_report(path, {{"alice", 42}, {"bob", 7}}) writes:
 //
 //     name        points
 //     alice           42
@@ -73,14 +94,19 @@ struct Score {
 //     ------------------
 //     total           49
 //
-// The dashed line is 18 '-' characters. Every line ends with '\n'.
-// Throws std::runtime_error("can't write " + path) if the file can't be opened.
+// With no scores, the file holds just the header, the dashed line and a total of 0.
 void write_report(const std::string& path, const std::vector<Score>& scores) {
     throw "TODO";
 }
 
-// Copy src to dst byte for byte, and return true. If src can't be opened,
-// return false without creating dst.
+// Copy the file src to dst byte for byte, and return true.
+// Every byte must survive unchanged, including zero bytes and '\r'.
+// If src can't be opened, return false without creating dst.
+//
+// Example:
+//   copy_file("source.txt", "copy.txt") == true    // copy.txt now matches source.txt
+//   copy_file("ghost.txt", "new.txt") == false     // ghost.txt is missing; no new.txt
+//
 // Hint: open both with std::ios::binary; `out << in.rdbuf();` copies everything.
 bool copy_file(const std::string& src, const std::string& dst) {
     throw "TODO";

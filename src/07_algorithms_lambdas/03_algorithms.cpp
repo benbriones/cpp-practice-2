@@ -67,38 +67,80 @@
 #include <string>
 #include <vector>
 
-// How many words are longer than `length` characters.
+// Return how many words have more than `length` characters.
+// A word exactly `length` characters long doesn't count.
+//
+// Example:
+//   words = {"a", "tree", "is", "green", "and", "tall"}
+//   count_longer_than(words, 3) is 3    // "tree", "green", "tall"
+//   count_longer_than(words, 10) is 0
 int count_longer_than(const std::vector<std::string>& words, std::size_t length) {
     throw "TODO";
 }
 
-// Index of the first negative value, or -1 if there is none.
+// Return the index of the first negative value.
+// If there is no negative value, return -1. 0 is not negative.
 // std::distance(v.begin(), it) turns an iterator into an index.
+//
+// Example:
+//   first_negative_index({4, 2, -1, 8, -5}) is 2
+//   first_negative_index({1, 2, 3}) is -1
+//   first_negative_index({}) is -1
 int first_negative_index(const std::vector<int>& values) {
     throw "TODO";
 }
 
-// True if every value is positive. An empty vector counts as true.
+// Return true if every value is positive (greater than 0).
+// An empty vector counts as true.
+//
+// Example:
+//   all_positive({1, 2, 3}) is true
+//   all_positive({1, 0, 3}) is false
+//   all_positive({}) is true
 bool all_positive(const std::vector<int>& values) {
     throw "TODO";
 }
 
-// True if any word contains the given letter.
+// Return true if any word contains the given letter.
+// An empty vector gives false.
+//
+// Example:
+//   words = {"cat", "dog", "bird"}
+//   any_contains(words, 'o') is true    // "dog"
+//   any_contains(words, 'z') is false
 bool any_contains(const std::vector<std::string>& words, char letter) {
     throw "TODO";
 }
 
-// The product of all values; 1 for an empty vector. Must not overflow an int.
+// Return the product of all values multiplied together.
+// An empty vector gives 1.
+// The result can be bigger than an int, so it must not overflow an int along the way.
+//
+// Example:
+//   product({1, 2, 3, 4}) is 24
+//   product({7, 0, 9}) is 0
+//   product({100'000, 100'000}) is 10'000'000'000
 long long product(const std::vector<int>& values) {
     throw "TODO";
 }
 
-// Each value squared, in order. std::back_inserter(out) lets std::transform push_back.
+// Return each value squared, in the same order.
+// std::back_inserter(out) lets std::transform push_back.
+//
+// Example:
+//   squares({1, -2, 3}) is {1, 4, 9}
+//   squares({}) is {}
 std::vector<int> squares(const std::vector<int>& values) {
     throw "TODO";
 }
 
-// Largest minus smallest value; 0 for an empty vector.
+// Return the largest value minus the smallest value.
+// An empty vector gives 0.
+//
+// Example:
+//   spread({3, 9, 1, 4}) is 8    // 9 - 1
+//   spread({-5, 5}) is 10
+//   spread({7}) is 0
 int spread(const std::vector<int>& values) {
     throw "TODO";
 }

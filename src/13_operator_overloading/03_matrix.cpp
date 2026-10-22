@@ -59,12 +59,23 @@
 
 class Matrix {
 public:
-    // A rows × cols matrix of zeros. Throws std::invalid_argument unless both are positive.
+    // Build a rows × cols matrix with every element set to 0.
+    // Throw std::invalid_argument unless both rows and cols are positive.
+    //
+    // Example:
+    //   Matrix m(2, 3);   // m is {{0, 0, 0}, {0, 0, 0}}
+    //   Matrix(0, 3) and Matrix(2, -1) throw std::invalid_argument
     Matrix(int rows, int cols) {
         throw "TODO";
     }
 
-    // The n × n identity matrix: 1 on the diagonal, 0 everywhere else.
+    // Return the n × n identity matrix: 1 on the diagonal, 0 everywhere else.
+    //
+    // Example:
+    //   Matrix::identity(3) is {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}
+    //   Matrix::identity(1) is {{1}}
+    //
+    // Multiplying a matrix by an identity of the right size leaves it unchanged.
     static Matrix identity(int n) {
         throw "TODO";
     }
@@ -77,8 +88,16 @@ public:
         throw "TODO";
     }
 
-    // m(row, col), counting from 0. Throws std::out_of_range for a position
-    // outside the matrix. The non-const version lets you write: m(0, 1) = 5;
+    // Return a reference to the element at m(row, col), counting from 0.
+    // Throw std::out_of_range for a position outside the matrix:
+    // row must be in [0, rows()) and col must be in [0, cols()).
+    //
+    // Example:
+    //   Matrix m(2, 3);
+    //   m(1, 2) = 7;   // m is now {{0, 0, 0}, {0, 0, 7}}
+    //   m(2, 0), m(0, 3) and m(-1, 0) throw std::out_of_range
+    //
+    // The non-const version lets you write: m(0, 1) = 5;
     double& operator()(int row, int col) {
         throw "TODO";
     }
@@ -91,19 +110,36 @@ private:
     // TODO: data members
 };
 
-// The matrix product. Throws std::invalid_argument unless a.cols() == b.rows().
+// Return the matrix product a * b, which has a.rows() rows and b.cols() columns.
+// Throw std::invalid_argument unless a.cols() == b.rows().
 // result(r, c) is the sum over k of a(r, k) * b(k, c).
+//
+// Example:
+//   a = {{1, 2}, {3, 4}}, b = {{5, 6}, {7, 8}}
+//   a * b is {{19, 22}, {43, 50}}    // result(0, 0) = 1*5 + 2*7 = 19
+//   b * a is {{23, 34}, {31, 46}}    // order matters
+//   Matrix(2, 3) * Matrix(2, 3) throws std::invalid_argument
 Matrix operator*(const Matrix& a, const Matrix& b) {
     throw "TODO";
 }
 
-// Equal when both the shape and every element match.
+// Return true when both the shape and every element match.
+//
+// Example:
+//   {{1, 2}, {3, 4}} == {{1, 2}, {3, 4}} is true
+//   {{1, 2}, {3, 4}} == {{1, 2}, {3, 5}} is false
+//   Matrix(1, 4) == Matrix(2, 2) is false: same element count, different shape
 bool operator==(const Matrix& a, const Matrix& b) {
     throw "TODO";
 }
 
-// One line per row, elements separated by single spaces, each line ending
-// with '\n': {{1, 2}, {3, 4}} prints "1 2\n3 4\n". Print numbers with plain <<.
+// Print m with one line per row, each line ending with '\n'.
+// Separate the elements in a row with single spaces.
+// Print numbers with plain <<.
+//
+// Example:
+//   {{1, 2}, {3, 4}} prints "1 2\n3 4\n"
+//   {{1, 2}, {3, 4.5}} prints "1 2\n3 4.5\n"
 std::ostream& operator<<(std::ostream& out, const Matrix& m) {
     throw "TODO";
 }

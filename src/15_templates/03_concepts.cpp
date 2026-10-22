@@ -64,37 +64,80 @@
 #include <type_traits>
 #include <vector>
 
-// Greatest common divisor, never negative: gcd(-12, 18) == 6, gcd(0, 5) == 5.
-// Constrain T so only integer types are accepted (gcd(1.5, 2.5) must not compile).
+// Return the greatest common divisor of a and b.
+// The result is never negative, even when a or b is.
+// Constrain T so only integer types are accepted: gcd(1.5, 2.5) must not compile.
+//
+// Example:
+//   gcd(12, 18) == 6
+//   gcd(-12, 18) == 6
+//   gcd(0, 5) == 5
+//   gcd(48u, 36u) == 12u
+//
+// With a constraint, a bad call is rejected at the call site, not inside the body.
 template <typename T>
 T gcd(T a, T b) {
     throw "TODO";
 }
 
-// value limited to [low, high]. Constrain T with std::totally_ordered, so it works
-// for numbers and strings but not for types that can't be compared with <.
+// Return value limited to [low, high]: low if it's below, high if it's above.
+// Constrain T with std::totally_ordered, so it works for numbers and strings
+// but not for types that can't be compared with <.
+//
+// Example:
+//   clamp_to(5, 0, 10) == 5
+//   clamp_to(-3, 0, 10) == 0
+//   clamp_to(42, 0, 10) == 10
+//   clamp_to(std::string("melon"), std::string("b"), std::string("k")) == "k"
+//
+// Strings compare alphabetically, so "melon" comes after "k" and clamps down to it.
 template <typename T>
 T clamp_to(const T& value, const T& low, const T& high) {
     throw "TODO";
 }
 
-// Replace `true` with a requires-expression: T must have a const member function
-// area() whose result converts to double.
+// Replace `true` with a requires-expression.
+// T must have a const member function area() whose result converts to double.
+//
+// Example:
+//   struct Square { double side; double area() const { return side * side; } };
+//   HasArea<Square> is true
+//   HasArea<int> is false: int has no area()
+//   HasArea<Fancy> is false when Fancy::area() returns a std::string
+//
+// Check area() on a const T&, so a non-const area() doesn't count.
 template <typename T>
 concept HasArea = true;
 
-// Total area of a vector of shapes of any type that satisfies HasArea.
+// Return the total area of a vector of shapes, adding up each shape's area().
+// It works for any type that satisfies HasArea. An empty vector gives 0.0.
+//
+// Example:
+//   std::vector<Square> squares{{2}, {3}};   // areas 4 and 9
+//   total_area(squares) is 13.0
+//   total_area(std::vector<Square>{}) is 0.0
+//
+// A vector of a type without a numeric area() is rejected at the call.
 template <HasArea T>
 double total_area(const std::vector<T>& shapes) {
     throw "TODO";
 }
 
-// Decide at compile time:
+// Return a word naming T's category, decided at compile time:
 //   "boolean" for bool (careful: bool counts as an integral type),
 //   "integer" for other integer types, char included,
 //   "decimal" for floating-point types,
 //   "text"    for std::string, std::string_view and const char*,
 //   "other"   for everything else.
+//
+// Example:
+//   type_category<bool>() is "boolean"
+//   type_category<char>() is "integer"
+//   type_category<double>() is "decimal"
+//   type_category<const char*>() is "text"
+//   type_category<int*>() is "other"
+//
+// The first true branch wins, so check bool before the general integer case.
 template <typename T>
 std::string type_category() {
     throw "TODO";

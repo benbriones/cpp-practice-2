@@ -48,6 +48,11 @@
 #include <vector>
 
 // A thread-safe counter with no mutex.
+// It starts at 0. increment() adds 1, and value() reads the count.
+//
+// Example:
+//   8 threads each call counter.increment() 20,000 times
+//   after joining them all, counter.value() is 160,000
 class AtomicCounter {
 public:
     void increment() {
@@ -71,20 +76,44 @@ bool is_prime(int n) {
     return true;
 }
 
-// How many primes p satisfy from <= p < to.
+// Return how many primes p satisfy from <= p < to.
+// The range includes from but not to, so from == to gives 0.
+//
+// Example:
+//   count_primes(0, 10) == 4    // 2, 3, 5, 7
+//   count_primes(10, 20) == 4   // 11, 13, 17, 19
+//   count_primes(2, 3) == 1
+//   count_primes(20, 20) == 0
 int count_primes(int from, int to) {
     throw "TODO";
 }
 
-// Primes below `limit`, counted by `parts` std::async tasks that each handle
-// one range of numbers. parts is at least 1.
+// Return how many primes are below `limit`.
+// Count them with `parts` std::async tasks that each handle one range of numbers.
+// parts is at least 1, and may be more than limit.
+//
+// Example:
+//   count_primes_async(10, 1) == 4
+//   count_primes_async(100, 3) == 25
+//   count_primes_async(5, 10) == 2   // more parts than numbers
+//   count_primes_async(0, 4) == 0
+//
+// Start every task before calling get() on any, so they run at the same time.
 int count_primes_async(int limit, int parts) {
     throw "TODO";
 }
 
 // Parse every text with std::stoi in its own async task and return the sum.
+// An empty vector gives 0.
 // If any text isn't a number, std::stoi throws std::invalid_argument; let it
 // reach the caller (future.get() rethrows it).
+//
+// Example:
+//   sum_parsed_async({"1", "20", "-3", "300"}) == 318
+//   sum_parsed_async({}) == 0
+//   sum_parsed_async({"1", "two", "3"}) throws std::invalid_argument
+//
+// No catch is needed: get() carries the task's exception back to the caller.
 int sum_parsed_async(const std::vector<std::string>& texts) {
     throw "TODO";
 }

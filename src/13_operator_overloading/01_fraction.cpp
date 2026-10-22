@@ -64,6 +64,15 @@
 
 class Fraction {
 public:
+    // Build the fraction numerator/denominator, stored in lowest terms.
+    // Keep the sign on the numerator, so the stored denominator is always positive.
+    // Zero is stored as 0/1. A zero denominator throws std::invalid_argument.
+    //
+    // Example:
+    //   Fraction(2, 4) stores 1/2, Fraction(-3, -6) stores 1/2
+    //   Fraction(2, -4) stores -1/2, Fraction(0, -5) stores 0/1
+    //   Fraction(3) stores 3/1, Fraction() stores 0/1
+    //
     // Not explicit on purpose: a whole number converts to n/1, so f + 1 works.
     Fraction(long long numerator = 0, long long denominator = 1) {
         throw "TODO";
@@ -77,12 +86,21 @@ public:
         throw "TODO";
     }
 
-    // Unary minus: -Fraction(2, 3) is -2/3.
+    // Unary minus: return this fraction with its sign flipped.
+    // The fraction itself doesn't change.
+    //
+    // Example:
+    //   -Fraction(2, 3) is -2/3, -Fraction(-2, 3) is 2/3
     Fraction operator-() const {
         throw "TODO";
     }
 
-    // Conversion to double, only when asked for: static_cast<double>(f).
+    // Convert to double, only when asked for: static_cast<double>(f).
+    // Being explicit, it never runs implicitly, as in `double d = f;`.
+    //
+    // Example:
+    //   static_cast<double>(Fraction(1, 4)) is 0.25
+    //   static_cast<double>(Fraction(-7, 2)) is -3.5
     explicit operator double() const {
         throw "TODO";
     }
@@ -103,7 +121,13 @@ Fraction operator*(const Fraction& a, const Fraction& b) {
     throw "TODO";
 }
 
+// Return a divided by b, in lowest terms.
 // Dividing by a zero fraction throws std::invalid_argument.
+//
+// Example:
+//   Fraction(1, 2) / Fraction(1, 4) is 2/1
+//   Fraction(1, 2) / Fraction(-1, 4) is -2/1
+//   Fraction(1, 2) / Fraction(0) throws std::invalid_argument
 Fraction operator/(const Fraction& a, const Fraction& b) {
     throw "TODO";
 }
@@ -112,14 +136,27 @@ bool operator==(const Fraction& a, const Fraction& b) {
     throw "TODO";
 }
 
+// Return whether a is less than, equal to or greater than b.
 // Compare a/b with c/d by comparing a*d with c*b (denominators are positive).
 // Integers already support <=>: (x <=> y) is a std::strong_ordering.
+//
+// Example:
+//   Fraction(1, 3) < Fraction(1, 2)      // 1*2 = 2 is less than 1*3 = 3
+//   Fraction(-1, 2) < Fraction(-1, 3)    // -1*3 = -3 is less than -1*2 = -2
+//   Fraction(2, 4) <= Fraction(1, 2)     // equal: both are 1/2
+//
+// The compiler derives < <= > >= from this one function.
 std::strong_ordering operator<=>(const Fraction& a, const Fraction& b) {
     throw "TODO";
 }
 
-// Prints "3/4", "-1/2", or just "2" when the denominator is 1.
+// Print f as "numerator/denominator", like "3/4" or "-1/2".
+// Print just the numerator, like "2", when the denominator is 1.
 // Return the stream so calls chain: out << a << " " << b.
+//
+// Example:
+//   out << Fraction(3, 4) << " " << Fraction(4, 2);    // prints "3/4 2"
+//   out << Fraction(1, -2) << " " << Fraction(0);      // prints "-1/2 0"
 std::ostream& operator<<(std::ostream& out, const Fraction& f) {
     throw "TODO";
 }

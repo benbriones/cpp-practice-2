@@ -53,6 +53,13 @@
 #include <mutex>
 
 // A counter that many threads can update at the same time.
+// It starts at 0. increment() adds 1, add(amount) adds amount, value() reads it.
+//
+// Example:
+//   8 threads each call counter.increment() 20,000 times
+//   after joining them all, counter.value() is 160,000
+//
+// No update may be lost, even when two threads change the count at once.
 class SafeCounter {
 public:
     void increment() {
@@ -77,16 +84,32 @@ struct Account {
     std::mutex mutex{};
 };
 
-// Move `amount` from one account to the other and return true, or return false
-// and change nothing when amount <= 0, `from` lacks the funds, or both
-// arguments are the same account (locking one mutex twice would deadlock).
+// Move `amount` from `from` to `to` and return true.
+// Return false and change nothing when amount <= 0, `from` lacks the funds,
+// or both arguments are the same account (locking one mutex twice would deadlock).
 // Two threads may transfer in opposite directions at the same moment, so lock
 // both accounts together.
+//
+// Example:
+//   Account alice{100};
+//   Account bob{20};
+//   transfer(alice, bob, 30) returns true: alice now has 70, bob has 50
+//   transfer(alice, bob, 71) returns false: alice has only 70
+//   transfer(alice, bob, 0) and transfer(alice, alice, 10) return false
+//
+// Moving the whole balance is allowed: `from` may end at exactly 0.
 bool transfer(Account& from, Account& to, long long amount) {
     throw "TODO";
 }
 
-// Read an account's balance safely while other threads may be transferring.
+// Return account's balance.
+// Read it safely: other threads may be transferring at the same moment.
+//
+// Example:
+//   Account alice{42};
+//   read_balance(alice) is 42
+//
+// Reads need the lock too, or they race with a transfer's writes.
 long long read_balance(Account& account) {
     throw "TODO";
 }

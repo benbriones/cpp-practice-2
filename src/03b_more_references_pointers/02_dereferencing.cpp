@@ -75,8 +75,18 @@ std::pair<int, int> trace_3() { return {30, 40}; }
 //     m += 1;
 std::pair<int, int> trace_4() { return {70, 71}; }
 
-// Rotate the three values left: a gets b's value, b gets c's, and c gets a's.
+// Rotate the three values that a, b and c point at one place to the left.
+// a gets b's value, b gets c's, and c gets a's original value.
 // None of the pointers is null.
+//
+// Example:
+//   int x = 1;
+//   int y = 2;
+//   int z = 3;
+//   rotate_three(&x, &y, &z);
+//   // x is now 2, y is 3, z is 1
+//
+// Writes through the pointers, so the caller's variables change.
 void rotate_three(int* a, int* b, int* c) {
     int temp_a = *a;
 
@@ -85,8 +95,17 @@ void rotate_three(int* a, int* b, int* c) {
     *c = temp_a;
 }
 
-// Add amount to every int the pointers point at, skipping nullptrs. A pointer
-// that appears twice gets amount added twice.
+// Add amount to every int that the pointers in targets point at.
+// Skip any pointer that is nullptr.
+// A pointer that appears twice gets amount added twice.
+//
+// Example:
+//   int x = 0;
+//   int y = 0;
+//   add_to_each({&x, &y, &x}, 3);   // x is now 6, y is 3
+//   add_to_each({nullptr, &y}, 1);  // y is now 4
+//
+// targets is const, but the ints it points at can still be changed.
 void add_to_each(const std::vector<int*>& targets, int amount) {
     for (int* t : targets) {
         if (!t) continue;
@@ -95,8 +114,17 @@ void add_to_each(const std::vector<int*>& targets, int amount) {
     }
 }
 
-// A pointer to whichever of *a and *b is larger (a on ties). Neither is null.
-// The caller can write through it: *larger_of(&x, &y) = 0 zeroes the larger.
+// Return a pointer to whichever of *a and *b holds the larger value.
+// If both values are equal, return a.
+// Neither pointer is null.
+//
+// Example:
+//   int x = 3;
+//   int y = 8;
+//   *larger_of(&x, &y) = 0;
+//   // x is still 3, y is now 0
+//
+// The result points at the caller's variable, so writing through it changes that variable.
 int* larger_of(int* a, int* b) {
     int* answer;
 

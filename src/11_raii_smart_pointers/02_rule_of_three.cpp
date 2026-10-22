@@ -72,23 +72,51 @@ void release(int* block) {
 
 class Buffer {
 public:
-    // A buffer of `size` zeros, in a block from allocate().
+    // Make a buffer of `size` zeros, in a block from allocate().
+    // The buffer owns that block until its destructor releases it.
+    //
+    // Example:
+    //   Buffer b(3);
+    //   // b.size() == 3, b.get(0) == 0, b.get(2) == 0, and live_blocks went up by 1
     explicit Buffer(int size) {
         throw "TODO";
     }
 
-    // Release the block.
+    // Release the block, with release() rather than delete[].
+    //
+    // Example:
+    //   {
+    //       Buffer b(4);    // live_blocks goes up by 1
+    //   }                   // b dies here, and live_blocks goes back down by 1
     ~Buffer() {
         // TODO
     }
 
-    // A deep copy: a new block with the same contents.
+    // Make a deep copy: a new block with the same size and contents.
+    // Changing one buffer afterwards never changes the other.
+    //
+    // Example:
+    //   Buffer original(2);
+    //   original.set(0, 7);
+    //   Buffer copy = original;   // copy holds {7, 0}, in a block of its own
+    //   copy.set(0, 99);          // original.get(0) is still 7
+    //
+    // Each buffer owns its own block, so each destructor releases a different one.
     Buffer(const Buffer& other) {
         throw "TODO";
     }
 
     // Make this buffer an independent copy of other and return *this.
     // Don't leak the block this buffer held before, and survive `b = b`.
+    // The size can change: a 10-int buffer assigned from a 3-int one holds 3 ints.
+    //
+    // Example:
+    //   Buffer a(1), b(1), c(2);
+    //   c.set(1, 8);
+    //   a = b = c;    // a and b both hold {0, 8} now, each in its own block
+    //   b = b;        // b still holds {0, 8}, and nothing leaks
+    //
+    // Returning *this is what lets a = b = c work: b = c runs first, then a = b.
     Buffer& operator=(const Buffer& other) {
         throw "TODO";
     }

@@ -57,24 +57,43 @@
 #include <string_view>
 #include <vector>
 
-// True if every (, [ and { is closed by its matching bracket in the right order.
-// Other characters are ignored: "f(a[1]) { }" is balanced; "(]", "((" and ")(" are not.
+// Return true if every (, [ and { is closed by its matching bracket in the right order.
+// Other characters are ignored, so text with no brackets at all is balanced.
+//
+// Example:
+//   balanced_brackets("f(a[1]) { }") is true
+//   balanced_brackets("(]") is false     // wrong kind of bracket
+//   balanced_brackets("([)]") is false   // closed in the wrong order
+//   balanced_brackets("((") is false     // left open
+//   balanced_brackets(")(") is false     // closed before it was opened
 bool balanced_brackets(std::string_view text) {
     throw "TODO";
 }
 
-// Evaluate Reverse Polish Notation: {"3", "4", "+", "2", "*"} means (3 + 4) * 2 == 14.
+// Evaluate an expression in Reverse Polish Notation and return its value.
 // A token is an integer (maybe negative, like "-3") or one of + - * / (integer division).
 // std::stoi(token) turns "42" into 42 and throws std::invalid_argument for "x".
 // Throw std::invalid_argument for an operator without two operands, division by zero,
 // an unknown token, or anything other than exactly one number left at the end.
+//
+// Example:
+//   evaluate_rpn({"3", "4", "+", "2", "*"}) is 14   // (3 + 4) * 2
+//   evaluate_rpn({"3", "4", "-"}) is -1             // 3 - 4, not 4 - 3
+//   evaluate_rpn({"1", "+"}) throws std::invalid_argument
+//   evaluate_rpn({"1", "2"}) throws std::invalid_argument
 int evaluate_rpn(const std::vector<std::string>& tokens) {
     throw "TODO";
 }
 
+// Return the number of the last person standing.
 // People 1..n stand in a circle. Counting from person 1, every k-th person leaves, and
-// counting continues with the next person. Return the number of the last one standing.
-// last_survivor(7, 3) == 4: people leave in the order 3, 6, 2, 7, 5, 1.
+// counting continues with the next person.
+//
+// Example:
+//   last_survivor(7, 3) is 4   // people leave in the order 3, 6, 2, 7, 5, 1
+//   last_survivor(5, 2) is 3
+//   last_survivor(1, 5) is 1   // one person is already the last one standing
+//
 // Use a std::queue: send people from the front to the back while you count.
 int last_survivor(int n, int k) {
     throw "TODO";

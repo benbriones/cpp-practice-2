@@ -58,23 +58,42 @@
 #include <utility>
 #include <vector>
 
-// Indices {i, j} with i < j and values[i] + values[j] == target, or std::nullopt.
+// Return indices {i, j} with i < j and values[i] + values[j] == target.
+// Return std::nullopt if no such pair exists.
 // If several pairs work, return the one with the smallest j, and for that j the smallest i.
 // Must run in O(n): one pass, remembering where each value was first seen.
+//
+// Example:
+//   two_sum({2, 7, 11, 15}, 9) is {0, 1}
+//   two_sum({1, 4, 4, 3, 0}, 4) is {0, 3}   // j = 3 is the smallest j that works
+//   two_sum({3, 3}, 6) is {0, 1}            // equal values at different indices are fine
+//   two_sum({3, 5}, 6) is std::nullopt      // the same index can't be used twice
 std::optional<std::pair<std::size_t, std::size_t>> two_sum(const std::vector<int>& values,
                                                            int target) {
     throw "TODO";
 }
 
-// Index of the first character that appears exactly once in text, or std::nullopt.
-// first_unique_char("swiss") == 1 (the 'w').
+// Return the index of the first character that appears exactly once in text.
+// Return std::nullopt if no character appears exactly once, or text is empty.
+//
+// Example:
+//   first_unique_char("swiss") is 1      // the 'w'
+//   first_unique_char("aabbc") is 4      // the 'c'
+//   first_unique_char("aabb") is std::nullopt
 std::optional<std::size_t> first_unique_char(std::string_view text) {
     throw "TODO";
 }
 
 // Group words that are anagrams of each other (same letters, any order).
 // Groups appear in the order their first word appears; words keep their input order.
-// group_anagrams({"eat", "tea", "tan", "ate", "nat"}) == {{"eat", "tea", "ate"}, {"tan", "nat"}}
+// A repeated word is kept, in its group, each time it appears.
+//
+// Example:
+//   group_anagrams({"eat", "tea", "tan", "ate", "nat"})
+//     is {{"eat", "tea", "ate"}, {"tan", "nat"}}
+//   group_anagrams({"ab", "ba", "ab"}) is {{"ab", "ba", "ab"}}
+//   group_anagrams({}) is {}
+//
 // Hint: anagrams are equal once sorted: std::sort(key.begin(), key.end()) on a copy.
 std::vector<std::vector<std::string>> group_anagrams(const std::vector<std::string>& words) {
     throw "TODO";

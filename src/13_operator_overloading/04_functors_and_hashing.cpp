@@ -64,25 +64,51 @@
 #include <unordered_set>
 #include <vector>
 
-// Orders strings by length, shortest first. Strings of equal length fall back
-// to alphabetical order, so two different strings never count as equal.
+// Order strings by length, shortest first: less(a, b) is true when a comes before b.
+// Strings of equal length fall back to alphabetical order,
+// so two different strings never count as equal.
+// A string never comes before itself.
+//
+// Example:
+//   ByLength less;
+//   less("a", "bb") and less("zz", "aaa") are true       // shorter wins
+//   less("aa", "ab") is true, less("ab", "aa") is false  // same length: alphabetical
+//   less("same", "same") is false
 struct ByLength {
     bool operator()(const std::string& a, const std::string& b) const {
         throw "TODO";
     }
 };
 
-// Sorts words in place using ByLength.
+// Sort words in place using ByLength.
+//
+// Example:
+//   words = {"ccc", "a", "bb", "aa", "b"}
+//   sort_by_length(words);
+//   // words is now {"a", "b", "aa", "bb", "ccc"}
 void sort_by_length(std::vector<std::string>& words) {
     throw "TODO";
 }
 
-// The distinct words in ByLength order. Collect them in a std::set<std::string, ByLength>.
+// Return the distinct words in ByLength order.
+// Collect them in a std::set<std::string, ByLength>, which drops duplicates.
+// An empty list gives an empty result.
+//
+// Example:
+//   distinct_by_length({"pear", "fig", "apple", "fig", "kiwi", "pear"})
+//   returns {"fig", "kiwi", "pear", "apple"}
+//
+// The set sorts with ByLength, so its elements are already in the right order.
 std::vector<std::string> distinct_by_length(const std::vector<std::string>& words) {
     throw "TODO";
 }
 
 // A predicate with data: true when low <= value <= high.
+// Both bounds are inclusive.
+//
+// Example:
+//   InRange teens{13, 19};
+//   teens(13), teens(15) and teens(19) are true; teens(12) and teens(20) are false
 struct InRange {
     int low = 0;
     int high = 0;
@@ -92,7 +118,13 @@ struct InRange {
     }
 };
 
-// How many values lie in [low, high]: std::count_if with an InRange.
+// Return how many values lie in [low, high], both bounds included.
+// Use std::count_if with an InRange.
+//
+// Example:
+//   count_in_range({1, 5, 10, 15, 20}, 5, 15) returns 3   // 5, 10 and 15
+//   count_in_range({-3, -2, 0, 2}, -2, 1) returns 2       // -2 and 0
+//   count_in_range({}, 0, 100) returns 0
 int count_in_range(const std::vector<int>& values, int low, int high) {
     throw "TODO";
 }
@@ -108,22 +140,42 @@ std::ostream& operator<<(std::ostream& out, const Point& p) {
     return out << "(" << p.x << ", " << p.y << ")";
 }
 
-// Equal points must hash equal, and different points should rarely collide:
-// the tests expect a 20 × 20 grid of points to produce at least 390 different
-// hashes. (x ^ y is a classic bad choice; try x * 31 + y on the std::hash values.)
+// Return a hash for p. Equal points must hash equal.
+// Different points should rarely collide: the tests expect a 20 × 20 grid
+// of points to produce at least 390 different hashes.
+// x ^ y is a classic bad choice; try x * 31 + y on the std::hash values.
+//
+// Example:
+//   PointHash hash;
+//   hash(Point{3, 4}) == hash(Point{3, 4})
+//   hash(Point{1, 2}) != hash(Point{2, 1})   // order matters
 struct PointHash {
     std::size_t operator()(const Point& p) const {
         throw "TODO";
     }
 };
 
-// How many different points the list contains. Use std::unordered_set<Point, PointHash>.
+// Return how many different points the list contains.
+// Use std::unordered_set<Point, PointHash>.
+//
+// Example:
+//   count_distinct({{0, 0}, {1, 2}, {0, 0}, {2, 1}, {1, 2}}) returns 3
+//   count_distinct({}) returns 0
 std::size_t count_distinct(const std::vector<Point>& points) {
     throw "TODO";
 }
 
-// The point that appears most often, counted with std::unordered_map<Point, int, PointHash>.
-// On a tie, the one that appears first in the list. std::nullopt for an empty list.
+// Return the point that appears most often in points.
+// Count with std::unordered_map<Point, int, PointHash>.
+// On a tie, return the one that appears first in the list.
+// Return std::nullopt for an empty list.
+//
+// Example:
+//   most_visited({{0, 0}, {1, 1}, {1, 1}, {2, 2}, {1, 1}, {0, 0}}) is Point{1, 1}
+//   most_visited({{2, 2}, {1, 1}, {1, 1}, {2, 2}}) is Point{2, 2}   // tie: first wins
+//   most_visited({}) is std::nullopt
+//
+// The map iterates in no particular order, so settle ties by walking the list.
 std::optional<Point> most_visited(const std::vector<Point>& points) {
     throw "TODO";
 }

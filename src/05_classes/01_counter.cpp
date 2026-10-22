@@ -67,23 +67,48 @@
 
 class Counter {
 public:
-    // Start at `start` and count in steps of `step`. Throw std::invalid_argument if
-    // start < 0 or step <= 0. `explicit` stops a plain int silently becoming a Counter.
+    // Create a Counter that starts at `start` and counts in steps of `step`.
+    // Throw std::invalid_argument if start < 0 or step <= 0.
+    //
+    // Example:
+    //   Counter a;          // starts at 0, counts in steps of 1
+    //   Counter b(10, 5);   // starts at 10, counts in steps of 5
+    //   Counter(3, -1);     // throws std::invalid_argument
+    //
+    // `explicit` stops a plain int silently becoming a Counter.
     explicit Counter(int start = 0, int step = 1) {
         throw "TODO";
     }
 
-    // Add one step.
+    // Add one step to the value.
+    //
+    // Example:
+    //   Counter c(10, 5);
+    //   c.increment();   // c.value() is 15
+    //   c.increment();   // c.value() is 20
     void increment() {
         throw "TODO";
     }
 
-    // Subtract one step, stopping at 0: a Counter at 2 with step 5 decrements to 0.
+    // Subtract one step from the value, stopping at 0.
+    // The value never goes below 0: a Counter at 2 with step 5 decrements to 0.
+    //
+    // Example:
+    //   Counter c(4, 3);
+    //   c.decrement();   // c.value() is 1
+    //   c.decrement();   // c.value() is 0, not -2
+    //   c.decrement();   // c.value() stays 0
     void decrement() {
         throw "TODO";
     }
 
-    // Go back to the starting value.
+    // Set the value back to the starting value.
+    //
+    // Example:
+    //   Counter c(2, 2);
+    //   c.increment();
+    //   c.increment();   // c.value() is 6
+    //   c.reset();       // c.value() is 2 again
     void reset() {
         throw "TODO";
     }

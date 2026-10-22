@@ -84,8 +84,13 @@
 
 class Canvas {
 public:
-    // A blank canvas (all spaces). Throws std::invalid_argument unless both
-    // sizes are at least 1.
+    // Create a width × height canvas with every cell set to ' ' (blank).
+    // Throw std::invalid_argument unless both width and height are at least 1.
+    //
+    // Example:
+    //   Canvas canvas(3, 2);   // two rows of three spaces
+    //   Canvas(0, 5);          // throws std::invalid_argument
+    //   Canvas(5, -1);         // throws std::invalid_argument
     Canvas(int width, int height) {
         throw "TODO";
     }
@@ -98,18 +103,42 @@ public:
         throw "TODO";
     }
 
-    // Writes one cell; does nothing outside the canvas.
+    // Set the cell at column x, row y to c.
+    // (0, 0) is the top-left cell, and y grows downward.
+    // Do nothing if (x, y) is outside the canvas.
+    //
+    // Example:
+    //   Canvas canvas(3, 2);
+    //   canvas.set(2, 1, 'b');    // the bottom-right cell is now 'b'
+    //   canvas.set(-1, 0, 'x');   // outside the canvas: ignored
+    //
+    // If every shape draws through set, no shape has to clip itself.
     void set(int x, int y, char c) {
         throw "TODO";
     }
 
-    // Reads one cell; ' ' outside the canvas.
+    // Return the character in the cell at column x, row y.
+    // Return ' ' if (x, y) is outside the canvas.
+    //
+    // Example:
+    //   Canvas canvas(3, 2);
+    //   canvas.set(0, 0, 'a');
+    //   canvas.get(0, 0);   // 'a'
+    //   canvas.get(1, 0);   // ' ', since nothing was drawn there
+    //   canvas.get(5, 5);   // ' ', since it's outside the canvas
     char get(int x, int y) const {
         throw "TODO";
     }
 
-    // The grid inside a border, each line ending in '\n'. A 3×1 canvas with
-    // an 'a' in the middle renders as:
+    // Return the grid inside a border, as one string.
+    // The top and bottom border lines are '+', one '-' per column, then '+'.
+    // Each grid row is wrapped in '|' on both sides.
+    // Every line, including the last one, ends in '\n'.
+    //
+    // Example:
+    //   Canvas canvas(3, 1);
+    //   canvas.set(1, 0, 'a');
+    //   canvas.render() is "+---+\n| a |\n+---+\n", which prints as:
     //     +---+
     //     | a |
     //     +---+
@@ -130,8 +159,18 @@ public:
 
 // TODO: your shape classes
 
-// One shape line (not the canvas line) → a shape, or nullptr if the line isn't
-// a valid shape.
+// Turn one shape line (never the canvas line) into the matching shape.
+// Return nullptr if the line isn't a valid shape: an unknown kind, the wrong number of
+// words, a number that isn't a strict integer, a width or height below 1, a <char>
+// that isn't one character, or a line that isn't horizontal, vertical or 45° diagonal.
+//
+// Example:
+//   parse_shape("point 1 1 #")      // a shape that draws '#' at (1, 1)
+//   parse_shape("rect 0 0 4 3 #")   // a 4 × 3 outline with its top-left corner at (0, 0)
+//   parse_shape("point 1.5 2 #")    // nullptr: 1.5 isn't an integer
+//   parse_shape("line 0 0 3 1 -")   // nullptr: not horizontal, vertical or 45° diagonal
+//
+// It returns std::unique_ptr<Shape>, so the caller can own any kind of shape.
 std::unique_ptr<Shape> parse_shape(std::string_view line) {
     throw "TODO";
 }

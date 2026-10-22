@@ -79,20 +79,48 @@ public:
 
     Inventory();
 
-    // Change an item's count by quantity (negative removes). Keep the result in
-    // 0..kMaxPerItem using clamp_value. An item whose count reaches 0 is dropped.
+    // Change item's count by quantity; a negative quantity removes some.
+    // Keep the result in 0..kMaxPerItem using clamp_value.
+    // An item whose count reaches 0 is dropped.
+    //
+    // Example:
+    //   add("apple", 5) then add("apple", 3): count("apple") is 8
+    //   add("bolt", 600) twice: count("bolt") is 999 (kMaxPerItem), not 1200
+    //   add("pear", 5) then add("pear", -8): the count clamps to 0, so pear is dropped
+    //
+    // A missing item counts as 0, so add("kiwi", -3) stores nothing.
     void add(const std::string& item, int quantity);
 
-    // The item's count; 0 if it isn't stocked.
+    // Return item's count, or 0 if it isn't stocked.
+    //
+    // Example:
+    //   after add("apple", 5) and add("apple", 3): count("apple") is 8
+    //   count("kiwi") is 0 when no kiwi was ever added
     int count(const std::string& item) const;
 
-    // Sum of every item's count.
+    // Return the sum of every item's count.
+    //
+    // Example:
+    //   after add("apple", 5), add("pear", 2) and add("fig", 1): total_items() is 8
     int total_items() const;
 
-    // How many different items are stocked.
+    // Return how many different items are stocked.
+    // An item removed down to 0 no longer counts.
+    //
+    // Example:
+    //   after add("apple", 5), add("pear", 2) and add("fig", 1): distinct_items() is 3
     std::size_t distinct_items() const;
 
-    // How many Inventory objects have been constructed so far.
+    // Return how many Inventory objects have been constructed so far.
+    // The count is shared by every Inventory, and each construction adds 1.
+    //
+    // Example:
+    //   const int before = Inventory::created();
+    //   Inventory first;
+    //   Inventory second;
+    //   // Inventory::created() is now before + 2.
+    //
+    // It's static, so call it on the class: Inventory::created().
     static int created();
 
 private:

@@ -61,30 +61,63 @@ struct Person {
     int age = 0;
 };
 
-// Largest first. The parameter is already a copy, so sort it and return it.
+// Return values sorted from largest to smallest.
+// The parameter is already a copy, so sort it and return it.
+//
+// Example:
+//   sort_descending({3, 1, 4, 1, 5}) is {5, 4, 3, 1, 1}
+//   sort_descending({-1, -10, 0}) is {0, -1, -10}
+//   sort_descending({}) is {}
 std::vector<int> sort_descending(std::vector<int> values) {
     throw "TODO";
 }
 
-// Shortest first. Words of equal length must keep their original order: std::sort
-// doesn't promise that, std::stable_sort does.
+// Return words sorted from shortest to longest.
+// Words of equal length must keep their original order.
+// std::sort doesn't promise that, std::stable_sort does.
+//
+// Example:
+//   sort_by_length({"ccc", "b", "dd", "a", "bb"}) is {"b", "a", "dd", "bb", "ccc"}
+//   // "b" stays before "a", and "dd" before "bb", because that's how they started.
 std::vector<std::string> sort_by_length(std::vector<std::string> words) {
     throw "TODO";
 }
 
-// Youngest first; people of the same age ordered by name, A to Z.
+// Sort people in place from youngest to oldest.
+// People of the same age are ordered by name, A to Z.
+//
+// Example:
+//   people = {{"Cara", 30}, {"Abe", 25}, {"Bob", 30}, {"Dan", 25}, {"Ann", 30}}
+//   sort_people(people);
+//   // the names are now in this order: Abe, Dan, Ann, Bob, Cara
+//
+// Modifies the original vector; does not return anything.
 void sort_people(std::vector<Person>& people) {
     throw "TODO";
 }
 
-// Alphabetical, ignoring case: "apple" < "Banana" < "cherry".
+// Return words sorted alphabetically, ignoring case.
+// So "apple" comes before "Banana", which comes before "cherry".
 // std::lexicographical_compare takes a character comparator as its last argument.
+//
+// Example:
+//   sort_ignoring_case({"banana", "Cherry", "apple", "Date"})
+//     is {"apple", "banana", "Cherry", "Date"}
+//   sort_ignoring_case({"b", "A", "c", "B2"}) is {"A", "b", "B2", "c"}
+//
+// Each word keeps its own capitalization; only the comparison ignores case.
 std::vector<std::string> sort_ignoring_case(std::vector<std::string> words) {
     throw "TODO";
 }
 
-// The n largest values, largest first (all of them if n > size).
+// Return the n largest values, largest first.
+// If n is bigger than the number of values, return all of them, largest first.
 // std::partial_sort only sorts the front of the range, which is all you need.
+//
+// Example:
+//   top_n({5, 1, 9, 3, 7}, 3) is {9, 7, 5}
+//   top_n({5, 1, 9}, 10) is {9, 5, 1}
+//   top_n({5, 1, 9}, 0) is {}
 std::vector<int> top_n(std::vector<int> values, std::size_t n) {
     throw "TODO";
 }

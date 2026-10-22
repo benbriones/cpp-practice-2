@@ -62,23 +62,57 @@
 
 class LRUCache {
 public:
-    // Throws std::invalid_argument if capacity is 0.
+    // Create an empty cache that holds at most capacity entries.
+    // Throw std::invalid_argument if capacity is 0.
+    //
+    // Example:
+    //   LRUCache cache(2);   // empty, with room for 2 entries
+    //   LRUCache bad(0);     // throws std::invalid_argument
     explicit LRUCache(std::size_t capacity) {
         throw "TODO";
     }
 
-    // The value for key, or std::nullopt. A hit makes the key most recent.
+    // Return the value stored for key, or std::nullopt if key isn't cached.
+    // A hit makes key the most recently used entry.
+    // A miss changes nothing.
+    //
+    // Example:
+    //   LRUCache cache(2);
+    //   cache.put(1, 10);
+    //   cache.put(2, 20);
+    //   cache.get(1);       // 10, and key 1 is now the most recent
+    //   cache.get(99);      // std::nullopt
+    //   cache.put(3, 30);   // full: evicts key 2, since get(1) counted as a use
     std::optional<int> get(int key) {
         throw "TODO";
     }
 
-    // Insert or update key, making it most recent. Inserting into a full cache
-    // first evicts the least recently used key.
+    // Insert key with value, or replace its value if key is already cached.
+    // Either way, key becomes the most recently used entry.
+    // Inserting a new key into a full cache first evicts the least recently used key.
+    // Updating a key that's already cached doesn't grow the cache.
+    //
+    // Example:
+    //   LRUCache cache(2);
+    //   cache.put(1, 10);
+    //   cache.put(2, 20);
+    //   cache.put(1, 15);   // updates key 1; it's now the most recent
+    //   cache.put(3, 30);   // full: evicts key 2, the least recently used
+    //   // cache now holds 3 -> 30 and 1 -> 15
     void put(int key, int value) {
         throw "TODO";
     }
 
-    // Whether key is cached. Doesn't change recency.
+    // Return whether key is in the cache.
+    // Doesn't change recency: checking a key doesn't count as using it.
+    //
+    // Example:
+    //   LRUCache cache(2);
+    //   cache.put(1, 10);
+    //   cache.put(2, 20);
+    //   cache.contains(1);   // true, but key 1 is still the least recent
+    //   cache.put(3, 30);    // full: evicts key 1
+    //   cache.contains(1);   // false
     bool contains(int key) const {
         throw "TODO";
     }
@@ -91,7 +125,16 @@ public:
         throw "TODO";
     }
 
-    // Every cached key, most recently used first.
+    // Return every cached key, most recently used first.
+    // An empty cache gives an empty vector.
+    //
+    // Example:
+    //   LRUCache cache(3);
+    //   cache.put(1, 10);
+    //   cache.put(2, 20);
+    //   cache.put(3, 30);   // keys_by_recency() is {3, 2, 1}
+    //   cache.get(1);       // keys_by_recency() is {1, 3, 2}
+    //   cache.put(4, 40);   // evicts key 2; keys_by_recency() is {4, 1, 3}
     std::vector<int> keys_by_recency() const {
         throw "TODO";
     }

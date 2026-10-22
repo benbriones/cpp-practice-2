@@ -60,25 +60,56 @@
 template <typename T>
 class BlockingQueue {
 public:
-    // Add to the back and wake one waiting pop(). Throws std::logic_error if
-    // the queue has been closed.
+    // Add value to the back of the queue and wake one waiting pop().
+    // Throw std::logic_error if the queue has been closed.
+    //
+    // Example:
+    //   queue.push(1);
+    //   queue.push(2);
+    //   // size() is 2, and the next pop() gives 1.
+    //   queue.close();
+    //   queue.push(3);   // throws std::logic_error
+    //
+    // T may be move-only, so move value into the deque rather than copying it.
     void push(T value) {
         throw "TODO";
     }
 
-    // Remove from the front, waiting while the queue is empty. Returns
-    // std::nullopt once the queue is closed AND empty; items pushed before
-    // close() are still handed out.
+    // Remove and return the front item, waiting while the queue is empty.
+    // Return std::nullopt once the queue is both closed and empty.
+    // Items pushed before close() are still handed out.
+    //
+    // Example:
+    //   queue.push(7);
+    //   queue.push(8);
+    //   queue.close();
+    //   queue.pop() gives 7, then 8, then std::nullopt
+    //
+    // On an empty, open queue, pop() sleeps until another thread pushes or closes.
     std::optional<T> pop() {
         throw "TODO";
     }
 
-    // Like pop(), but never waits: std::nullopt if the queue is empty right now.
+    // Remove and return the front item like pop(), but never wait.
+    // Return std::nullopt if the queue is empty right now.
+    //
+    // Example:
+    //   queue.push(1);
+    //   queue.try_pop() gives 1
+    //   queue.try_pop() gives std::nullopt straight away
     std::optional<T> try_pop() {
         throw "TODO";
     }
 
-    // No more pushes. Wakes every waiting pop().
+    // Close the queue: no more pushes are allowed after this.
+    // Wake every waiting pop().
+    //
+    // Example:
+    //   another thread is waiting in queue.pop() on an empty queue
+    //   queue.close();
+    //   // that pop() wakes up and returns std::nullopt.
+    //
+    // Items already in the queue stay, and pop() still hands them out.
     void close() {
         throw "TODO";
     }

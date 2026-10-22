@@ -72,29 +72,59 @@ struct Item {
 
 class Cart {
 public:
-    // Add `quantity` units of an item. If an item with this name is already in the cart,
-    // increase its quantity (keeping its original price) instead of adding a second entry.
+    // Add `quantity` units of an item to the cart, then return the cart.
+    // If an item with this name is already in the cart, increase its quantity instead of
+    // adding a second entry. The item keeps its original price.
     // Throw std::invalid_argument if quantity <= 0 or price < 0, leaving the cart unchanged.
+    //
+    // Example:
+    //   cart.add("tea", 3.5).add("milk", 1.25).add("tea", 9.99, 2);
+    //   // items() is {{"tea", 3.5, 3}, {"milk", 1.25, 1}}
+    //   cart.add("tea", 3.5, 0);   // throws; the cart is unchanged
+    //
+    // Returns *this by reference, so chained calls all change the same cart.
     Cart& add(const std::string& name, double price, int quantity = 1) {
         throw "TODO";
     }
 
-    // Remove the item with this name completely. Return false if it isn't in the cart.
+    // Remove the item with this name from the cart completely, whatever its quantity.
+    // Return true if it was removed, false if it isn't in the cart.
+    // The remaining items keep their order.
+    //
+    // Example:
+    //   cart.add("tea", 3.5, 2).add("milk", 1.25).add("eggs", 3.0);
+    //   cart.remove("milk");   // true; the items are now tea, eggs
+    //   cart.remove("milk");   // false: milk is already gone
     bool remove(const std::string& name) {
         throw "TODO";
     }
 
-    // Total number of units: 2 teas and 1 milk is 3.
+    // Return the total number of units: the sum of every item's quantity.
+    //
+    // Example:
+    //   cart.add("tea", 3.5, 2).add("milk", 1.25);
+    //   cart.item_count() is 3   // 2 teas and 1 milk
     int item_count() const {
         throw "TODO";
     }
 
-    // Sum of price × quantity over all items.
+    // Return the sum of price × quantity over all items.
+    // An empty cart totals 0.0.
+    //
+    // Example:
+    //   cart.add("tea", 3.5, 2).add("milk", 1.25);
+    //   cart.total() is 8.25   // 3.5 × 2 + 1.25 × 1
     double total() const {
         throw "TODO";
     }
 
-    // The items, in the order they were first added.
+    // Return the items, in the order they were first added.
+    //
+    // Example:
+    //   cart.add("tea", 3.5).add("milk", 1.25).add("tea", 3.5);
+    //   cart.items() is {{"tea", 3.5, 2}, {"milk", 1.25, 1}}
+    //
+    // Returns a const reference, so callers can read the items without copying them.
     const std::vector<Item>& items() const {
         throw "TODO";
     }

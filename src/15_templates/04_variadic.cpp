@@ -57,33 +57,75 @@
 #include <string>
 #include <type_traits>
 
-// Number of arguments: count_args() == 0, count_args(1, "two", 3.0) == 3.
+// Return the number of arguments passed.
+// They can be of any types; only how many there are matters.
+//
+// Example:
+//   count_args() == 0
+//   count_args(42) == 1
+//   count_args(1, "two", 3.0) == 3
 template <typename... Args>
 std::size_t count_args(const Args&... args) {
     throw "TODO";
 }
 
-// Sum of one or more arguments: sum_all(1, 2, 3) == 6, sum_all(1, 2.5) == 3.5.
+// Return the sum of one or more arguments.
 // The return type is whatever type all the arguments can convert to.
+//
+// Example:
+//   sum_all(1, 2, 3) == 6
+//   sum_all(5) == 5
+//   sum_all(1, 2.5) == 3.5   // an int and a double give a double
+//   sum_all(std::string("ab"), std::string("cd"), std::string("e")) == "abcde"
+//
+// There's always at least one argument, so a fold needs no start value.
 template <typename... Args>
 std::common_type_t<Args...> sum_all(const Args&... args) {
     throw "TODO";
 }
 
-// True if every argument is true (or non-zero). all_true() == true.
+// Return true if every argument is true (or non-zero).
+// With no arguments, return true.
+//
+// Example:
+//   all_true(true, true, true) == true
+//   all_true(true, false, true) == false
+//   all_true(1, 2, 3) == true
+//   all_true(1, 0) == false
+//   all_true() == true
+//
+// An empty && fold gives true, which matches "nothing failed".
 template <typename... Args>
 bool all_true(const Args&... args) {
     throw "TODO";
 }
 
-// True if any of the other arguments equals target: any_equal(3, 1, 2, 3) == true.
+// Return true if any of the other arguments equals target.
+// With nothing to compare against, return false.
+//
+// Example:
+//   any_equal(3, 1, 2, 3) == true
+//   any_equal(9, 1, 2, 3) == false
+//   any_equal(std::string("b"), "a", "b") == true
+//   any_equal(5) == false
+//
+// The first argument is the target; only the rest are compared with it.
 template <typename T, typename... Args>
 bool any_equal(const T& target, const Args&... args) {
     throw "TODO";
 }
 
-// Every argument printed with <<, separated by separator:
-// join_all(", ", 1, "two", 3.5) == "1, two, 3.5", join_all("-") == "".
+// Return every argument printed with <<, separated by separator.
+// No separator goes before the first argument or after the last.
+// With no arguments, return "".
+//
+// Example:
+//   join_all(", ", 1, "two", 3.5) == "1, two, 3.5"
+//   join_all("/", "usr", "local", "bin") == "usr/local/bin"
+//   join_all("-", 'x') == "x"
+//   join_all("-") == ""
+//
+// A std::ostringstream lets << build the text for any mix of types.
 template <typename... Args>
 std::string join_all(const std::string& separator, const Args&... args) {
     throw "TODO";

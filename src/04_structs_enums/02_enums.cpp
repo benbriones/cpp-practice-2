@@ -72,12 +72,22 @@ inline std::ostream& operator<<(std::ostream& out, Position p) {
     return out << "(" << p.x << ", " << p.y << ")";
 }
 
-// A quarter turn clockwise: North → East → South → West → North.
+// Return the direction a quarter turn clockwise from d.
+// North → East → South → West → North.
+//
+// Example:
+//   turn_right(Direction::North) is Direction::East
+//   turn_right(Direction::West) is Direction::North
 Direction turn_right(Direction d) {
     throw "TODO";
 }
 
-// A quarter turn counter-clockwise.
+// Return the direction a quarter turn counter-clockwise from d.
+// North → West → South → East → North.
+//
+// Example:
+//   turn_left(Direction::North) is Direction::West
+//   turn_left(Direction::East) is Direction::North
 Direction turn_left(Direction d) {
     throw "TODO";
 }
@@ -86,19 +96,40 @@ Direction opposite(Direction d) {
     throw "TODO";
 }
 
-// "North", "East", "South" or "West".
+// Return d's name as text: "North", "East", "South" or "West".
+//
+// Example:
+//   to_string(Direction::South) is "South"
+//
+// An enum class can't print itself, so this gives each value a readable name.
 std::string to_string(Direction d) {
     throw "TODO";
 }
 
-// Move `steps` squares from `from`. North is +y, East is +x, South is -y, West is -x.
+// Return the position reached by moving `steps` squares from `from` in direction d.
+// North is +y, East is +x, South is -y, West is -x.
+// Zero steps leaves you where you started.
+//
+// Example:
+//   walk({0, 0}, Direction::North, 3) is {0, 3}
+//   walk({0, 0}, Direction::West, 4) is {-4, 0}
+//   walk({5, -2}, Direction::North, 2) is {5, 0}
+//
+// from is a copy, so the caller's Position doesn't change.
 Position walk(Position from, Direction d, int steps) {
     throw "TODO";
 }
 
-// Start at (0, 0) facing North and follow the commands: 'F' moves forward one
-// square, 'L' and 'R' turn. Ignore any other character.
-// follow("FFRFF") == Position{2, 2}
+// Return where you end up after following commands, one character at a time.
+// Start at (0, 0) facing North.
+// 'F' moves forward one square. 'L' and 'R' turn a quarter turn left or right.
+// Ignore any other character.
+//
+// Example:
+//   follow("FFRFF") == Position{2, 2}
+//   // FF reaches (0, 2), R faces East, then FF reaches (2, 2)
+//   follow("LF") == Position{-1, 0}
+//   follow("F F x F!") == Position{0, 3}   // spaces, x and ! are ignored
 Position follow(std::string_view commands) {
     throw "TODO";
 }

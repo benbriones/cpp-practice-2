@@ -88,7 +88,14 @@ public:
         return *this;
     }
 
-    // Append a song.
+    // Add song to the end of the playlist.
+    // There's no size limit: the playlist grows as needed.
+    //
+    // Example:
+    //   Playlist p("Road trip");
+    //   p.add("Song A");
+    //   p.add("Song B");
+    //   // p.size() is 2, p.song(1) is "Song B".
     void add(const std::string& song) {
         if (count_ == capacity_) {
             capacity_ *= 2;
@@ -104,7 +111,13 @@ public:
     std::string name() const { return name_; }
     int size() const { return count_; }
 
-    // The song at index; throws std::out_of_range for a bad index.
+    // Return the song at index, counting from 0.
+    // Throw std::out_of_range for a bad index: negative, or size() or more.
+    //
+    // Example:
+    //   songs are "Song A", "Song B", "Song C"
+    //   p.song(0) is "Song A", p.song(2) is "Song C"
+    //   p.song(3) and p.song(-1) throw std::out_of_range
     const std::string& song(int index) const {
         if (index < 0 || index >= count_) throw std::out_of_range("no song at that index");
         return songs_[index];

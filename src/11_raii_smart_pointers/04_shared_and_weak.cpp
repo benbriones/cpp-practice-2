@@ -64,29 +64,64 @@ struct TreeNode {
     std::weak_ptr<TreeNode> parent;
 };
 
-// A new node with no parent.
+// Return a new node called name, with no parent.
+//
+// Example:
+//   auto root = make_root("root");
+//   // root->name == "root", root->parent.lock() == nullptr, and nodes_alive == 1
+//
+// The returned shared_ptr is the node's only owner.
 std::shared_ptr<TreeNode> make_root(const std::string& name) {
     throw "TODO";
 }
 
-// Create a node called name, attach it as the last child of parent, return it.
+// Create a node called name, attach it as the last child of parent, and return it.
+// Link it both ways: parent's children holds it, and its parent points back at parent.
+//
+// Example:
+//   auto root = make_root("root");
+//   auto docs = add_child(root, "docs");
+//   // root->children[0] == docs, and docs->parent.lock() == root
+//   // docs.use_count() == 2 (root->children and docs), root.use_count() == 1
+//
+// The parent owns its children; the weak parent link doesn't keep the parent alive.
 std::shared_ptr<TreeNode> add_child(const std::shared_ptr<TreeNode>& parent,
                                     const std::string& name) {
     throw "TODO";
 }
 
-// Names from the root down to node, joined by '/': "root/docs/notes".
+// Return the names from the root down to node, joined by '/'.
+// A node with no parent has just its own name as its path.
+//
+// Example:
+//   root has a child docs, and docs has a child notes
+//   path(root) == "root"
+//   path(docs) == "root/docs"
+//   path(notes) == "root/docs/notes"
 std::string path(const std::shared_ptr<TreeNode>& node) {
     throw "TODO";
 }
 
-// Number of ancestors: a root has depth 0, its children depth 1.
+// Return the number of ancestors node has.
+// A root has depth 0, its children depth 1, their children depth 2, and so on.
+//
+// Example:
+//   root has a child a, a has a child b, and b has a child c
+//   depth(root) == 0, depth(a) == 1, depth(c) == 3
 int depth(const std::shared_ptr<TreeNode>& node) {
     throw "TODO";
 }
 
 // Remove node from its parent's children and clear its parent link.
+// Return true once it's detached. The other children keep their order.
 // Return false (and change nothing) if node has no parent.
+//
+// Example:
+//   root has children a, b, c
+//   detach(b) == true    // root's children are now a, c, and path(b) == "b"
+//   detach(root) == false
+//
+// A detached node lives on as long as someone still holds a shared_ptr to it.
 bool detach(const std::shared_ptr<TreeNode>& node) {
     throw "TODO";
 }

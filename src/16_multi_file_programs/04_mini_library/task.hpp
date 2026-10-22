@@ -15,9 +15,22 @@ struct Task {
     bool done{false};
 };
 
-// "low", "medium", or "high".
+// Return the priority's name in lowercase: "low", "medium", or "high".
+//
+// Example:
+//   to_string(Priority::Low) is "low"
+//   to_string(Priority::High) is "high"
 std::string to_string(Priority priority);
 
-// The reverse of to_string, ignoring case: "HIGH" gives Priority::High.
-// Anything else gives std::nullopt.
+// Return the Priority that text names: the reverse of to_string, ignoring case.
+// Anything else gives std::nullopt, even a name with an extra space.
+//
+// Example:
+//   parse_priority("low") is Priority::Low
+//   parse_priority("Medium") is Priority::Medium
+//   parse_priority("HIGH") is Priority::High
+//   parse_priority("urgent") is std::nullopt
+//   parse_priority("high ") is std::nullopt   // the trailing space counts
+//
+// It returns std::optional, so "no such priority" is a value, not an exception.
 std::optional<Priority> parse_priority(std::string_view text);

@@ -54,30 +54,66 @@
 #include <string>
 #include <vector>
 
-// Remove every negative value; the rest keep their order.
+// Remove every negative value from values, in place.
+// The values that stay keep their original order. 0 is not negative.
+//
+// Example:
+//   values = {3, -1, 4, -1, -5, 9}
+//   remove_negatives(values);
+//   values is now {3, 4, 9}
+//
+// Modifies the original vector, so its size shrinks; does not return anything.
 void remove_negatives(std::vector<int>& values) {
     throw "TODO";
 }
 
-// Remove words with fewer than min_length characters.
+// Remove every word with fewer than min_length characters, in place.
+// Words exactly min_length long stay. The words that stay keep their order.
+//
+// Example:
+//   words = {"a", "tree", "is", "green", "and", "tall"}
+//   remove_short_words(words, 4);
+//   words is now {"tree", "green", "tall"}
+//
+// Modifies the original vector; does not return anything.
 void remove_short_words(std::vector<std::string>& words, std::size_t min_length) {
     throw "TODO";
 }
 
-// Sorted, with duplicates removed: dedupe({3, 1, 3, 2, 1}) == {1, 2, 3}.
+// Return values sorted ascending, with duplicates removed.
+// Each distinct value appears exactly once.
 // std::unique only removes *adjacent* repeats and returns the new logical end.
+//
+// Example:
+//   dedupe({3, 1, 3, 2, 1}) is {1, 2, 3}
+//   dedupe({5, 5, 5}) is {5}
+//   dedupe({-2, 7, -2, 0}) is {-2, 0, 7}
 std::vector<int> dedupe(std::vector<int> values) {
     throw "TODO";
 }
 
-// Collapse runs of the same character: squeeze("aaabccdddd") == "abcd".
+// Return text with each run of the same character collapsed to one character.
+// Only repeats right next to each other collapse; the same letter later on stays.
 // A std::string is a container too, so std::unique works on it.
+//
+// Example:
+//   squeeze("aaabccdddd") is "abcd"
+//   squeeze("mississippi") is "misisipi"
+//   squeeze("abc") is "abc"
 std::string squeeze(std::string text) {
     throw "TODO";
 }
 
-// Squares of the first n even values, in order:
-// first_n_even_squares({1, 2, 3, 4, 5, 6}, 2) == {4, 16}. Write it as one view pipeline.
+// Return the squares of the first n even values, in order.
+// If there are fewer than n even values, return the squares of all of them.
+// Write it as one view pipeline.
+//
+// Example:
+//   first_n_even_squares({1, 2, 3, 4, 5, 6}, 2) is {4, 16}
+//   first_n_even_squares({10, 7, -2, 0}, 3) is {100, 4, 0}
+//   first_n_even_squares({1, 2, 3}, 5) is {4}
+//
+// The view only computes elements as the loop asks for them, then you push_back each.
 std::vector<int> first_n_even_squares(const std::vector<int>& values, std::size_t n) {
     throw "TODO";
 }

@@ -55,29 +55,57 @@
 #include <string>
 #include <vector>
 
-// The whitespace-separated integers at the start of text, stopping at the first
-// token that isn't an integer: parse_ints("4 8 x 15") == {4, 8}.
+// Return the whitespace-separated integers at the start of text.
+// Stop at the first token that isn't an integer, even if more integers follow it.
+// Empty or blank text gives an empty vector.
+//
+// Example:
+//   parse_ints("4 8 15 16") == {4, 8, 15, 16}
+//   parse_ints("4 8 x 15") == {4, 8}
+//   parse_ints("hello 1 2") == {}
+//
+// Once a >> fails, the stream stays failed, so a plain while (in >> n) loop stops there.
 std::vector<int> parse_ints(const std::string& text) {
     throw "TODO";
 }
 
-// Every integer in `in` up to the end of input, skipping tokens that aren't
-// integers: "1 two 3" gives {1, 3}.
+// Return every integer in `in`, reading all the way to the end of input.
+// Skip tokens that aren't integers and keep going after them.
+// Input with no valid integers, or no input at all, gives an empty vector.
+//
+// Example:
+//   std::istringstream in("1 two 3 four 5");
+//   read_valid_ints(in) == {1, 3, 5}
+//
 // Hint: after a failed read, clear() the stream, then read the bad token into a
 // std::string to get past it.
 std::vector<int> read_valid_ints(std::istream& in) {
     throw "TODO";
 }
 
-// One table row: name left-aligned in 12 columns, quantity right-aligned in 5,
-// price right-aligned in 10 with 2 decimals. Long names are not cut off.
-// format_row("Widget", 3, 4.5) == "Widget          3      4.50"
+// Return one table row made from name, quantity and price.
+// name is left-aligned in 12 columns, and quantity is right-aligned in 5.
+// price is right-aligned in 10 columns, with 2 decimals.
+// Long names are not cut off; they push the rest of the row to the right.
+//
+// Example:
+//   format_row("Widget", 3, 4.5) == "Widget          3      4.50"
+//   format_row("Extra-long name", 1, 0.5) == "Extra-long name    1      0.50"
+//
+// The column widths do all the spacing: no separators, no trailing newline.
 std::string format_row(const std::string& name, int quantity, double price) {
     throw "TODO";
 }
 
-// value with exactly `decimals` digits after the point (0 means no point):
-// to_fixed(3.14159, 2) == "3.14", to_fixed(2, 3) == "2.000", to_fixed(2.7, 0) == "3"
+// Return value as text with exactly `decimals` digits after the point.
+// The value is rounded to that many digits, and padded with zeros if needed.
+// decimals == 0 means no point at all.
+//
+// Example:
+//   to_fixed(3.14159, 2) == "3.14"
+//   to_fixed(2, 3) == "2.000"
+//   to_fixed(2.7, 0) == "3"
+//   to_fixed(-12.345, 1) == "-12.3"
 std::string to_fixed(double value, int decimals) {
     throw "TODO";
 }

@@ -63,28 +63,61 @@ private:
 
 class Newsletter {
 public:
-    // Start delivering to subscriber. Subscribing someone twice changes nothing.
+    // Start delivering to subscriber.
+    // Subscribing someone twice changes nothing: they still get each message once.
+    //
+    // Example:
+    //   auto ada = std::make_shared<Subscriber>("Ada");
+    //   news.subscribe(ada);
+    //   news.subscribe(ada);   // no change: news.subscriber_count() is still 1
+    //
+    // The newsletter doesn't own ada: once her last shared_ptr is gone, she's destroyed.
     void subscribe(const std::shared_ptr<Subscriber>& subscriber) {
         throw "TODO";
     }
 
-    // Stop delivering to subscriber. Return false if they weren't subscribed.
+    // Stop delivering to subscriber, and return true.
+    // Return false if they weren't subscribed.
+    //
+    // Example:
+    //   news has subscribers ada and bob
+    //   news.unsubscribe(ada) == true    // publish now reaches only bob
+    //   news.unsubscribe(ada) == false   // ada isn't subscribed any more
     bool unsubscribe(const std::shared_ptr<Subscriber>& subscriber) {
         throw "TODO";
     }
 
-    // Deliver message to every live subscriber, in the order they subscribed,
-    // and forget subscribers that no longer exist. Return how many received it.
+    // Deliver message to every live subscriber, in the order they subscribed.
+    // Forget subscribers that no longer exist.
+    // Return how many subscribers received it.
+    //
+    // Example:
+    //   news has subscribers ada and bob
+    //   news.publish("hello") == 2   // both inboxes now hold "hello"
+    //   ada.reset();                 // her last owner lets go: Ada is destroyed
+    //   news.publish("news") == 1    // only Bob receives it
+    //
+    // lock() each weak_ptr; a null result means that subscriber is gone.
     int publish(const std::string& message) {
         throw "TODO";
     }
 
-    // How many subscribers are still alive.
+    // Return how many subscribers are still alive.
+    //
+    // Example:
+    //   news has subscribers ada and bob, so news.subscriber_count() == 2
+    //   bob.reset();   // Bob is destroyed
+    //   news.subscriber_count() == 1
     int subscriber_count() const {
         throw "TODO";
     }
 
-    // Names of the live subscribers, in the order they subscribed.
+    // Return the names of the live subscribers, in the order they subscribed.
+    //
+    // Example:
+    //   news has subscribers ada, bob and cy, in that order
+    //   bob.reset();   // Bob is destroyed
+    //   news.subscriber_names() == {"Ada", "Cy"}
     std::vector<std::string> subscriber_names() const {
         throw "TODO";
     }

@@ -63,23 +63,52 @@ class Message {
 public:
     explicit Message(std::string text) : text_(std::move(text)) {}
 
-    // Copy other's text; count one copy.
+    // Copy other's text into the new message.
+    // Add 1 to copies. other keeps its text.
+    //
+    // Example:
+    //   Message original("hello");
+    //   Message copy(original);
+    //   // copy.text() and original.text() are both "hello"; copies is 1, moves is 0.
     Message(const Message& other) {
         throw "TODO";
     }
 
-    // Take other's text with std::move; count one move. Leave other's text empty
-    // (std::string's move usually does, but other.text_.clear() guarantees it).
+    // Move other's text into the new message with std::move.
+    // Add 1 to moves.
+    // Leave other's text empty: std::string's move usually does,
+    // but other.text_.clear() guarantees it.
+    //
+    // Example:
+    //   Message original("hello");
+    //   Message moved(std::move(original));
+    //   // moved.text() is "hello", original.text() is ""; moves is 1, copies is 0.
+    //
+    // The buffer changes owner instead of being duplicated.
     Message(Message&& other) {
         throw "TODO";
     }
 
-    // Copy other's text into this message; count one copy; return *this.
+    // Copy other's text into this existing message, replacing its old text.
+    // Add 1 to copies, then return *this.
+    //
+    // Example:
+    //   Message source("source");
+    //   Message target("target");
+    //   target = source;
+    //   // target.text() and source.text() are both "source"; copies is 1.
     Message& operator=(const Message& other) {
         throw "TODO";
     }
 
-    // Take other's text; count one move; leave other's text empty; return *this.
+    // Move other's text into this existing message, replacing its old text.
+    // Add 1 to moves. Leave other's text empty, then return *this.
+    //
+    // Example:
+    //   Message source("source");
+    //   Message target("target");
+    //   target = std::move(source);
+    //   // target.text() is "source", source.text() is ""; moves is 1, copies is 0.
     Message& operator=(Message&& other) {
         throw "TODO";
     }
@@ -90,21 +119,43 @@ private:
     std::string text_;
 };
 
-// A "sink": take message by value, then move it into the box. A caller passing
-// a temporary or std::move(x) then pays for no copies at all.
+// Add message to the end of box by moving it in.
+// message is a "sink" parameter: it's taken by value, then moved into the box.
+// A caller passing a temporary or std::move(x) pays for no copies at all.
+//
+// Example (counts for each call on its own):
+//   box.reserve(4);                // room to spare, so the box never grows
+//   store(box, Message("temp"));   // copies 0, moves 1
+//   store(box, keep);              // copies 1, moves 1; keep still holds its text
+//   store(box, std::move(give));   // copies 0, moves 2
+//
+// Inside store, message has a name, so moving it on needs std::move(message).
 void store(std::vector<Message>& box, Message message) {
     throw "TODO";
 }
 
-// Return a new Message holding text. No copies or moves should happen: return
-// a local by name (or a temporary) and the compiler builds it in place.
+// Return a new Message holding text.
+// No copies or moves should happen: return a local by name (or a temporary)
+// and the compiler builds it in place.
 // `return std::move(local);` actually costs you a move.
+//
+// Example:
+//   Message m = make_message("built in place");
+//   // m.text() is "built in place"; copies is 0, moves is 0.
 Message make_message(const std::string& text) {
     throw "TODO";
 }
 
-// n messages "message 1" ... "message n", built directly inside the vector so
-// no Message is ever copied or moved: reserve() first, then emplace_back().
+// Return n messages with the texts "message 1" ... "message n".
+// Build them directly inside the vector so no Message is ever copied or moved:
+// reserve() first, then emplace_back().
+// n == 0 returns an empty vector.
+//
+// Example:
+//   make_batch(3) holds "message 1", "message 2", "message 3"
+//   // copies is 0, moves is 0.
+//
+// reserve() stops the vector from moving its elements when it grows.
 std::vector<Message> make_batch(int n) {
     throw "TODO";
 }

@@ -51,7 +51,16 @@
 //
 // ./grade 10_memory/01_c_arrays
 
-// Pointer to the first even element, or nullptr if there is none.
+// Return a pointer to the first even element among the first count elements.
+// Return nullptr if none of them is even, or if count is 0.
+// Negative numbers can be even too: -4 counts.
+//
+// Example:
+//   int values[] = {7, 3, 8, 5, 4};
+//   find_first_even(values, 5) == &values[2]   // points at the 8
+//   find_first_even(values, 2) == nullptr      // only 7 and 3 are checked
+//
+// The pointer reaches the real element, so writing through it changes the array.
 int* find_first_even(int values[], int count) {
     throw "TODO";
 }
@@ -60,13 +69,28 @@ int sum_array(const int* values, int count) {
     throw "TODO";
 }
 
-// Reverse the first `count` elements in place.
+// Reverse the first `count` elements of values in place.
+// Elements after the first count are left alone. A count of 0 or 1 changes nothing.
+//
+// Example:
+//   int values[] = {1, 2, 3, 9, 9};
+//   reverse_array(values, 3);
+//   // values is now {3, 2, 1, 9, 9}
+//
+// Nothing is returned: the caller's array itself is changed.
 void reverse_array(int* values, int count) {
     throw "TODO";
 }
 
-// How many elements of the half-open range [begin, end) lie between lo and hi
-// inclusive. `end` points one past the last element, like a vector's end().
+// Return how many elements of the half-open range [begin, end) lie between lo and hi.
+// lo and hi are inclusive. `end` points one past the last element, like a vector's end().
+// An empty range (begin == end) gives 0.
+//
+// Example:
+//   const int values[] = {5, 1, 9, 3, 7, 10};
+//   count_in_range(values, values + 6, 3, 9) == 4       // 5, 9, 3 and 7
+//   count_in_range(values + 1, values + 4, 1, 5) == 2   // range {1, 9, 3}: 1 and 3
+//
 // Walk the range with a pointer (++p) rather than an index.
 int count_in_range(const int* begin, const int* end, int lo, int hi) {
     throw "TODO";

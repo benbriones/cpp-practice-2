@@ -62,34 +62,82 @@
 #include <functional>
 #include <vector>
 
-// A function that multiplies its argument by factor: make_multiplier(3)(5) == 15.
+// Return a function that multiplies its argument by factor.
+// Each returned function keeps its own factor.
+//
+// Example:
+//   auto triple = make_multiplier(3);
+//   triple(5) is 15, triple(-2) is -6
+//   make_multiplier(10)(7) is 70
+//
+// The returned function outlives this call, so it needs its own copy of factor.
 std::function<int(int)> make_multiplier(int factor) {
     throw "TODO";
 }
 
-// Each call of the returned function gives the next number: 1, 2, 3, ...
+// Return a function that gives the next number each time it's called.
+// The first call returns 1, then 2, then 3, and so on.
 // Two counters made by separate calls count independently.
+//
+// Example:
+//   auto first = make_counter();
+//   auto second = make_counter();
+//   first();    // 1
+//   first();    // 2
+//   second();   // 1, not 3
+//   first();    // 3
+//
+// The count lives inside the returned function and carries over between calls.
 std::function<int()> make_counter() {
     throw "TODO";
 }
 
-// f applied n times: apply_n_times(f, 3, x) == f(f(f(x))). n == 0 gives x back.
+// Return the result of applying f to x, n times in a row.
+// apply_n_times(f, 3, x) is f(f(f(x))).
+// If n is 0, return x unchanged.
+//
+// Example:
+//   auto add_three = [](int x) { return x + 3; };
+//   apply_n_times(add_three, 4, 0) is 12   // 0 -> 3 -> 6 -> 9 -> 12
+//   apply_n_times(add_three, 0, 7) is 7
 int apply_n_times(const std::function<int(int)>& f, int n, int x) {
     throw "TODO";
 }
 
-// A function that applies g first, then f: compose(f, g)(x) == f(g(x)).
+// Return a function that applies g first, then f.
+// compose(f, g)(x) is f(g(x)).
+//
+// Example:
+//   auto add_one = [](int x) { return x + 1; };
+//   auto double_it = [](int x) { return x * 2; };
+//   compose(add_one, double_it)(5) is 11   // double first: 10, then add one
+//   compose(double_it, add_one)(5) is 12   // add one first: 6, then double
+//
+// Order matters: the second argument runs first.
 std::function<int(int)> compose(std::function<int(int)> f, std::function<int(int)> g) {
     throw "TODO";
 }
 
-// How many values make predicate return true.
+// Return how many values make predicate return true.
+// An empty vector gives 0.
+//
+// Example:
+//   values = {5, 12, 7, 20, 3, 15}
+//   count_where(values, [](int x) { return x > 10; }) is 3
+//   count_where(values, [](int x) { return x % 2 == 1; }) is 4
 int count_where(const std::vector<int>& values, const std::function<bool(int)>& predicate) {
     throw "TODO";
 }
 
-// Combine values left to right, starting from initial:
-// fold({1, 2, 3}, 0, op) == op(op(op(0, 1), 2), 3).
+// Combine values left to right with op, starting from initial.
+// fold({1, 2, 3}, 0, op) is op(op(op(0, 1), 2), 3).
+// If values is empty, return initial.
+//
+// Example:
+//   fold({1, 2, 3, 4}, 0, [](int a, int b) { return a + b; }) is 10
+//   int subtract(int a, int b) { return a - b; }
+//   fold({1, 2, 3}, 10, subtract) is 4   // ((10 - 1) - 2) - 3
+//
 // `int (*op)(int, int)` is a plain function pointer, the older C-style way to pass
 // a function. A lambda with no captures converts to one automatically.
 int fold(const std::vector<int>& values, int initial, int (*op)(int, int)) {

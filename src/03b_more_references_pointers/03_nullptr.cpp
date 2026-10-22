@@ -74,30 +74,75 @@ std::vector<int> trace_5() {
     throw "TODO";
 }
 
-// *p, or fallback when p is nullptr.
+// Return *p, or fallback when p is nullptr.
+//
+// Example:
+//   int x = 42;
+//   int zero = 0;
+//   value_or(&x, -1) is 42
+//   value_or(nullptr, -1) is -1
+//   value_or(&zero, -1) is 0
+//
+// A pointer to 0 is still a real pointer, so it isn't treated as missing.
 int value_or(const int* p, int fallback) {
     throw "TODO";
 }
 
-// A pointer to the first even element, or nullptr if there isn't one.
+// Return a pointer to the first even element of values.
+// If there isn't one (including when values is empty), return nullptr.
+// 0 and negatives like -4 count as even.
+//
+// Example:
+//   values = {7, 3, 8, 5, 4}
+//   find_first_even(values) == &values[2]   // the 8
+//   odds = {1, 3, 5}
+//   find_first_even(odds) is nullptr
+//
+// Returns a const int*, so the caller can read the element but not change it.
 const int* find_first_even(const std::vector<int>& values) {
     throw "TODO";
 }
 
-// A pointer to the last element equal to target, or nullptr if there isn't one.
-// The caller may change the element through it.
+// Return a pointer to the last element equal to target.
+// If no element equals target, return nullptr.
+//
+// Example:
+//   values = {5, 1, 5, 2}
+//   find_last(values, 5) == &values[2]   // the second 5
+//   find_last(values, 9) is nullptr
+//   *find_last(values, 5) = 0;           // values is now {5, 1, 0, 2}
+//
+// The caller may change the element through the returned pointer.
 int* find_last(std::vector<int>& values, int target) {
     throw "TODO";
 }
 
-// A pointer to the first name equal to wanted, or nullptr. The caller may rename
-// through it: *find_name(names, "Bob") = "Robert".
+// Return a pointer to the first name equal to wanted, or nullptr if none is.
+// Only exact matches count: "ada" doesn't match "Ada", and neither does "Ad".
+//
+// Example:
+//   names = {"Ada", "Bob", "Cy"}
+//   find_name(names, "Bob") == &names[1]
+//   find_name(names, "Dee") is nullptr
+//   *find_name(names, "Bob") = "Robert";   // names is now {"Ada", "Robert", "Cy"}
+//
+// The caller may rename through the returned pointer.
 std::string* find_name(std::vector<std::string>& names, const std::string& wanted) {
     throw "TODO";
 }
 
-// Whichever of a and b points at the larger value (a on ties). If one of them is
-// nullptr, return the other; if both are, return nullptr.
+// Return whichever of a and b points at the larger value.
+// If both values are equal, return a.
+// If one of them is nullptr, return the other. If both are, return nullptr.
+//
+// Example:
+//   int x = 3;
+//   int y = 8;
+//   max_of(&x, &y) == &y
+//   max_of(&x, nullptr) == &x
+//   max_of(nullptr, nullptr) is nullptr
+//
+// nullptr means "no value", so any real pointer beats it, even one to a negative.
 const int* max_of(const int* a, const int* b) {
     throw "TODO";
 }

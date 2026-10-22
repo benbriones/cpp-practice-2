@@ -58,9 +58,19 @@ int sum(std::span<const int> values) {
     throw "TODO";
 }
 
-// The middle n elements, as a view of the same memory: skip (size - n) / 2
-// elements at the front. If n >= size, return the whole span.
-// middle({1, 2, 3, 4, 5, 6}, 2) views {3, 4}.  Hint: values.subspan(offset, count)
+// Return the middle n elements of values, as a view of the same memory.
+// Skip (size - n) / 2 elements at the front.
+// When size - n is odd, that leaves the extra element at the end.
+// If n >= size, return the whole span.
+//
+// Example:
+//   std::vector<int> vec{1, 2, 3, 4, 5, 6};
+//   middle(vec, 2) views {3, 4}
+//   middle(vec, 3) views {2, 3, 4}
+//   middle(vec, 10) views {1, 2, 3, 4, 5, 6}
+//
+// The view points into values, so writing through it changes the original.
+// Hint: values.subspan(offset, count)
 std::span<int> middle(std::span<int> values, std::size_t n) {
     throw "TODO";
 }
@@ -69,12 +79,27 @@ std::span<int> middle(std::span<int> values, std::size_t n) {
 constexpr int kRows = 3;
 constexpr int kCols = 4;
 
-// Fill a multiplication table: grid[r][c] = (r + 1) * (c + 1).
+// Fill grid as a multiplication table: grid[r][c] = (r + 1) * (c + 1).
+// r and c are 0-based, so the top-left cell is 1 * 1.
+//
+// Example:
+//   int grid[kRows][kCols] = {};
+//   fill_table(grid);
+//   // grid[0] is {1, 2, 3, 4}
+//   // grid[1] is {2, 4, 6, 8}
+//   // grid[2] is {3, 6, 9, 12}
 void fill_table(int grid[kRows][kCols]) {
     throw "TODO";
 }
 
-// Sum of column `col` (0-based).
+// Return the sum of column `col` (0-based), across all kRows rows.
+//
+// Example:
+//   grid = {{1, 2, 3, 4},
+//           {5, 6, 7, 8},
+//           {9, 10, 11, -12}}
+//   column_sum(grid, 0) == 15   // 1 + 5 + 9
+//   column_sum(grid, 3) == 0    // 4 + 8 + -12
 int column_sum(const int grid[kRows][kCols], int col) {
     throw "TODO";
 }

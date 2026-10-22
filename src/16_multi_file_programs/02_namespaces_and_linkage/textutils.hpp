@@ -67,14 +67,35 @@
 #include <string>
 #include <string_view>
 
-// Number of vowels (a, e, i, o, u in either case).
+// Return the number of vowels in text.
+// The vowels are a, e, i, o and u, in either case; y doesn't count.
+//
+// Example:
+//   count_vowels("Hello World") is 3
+//   count_vowels("AEIOU aeiou") is 10
+//   count_vowels("rhythm") is 0
 int count_vowels(std::string_view text);
 
-// Number of space-separated words that start with a vowel.
+// Return the number of space-separated words that start with a vowel.
+// Vowels are the same as for count_vowels, in either case. Empty text gives 0.
+//
+// Example:
+//   count_vowel_words("an apple is on the table") is 4   // an, apple, is, on
+//   count_vowel_words("Every Other Thing") is 2
+//   count_vowel_words("") is 0
 int count_vowel_words(std::string_view text);
 
-// text with every punctuation character removed.
+// Return text with every punctuation character removed.
+// Everything else, spaces included, stays in its original order.
+//
+// Example:
+//   strip_punctuation("Hi, there! (ok?)") is "Hi there ok"
+//   strip_punctuation("plain") is "plain"
 std::string strip_punctuation(std::string_view text);
 
-// Number of punctuation characters in text.
+// Return the number of punctuation characters in text.
+//
+// Example:
+//   count_punctuation("Wait... what?!") is 5   // the three dots, ? and !
+//   count_punctuation("none here") is 0
 int count_punctuation(std::string_view text);

@@ -71,7 +71,11 @@ public:
     virtual std::string sound() const { return "..."; }
     std::string how_it_moves() const { return "walks"; }
 
-    // "Rex says Woof"
+    // Return the line "<name> says <sound>".
+    //
+    // Example:
+    //   Dog("Rex").describe() is "Rex says Woof"
+    //   Cat("Tom").describe() is "Tom says Meow"
     std::string describe() const { return name_ + " says " + sound(); }
 
 private:
@@ -101,7 +105,7 @@ public:
     std::string how_it_moves() const { return "flies"; }
 };
 
-// The zoo the tests use: a Dog named Rex and a Cat named Tom, in that order.
+// Return the zoo the tests use: a Dog named Rex and a Cat named Tom, in that order.
 std::vector<Animal> make_zoo() {
     std::vector<Animal> zoo;
     zoo.push_back(Dog("Rex"));
@@ -109,25 +113,42 @@ std::vector<Animal> make_zoo() {
     return zoo;
 }
 
-// Every animal's describe() line, in zoo order.
+// Return every animal's describe() line, in zoo order.
+//
+// Example:
+//   chorus(make_zoo()) is {"Rex says Woof", "Tom says Meow"}
 std::vector<std::string> chorus(const std::vector<Animal>& zoo) {
     std::vector<std::string> lines;
     for (const Animal& animal : zoo) lines.push_back(animal.describe());
     return lines;
 }
 
-// A new pet the caller owns through an Animal pointer.
+// Return a new Dog called name, as a pet the caller owns through an Animal pointer.
+//
+// Example:
+//   auto pet = adopt_dog("Fido");
+//   // pet->describe() is "Fido says Woof"
 std::unique_ptr<Animal> adopt_dog(const std::string& name) {
     return std::make_unique<Dog>(name);
 }
 
-// "Tweety flies", "Rex walks"
+// Return the animal's name, a space, then how it moves.
+//
+// Example:
+//   travel(Bird("Tweety")) is "Tweety flies"
+//   travel(Dog("Rex")) is "Rex walks"
 std::string travel(const Animal& animal) {
     return animal.name() + " " + animal.how_it_moves();
 }
 
-// How many of the animals are Dogs. dynamic_cast<const Dog*>(p) gives nullptr
+// Return how many of the animals are Dogs. An empty list returns 0.
+// dynamic_cast<const Dog*>(p) gives nullptr
 // when p doesn't point at a Dog (or something derived from Dog).
+//
+// Example:
+//   rex and fido are Dogs, tom is a Cat, tweety is a Bird
+//   count_dogs({&rex, &tom, &tweety, &fido}) returns 2
+//   count_dogs({&tom, &tweety}) returns 0
 int count_dogs(const std::vector<const Animal*>& animals) {
     throw "TODO";
 }

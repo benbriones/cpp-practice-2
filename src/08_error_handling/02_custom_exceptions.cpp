@@ -70,9 +70,17 @@ public:
     using std::runtime_error::runtime_error;
 };
 
-// Thrown when a setting is missing. what() returns "missing key: <key>", and key()
-// returns the key itself. Pass the message up to ConfigError in the member
-// initializer list, and store the key in a member of your own.
+// Throw a MissingKey when a setting is missing.
+// what() returns "missing key: <key>", and key() returns the key itself.
+// Pass the message up to ConfigError in the member initializer list.
+// Store the key in a member of your own.
+//
+// Example:
+//   MissingKey error("port");
+//   error.what() is "missing key: port"
+//   error.key() is "port"
+//
+// A MissingKey is also a ConfigError, so catch (const ConfigError&) catches it too.
 class MissingKey : public ConfigError {
 public:
     explicit MissingKey(const std::string& key) : ConfigError("TODO") {
@@ -84,30 +92,59 @@ public:
     }
 };
 
-// Split "key=value" at the first '='; the value may be empty or contain more '='s.
-// Throws ConfigError("missing '=' in: <line>") if there's no '=',
-// and ConfigError("empty key in: <line>") if nothing comes before it.
+// Split "key=value" at the first '=' and return {key, value}.
+// The value may be empty or contain more '='s.
+// Throw ConfigError("missing '=' in: <line>") if there's no '='.
+// Throw ConfigError("empty key in: <line>") if nothing comes before the '='.
+//
+// Example:
+//   parse_config_line("port=8080") is {"port", "8080"}
+//   parse_config_line("debug=") is {"debug", ""}
+//   parse_config_line("query=a=b") is {"query", "a=b"}
+//   parse_config_line("oops") throws ConfigError("missing '=' in: oops")
+//   parse_config_line("=5") throws ConfigError("empty key in: =5")
 std::pair<std::string, std::string> parse_config_line(const std::string& line) {
     throw "TODO";
 }
 
-// All lines parsed into a map; a later line overrides an earlier one with the same
-// key. Empty lines and lines starting with '#' are skipped. Errors propagate.
+// Return all the lines parsed into a map of key to value.
+// A later line overrides an earlier one with the same key.
+// Skip empty lines and lines starting with '#'.
+// Errors propagate: a bad line's ConfigError goes straight out to the caller.
+//
+// Example:
+//   parse_config({"# settings", "host=localhost", "", "port=8080", "port=9000"})
+//     is {{"host", "localhost"}, {"port", "9000"}}
+//   parse_config({"a=1", "broken", "b=2"}) throws ConfigError
 std::map<std::string, std::string> parse_config(const std::vector<std::string>& lines) {
     throw "TODO";
 }
 
-// The value for key; throws MissingKey(key) if it isn't there.
+// Return the value stored for key in settings.
+// Throw MissingKey(key) if key isn't there.
+//
+// Example:
+//   settings = {{"host", "localhost"}}
+//   get_setting(settings, "host") is "localhost"
+//   get_setting(settings, "port") throws MissingKey, and its key() is "port"
 std::string get_setting(const std::map<std::string, std::string>& settings,
                         const std::string& key) {
     throw "TODO";
 }
 
-// Run action and report what happened:
+// Run action and return a report of what happened:
 //   no exception                → "ok"
 //   MissingKey                  → "please set <key>"
 //   any other ConfigError       → "config error: <what()>"
 //   any other std::exception    → "error: <what()>"
+//
+// Example:
+//   describe_failure([] {}) is "ok"
+//   describe_failure([] { throw MissingKey("port"); }) is "please set port"
+//   describe_failure([] { throw ConfigError("bad value"); }) is "config error: bad value"
+//   describe_failure([] { throw std::out_of_range("too far"); }) is "error: too far"
+//
+// A catch clause also matches derived types, so the most specific clause goes first.
 std::string describe_failure(const std::function<void()>& action) {
     throw "TODO";
 }

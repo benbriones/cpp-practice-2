@@ -71,43 +71,93 @@ class Library {
 public:
     static constexpr int kMaxLoans = 3;
 
-    // Add a book to the shelf. Return false (and change nothing) if the title already exists.
+    // Add a book to the shelf and return true.
+    // Titles are unique: if the title already exists, return false and change nothing,
+    // even when the author is different.
+    //
+    // Example:
+    //   library.add_book("Dune", "Herbert");        // true; size() is 1
+    //   library.add_book("Dune", "Someone Else");   // false; size() is still 1
     bool add_book(const std::string& title, const std::string& author) {
         throw "TODO";
     }
 
-    // Lend a book to `member`. Return false if the title is unknown, the book is already
-    // lent out, or the member already holds kMaxLoans books.
+    // Lend a book to `member` and return true.
+    // Return false if the title is unknown, the book is already lent out, or the member
+    // already holds kMaxLoans books. A failed checkout changes nothing.
+    //
+    // Example (the library holds Dune, Emma, Persuasion and Neuromancer):
+    //   library.checkout("Emma", "ada");          // true: Emma is now lent to ada
+    //   library.checkout("Emma", "grace");        // false: Emma is already lent out
+    //   library.checkout("Ulysses", "ada");       // false: no such title
+    //   library.checkout("Dune", "ada");          // true
+    //   library.checkout("Persuasion", "ada");    // true: ada now holds 3 books
+    //   library.checkout("Neuromancer", "ada");   // false: ada already holds kMaxLoans
     bool checkout(const std::string& title, const std::string& member) {
         throw "TODO";
     }
 
-    // Put a lent book back on the shelf. Return false if the title is unknown or not lent out.
+    // Put a lent book back on the shelf and return true.
+    // Return false if the title is unknown or the book isn't lent out.
+    //
+    // Example:
+    //   library.checkout("Dune", "ada");
+    //   library.return_book("Dune");      // true; Dune is available again
+    //   library.return_book("Dune");      // false: it's already on the shelf
+    //   library.return_book("Ulysses");   // false: no such title
+    //
+    // Returning a book frees one of the member's kMaxLoans slots.
     bool return_book(const std::string& title) {
         throw "TODO";
     }
 
-    // True if the book exists and is on the shelf.
+    // Return true if the book exists and is on the shelf.
+    // Unknown titles and lent-out books are not available.
+    //
+    // Example:
+    //   library.add_book("Dune", "Herbert");
+    //   library.is_available("Dune") is true
+    //   library.is_available("Ulysses") is false   // no such title
     bool is_available(const std::string& title) const {
         throw "TODO";
     }
 
-    // Titles by `author`, in the order they were added.
+    // Return the titles by `author`, in the order they were added.
+    // Books that are lent out still count. An unknown author gives {}.
+    //
+    // Example (Dune by Herbert, then Emma and Persuasion by Austen):
+    //   library.books_by("Austen") is {"Emma", "Persuasion"}
+    //   library.books_by("Nobody") is {}
     std::vector<std::string> books_by(const std::string& author) const {
         throw "TODO";
     }
 
-    // Titles currently lent to `member`, in the order the books were added to the library.
+    // Return the titles currently lent to `member`, in the order the books were added to
+    // the library (not the order they were checked out).
+    // A member with no loans gives {}.
+    //
+    // Example (books added in the order Dune, Emma, Persuasion, Neuromancer):
+    //   library.checkout("Neuromancer", "ada");
+    //   library.checkout("Dune", "ada");
+    //   library.checkout("Emma", "grace");
+    //   library.loans_of("ada") is {"Dune", "Neuromancer"}
+    //   library.loans_of("grace") is {"Emma"}
     std::vector<std::string> loans_of(const std::string& member) const {
         throw "TODO";
     }
 
-    // Books on the shelf right now.
+    // Return how many books are on the shelf right now. Lent-out books don't count.
+    //
+    // Example:
+    //   4 books with Dune lent out: available_count() is 3
     int available_count() const {
         throw "TODO";
     }
 
-    // All books, lent or not.
+    // Return how many books the library has, lent or not.
+    //
+    // Example:
+    //   4 books with Dune lent out: size() is 4
     int size() const {
         throw "TODO";
     }

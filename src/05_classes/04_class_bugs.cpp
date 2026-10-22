@@ -74,7 +74,13 @@ struct Student {
 
 class Gradebook {
 public:
+    // Create a gradebook for `course` with a passing threshold of `passing`.
     // Students averaging at least `passing` pass; at least passing + 20 earns honors.
+    //
+    // Example:
+    //   Gradebook book("CS101", 60);
+    //   book.passing_threshold() is 60
+    //   book.honors_threshold() is 80
     Gradebook(std::string course, double passing)
         : course_(course), passing_(passing), honors_(passing_ + 20) {}
 
@@ -87,7 +93,13 @@ public:
 
     void add_student(const std::string& name) { students_.push_back({name, {}}); }
 
-    // The record for `name`, so callers can update it. Throws std::out_of_range if unknown.
+    // Return the record for the student called `name`, so callers can update it.
+    // Throw std::out_of_range if no student has that name.
+    //
+    // Example:
+    //   book.add_student("ada");
+    //   book.student("ada").scores.push_back(70);   // ada now has one score, 70
+    //   book.student("grace");                      // throws std::out_of_range
     Student student(const std::string& name) {
         for (Student& s : students_) {
             if (s.name == name) return s;
@@ -97,7 +109,15 @@ public:
 
     void add_score(const std::string& name, int score) { student(name).scores.push_back(score); }
 
-    // Average score, or 0.0 for a student with no scores yet.
+    // Return the student's average score.
+    // Return 0.0 for a student with no scores yet.
+    //
+    // Example:
+    //   book.add_student("ada");
+    //   book.average("ada") is 0.0
+    //   book.add_score("ada", 90);
+    //   book.add_score("ada", 70);
+    //   book.average("ada") is 80.0
     double average(const std::string& name) const {
         const Student& s = find(name);
         if (s.scores.empty()) return 0.0;
@@ -106,7 +126,14 @@ public:
         return total / static_cast<double>(s.scores.size());
     }
 
-    // "honors", "pass", or "fail".
+    // Return the student's standing: "honors", "pass", or "fail".
+    // An average of at least the honors threshold is "honors", at least the passing
+    // threshold is "pass", and anything lower is "fail".
+    //
+    // Example (Gradebook book("CS101", 60), so honors starts at 80):
+    //   average 80 gives "honors"
+    //   average 60 gives "pass"
+    //   average 59 gives "fail"
     std::string standing(const std::string& name) const {
         double avg = average(name);
         if (avg >= honors_) return "honors";

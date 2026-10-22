@@ -62,24 +62,51 @@
 #include <string_view>
 #include <vector>
 
-// On success, store the age in out and return true. On failure, return false and
-// leave out untouched.
+// Parse text as an age and report whether it worked.
+// On success, store the age in out and return true.
+// On failure, return false and leave out untouched.
+//
+// Example:
+//   int age = 33;
+//   try_parse_age("nope", age) is false, and age is still 33
+//   try_parse_age("007", age) is true, and age is now 7
+//   try_parse_age("151", age) is false, and age is still 7
+//
+// Leaving out alone on failure means the caller's earlier value survives.
 bool try_parse_age(std::string_view text, int& out) {
     throw "TODO";
 }
 
-// The age, or std::nullopt.
+// Return the age parsed from text, or std::nullopt if text isn't a valid age.
+//
+// Example:
+//   parse_age("42") is 42
+//   parse_age("0") is 0
+//   parse_age("151") is std::nullopt
+//   parse_age("") is std::nullopt
 std::optional<int> parse_age(std::string_view text) {
     throw "TODO";
 }
 
-// The age, or throw std::invalid_argument("invalid age: <text>").
+// Return the age parsed from text.
+// Throw std::invalid_argument("invalid age: <text>") if text isn't a valid age.
+//
+// Example:
+//   parse_age_or_throw("150") is 150
+//   parse_age_or_throw("151") throws std::invalid_argument
+//   parse_age_or_throw("12x") throws, and what() is "invalid age: 12x"
 int parse_age_or_throw(std::string_view text) {
     throw "TODO";
 }
 
-// The average of the valid ages in texts (invalid ones are skipped), or
-// std::nullopt if none are valid.
+// Return the average of the valid ages in texts.
+// Skip texts that aren't valid ages.
+// Return std::nullopt if none are valid, including when texts is empty.
+//
+// Example:
+//   average_age({"20", "30"}) is 25.0
+//   average_age({"20", "abc", "31", "500"}) is 25.5   // (20 + 31) / 2
+//   average_age({"x", "-1"}) is std::nullopt
 std::optional<double> average_age(const std::vector<std::string>& texts) {
     throw "TODO";
 }

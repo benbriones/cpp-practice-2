@@ -55,23 +55,52 @@
 #include <unordered_set>
 #include <vector>
 
-// The distinct values, smallest first: unique_sorted({3, 1, 3, 2}) == {1, 2, 3}.
+// Return the distinct values, smallest first.
+// Each value appears once in the result, however often it appears in values.
+//
+// Example:
+//   unique_sorted({3, 1, 3, 2}) is {1, 2, 3}
+//   unique_sorted({5, -2, 5, 5, -2, 0}) is {-2, 0, 5}
+//   unique_sorted({}) is {}
 std::vector<int> unique_sorted(const std::vector<int>& values) {
     throw "TODO";
 }
 
-// Values that appear in both a and b.
+// Return the values that appear in both a and b.
+// A value that repeats in a or b still appears once in the result.
+//
+// Example:
+//   common_elements({1, 2, 3, 4}, {3, 4, 5}) is {3, 4}
+//   common_elements({7, 7, 1}, {7}) is {7}
+//   common_elements({1, 2}, {3, 4}) is {}
+//
+// The result is a std::set, so the values come out smallest first.
 std::set<int> common_elements(const std::vector<int>& a, const std::vector<int>& b) {
     throw "TODO";
 }
 
-// True if any word appears more than once. Use a std::unordered_set.
+// Return true if any word appears more than once. Use a std::unordered_set.
+// Case matters: "Red" and "red" are different words.
+// An empty vector has no duplicates.
+//
+// Example:
+//   has_duplicates({"red", "green", "red"}) is true
+//   has_duplicates({"red", "green", "blue"}) is false
+//   has_duplicates({"Red", "red"}) is false
+//
+// It must stay fast for 100'000 words: one hash-set check per word, not a scan.
 bool has_duplicates(const std::vector<std::string>& words) {
     throw "TODO";
 }
 
-// Scan left to right and return the first character you've already seen before:
-// "abcbad" gives 'b' (the second b comes before the second a). std::nullopt if none.
+// Scan text left to right and return the first character you've already seen before.
+// Return std::nullopt if no character repeats. Spaces count as characters too.
+//
+// Example:
+//   first_repeated_char("abcbad") is 'b'   // the second b comes before the second a
+//   first_repeated_char("hello") is 'l'
+//   first_repeated_char("a  b") is ' '
+//   first_repeated_char("abc") is std::nullopt
 std::optional<char> first_repeated_char(std::string_view text) {
     throw "TODO";
 }

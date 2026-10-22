@@ -58,16 +58,42 @@
 class ScopeGuard {
 public:
     // Remember the action; it runs later, when the guard is destroyed.
+    // Constructing the guard doesn't run the action.
+    //
+    // Example:
+    //   int calls = 0;
+    //   {
+    //       ScopeGuard guard([&] { ++calls; });
+    //       // calls is still 0 here
+    //   }
+    //   // the guard died at the brace, so calls is now 1
     explicit ScopeGuard(std::function<void()> action) {
         throw "TODO";
     }
 
     // Run the action, unless dismiss() was called.
+    // It runs however the scope is left: the closing brace, a return, or an exception.
+    //
+    // Example:
+    //   {
+    //       ScopeGuard first([&] { order.push_back(1); });
+    //       ScopeGuard second([&] { order.push_back(2); });
+    //   }
+    //   // order is now {2, 1}
+    //
+    // Locals are destroyed in reverse order, so the newest guard runs first.
     ~ScopeGuard() {
         // TODO
     }
 
     // Cancel the guard: the action will not run.
+    //
+    // Example:
+    //   {
+    //       ScopeGuard guard([&] { ++calls; });
+    //       guard.dismiss();
+    //   }
+    //   // calls is unchanged
     void dismiss() {
         throw "TODO";
     }
@@ -80,14 +106,34 @@ private:
     // TODO: the data members you need
 };
 
-// Append "start" to log, run work(), then append "end" — even when work()
-// throws. The exception must still reach the caller. Use a ScopeGuard.
+// Append "start" to log, run work(), then append "end".
+// Append "end" even when work() throws. The exception must still reach the caller.
+// Use a ScopeGuard.
+//
+// Example:
+//   std::vector<std::string> log;
+//   with_logging(log, [&] { log.push_back("working"); });
+//   // log is {"start", "working", "end"}
+//
+//   std::vector<std::string> other;
+//   with_logging(other, [] { throw std::runtime_error("disk full"); });
+//   // throws std::runtime_error, and other is {"start", "end"}
 void with_logging(std::vector<std::string>& log, const std::function<void()>& work) {
     throw "TODO";
 }
 
-// Add amount to every balance, in order. If any balance would drop below zero,
-// throw std::invalid_argument and leave ALL balances exactly as they were.
+// Add amount to every balance, in order.
+// If any balance would drop below zero, throw std::invalid_argument and leave
+// ALL balances exactly as they were, including ones already updated.
+// A balance may reach exactly 0.
+//
+// Example:
+//   balances = {10, 20, 30}
+//   apply_to_all(balances, -5);   // balances is now {5, 15, 25}
+//
+//   balances = {5, 1, 7}
+//   apply_to_all(balances, -3);   // throws: 1 - 3 is below zero; balances is still {5, 1, 7}
+//
 // Save a copy, guard a rollback, and dismiss the guard once everything worked.
 void apply_to_all(std::vector<int>& balances, int amount) {
     throw "TODO";

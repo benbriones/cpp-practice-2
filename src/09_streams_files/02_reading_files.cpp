@@ -60,25 +60,55 @@
 #include <string>
 #include <vector>
 
-// Number of lines: "a\nb\n" has 2, a last line without '\n' still counts, and
-// an empty file has 0.
+// Return the number of lines in the file at path.
+// A last line without a '\n' after it still counts, and so do blank lines.
+// An empty file has 0 lines.
+// Throw std::runtime_error("can't open " + path) if the file can't be opened.
+//
+// Example:
+//   file holds "a\nb\n"        -> count_lines(path) == 2
+//   file holds "one\ntwo"      -> count_lines(path) == 2
+//   file holds "a\n\n\nb\n"    -> count_lines(path) == 4
+//   file is empty              -> count_lines(path) == 0
 std::size_t count_lines(const std::string& path) {
     throw "TODO";
 }
 
-// Every line, without its newline.
+// Return every line of the file at path, in order, each without its newline.
+// Blank lines are kept as empty strings, and leading spaces are kept too.
+// An empty file gives an empty vector.
+// Throw std::runtime_error("can't open " + path) if the file can't be opened.
+//
+// Example:
+//   file holds "first\n\n  indented\nlast"
+//   read_lines(path) == {"first", "", "  indented", "last"}
+//   read_lines("missing.txt") throws, and what() is "can't open missing.txt"
 std::vector<std::string> read_lines(const std::string& path) {
     throw "TODO";
 }
 
-// How often each whitespace-separated word appears, exactly as written
-// (case-sensitive, punctuation included).
+// Return how often each whitespace-separated word appears in the file at path.
+// Count words exactly as written: case-sensitive, punctuation included.
+// Throw std::runtime_error("can't open " + path) if the file can't be opened.
+//
+// Example:
+//   file holds "the cat\nthe  hat\n\nThe end.\n"
+//   word_counts_in_file(path) ==
+//       {{"The", 1}, {"cat", 1}, {"end.", 1}, {"hat", 1}, {"the", 2}}
+//
+// "the" and "The" are different words, and "end." keeps its period.
 std::map<std::string, int> word_counts_in_file(const std::string& path) {
     throw "TODO";
 }
 
-// Sum of a file with one number per line. Lines that aren't exactly one number
-// (surrounding spaces are fine) are skipped: "10\nabc\n-2.5\n3 4\n" sums to 7.5.
+// Return the sum of a file with one number per line.
+// Skip lines that aren't exactly one number; spaces around the number are fine.
+// Throw std::runtime_error("can't open " + path) if the file can't be opened.
+//
+// Example:
+//   file holds "10\nabc\n-2.5\n3 4\n"
+//   sum_numbers_in_file(path) == 7.5    // 10 + -2.5; "abc" and "3 4" are skipped
+//
 // Hint: per line, read a double from an istringstream, then check that only
 // whitespace is left: (line_stream >> std::ws).eof()
 double sum_numbers_in_file(const std::string& path) {

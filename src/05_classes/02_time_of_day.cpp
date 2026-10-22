@@ -66,7 +66,14 @@
 
 class Time {
 public:
+    // Create the time hours:minutes.
     // Throw std::invalid_argument unless 0 <= hours <= 23 and 0 <= minutes <= 59.
+    //
+    // Example:
+    //   Time t(9, 5);    // 09:05
+    //   Time(23, 59);    // fine: the last minute of the day
+    //   Time(24, 0);     // throws std::invalid_argument
+    //   Time(12, 60);    // throws std::invalid_argument
     Time(int hours, int minutes) {
         throw "TODO";
     }
@@ -79,29 +86,62 @@ public:
         throw "TODO";
     }
 
-    // Time(1, 30).minutes_since_midnight() == 90
+    // Return how many minutes have passed since midnight (00:00).
+    //
+    // Example:
+    //   Time(0, 0).minutes_since_midnight() is 0
+    //   Time(1, 30).minutes_since_midnight() is 90
+    //   Time(23, 59).minutes_since_midnight() is 1439
     int minutes_since_midnight() const {
         throw "TODO";
     }
 
-    // A new Time `delta` minutes later (earlier if negative), wrapping around midnight.
-    // Time(23, 30).add_minutes(45) is 00:15, Time(0, 10).add_minutes(-20) is 23:50.
+    // Return a new Time `delta` minutes later (earlier if delta is negative).
+    // The result wraps around midnight, so it is always a valid time.
+    // delta can be more than a whole day in either direction.
+    //
+    // Example:
+    //   Time(9, 0).add_minutes(90) is 10:30
+    //   Time(23, 30).add_minutes(45) is 00:15
+    //   Time(0, 10).add_minutes(-20) is 23:50
+    //
+    // The function is const: it builds a new Time and leaves the original unchanged.
     Time add_minutes(int delta) const {
         throw "TODO";
     }
 
-    // "HH:MM" with leading zeros: "09:05".
+    // Return the time as "HH:MM", with leading zeros.
+    // Hours and minutes are always two digits each.
+    //
+    // Example:
+    //   Time(9, 5).to_string() is "09:05"
+    //   Time(0, 0).to_string() is "00:00"
+    //   Time(23, 59).to_string() is "23:59"
     std::string to_string() const {
         throw "TODO";
     }
 
-    // True if this time is earlier in the day than `other`.
+    // Return true if this time is earlier in the day than `other`.
+    // Two equal times are not before each other, so that returns false.
+    //
+    // Example:
+    //   Time(9, 59).is_before(Time(10, 0)) is true
+    //   Time(10, 0).is_before(Time(9, 0)) is false
+    //   Time(10, 0).is_before(Time(10, 0)) is false
     bool is_before(const Time& other) const {
         throw "TODO";
     }
 
-    // The time `total` minutes after midnight, wrapped into a single day (negative values
-    // count back from midnight): from_minutes(90) is 01:30, from_minutes(-1) is 23:59.
+    // Return the time `total` minutes after midnight, wrapped into a single day.
+    // Negative values count back from midnight.
+    // Values of a whole day or more wrap around too.
+    //
+    // Example:
+    //   Time::from_minutes(90) is 01:30
+    //   Time::from_minutes(1440) is 00:00
+    //   Time::from_minutes(-1) is 23:59
+    //
+    // It's static, so it's called on the class name: Time::from_minutes(90).
     static Time from_minutes(int total) {
         throw "TODO";
     }

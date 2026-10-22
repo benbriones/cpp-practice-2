@@ -59,26 +59,56 @@
 
 using WordCounts = std::map<std::string, int>;
 
-// Count each word. Words are runs of letters (a–z, A–Z); everything else separates them.
-// Store words in lower case: "The cat, the HAT." gives {"cat": 1, "hat": 1, "the": 2}.
+// Count how many times each word appears in text.
+// Words are runs of letters (a–z, A–Z); everything else separates them.
+// Store words in lower case, so "The" and "the" count as the same word.
+//
+// Example:
+//   word_counts("The cat, the HAT.") is {"cat": 1, "hat": 1, "the": 2}
+//   word_counts("x1y--z  x") is {"x": 2, "y": 1, "z": 1}
+//   word_counts(" 123 !? ") is {}
+//
+// The map keeps its keys sorted, so the words come out in alphabetical order.
 WordCounts word_counts(const std::string& text) {
     throw "TODO";
 }
 
-// The word with the highest count; ties go to the alphabetically first word.
+// Return the word with the highest count.
+// If several words tie for the highest count, return the alphabetically first one.
 // Return "" for an empty map.
+//
+// Example:
+//   most_common({"apple": 2, "pear": 5, "plum": 1}) is "pear"
+//   most_common({"zebra": 3, "apple": 3, "mango": 1}) is "apple"   // a tie
+//   most_common({}) is ""
+//
+// counts is const, so read it with a loop, find() or at(); [] won't compile.
 std::string most_common(const WordCounts& counts) {
     throw "TODO";
 }
 
-// Add b's counts into a and return the result: {"a": 1} merged with {"a": 2, "b": 1}
-// gives {"a": 3, "b": 1}.
+// Add b's counts into a and return the result.
+// A word in both maps gets the sum of its counts; a word in only one keeps its count.
+//
+// Example:
+//   merge({"a": 1}, {"a": 2, "b": 1}) is {"a": 3, "b": 1}
+//   merge({}, {"x": 4}) is {"x": 4}
+//
+// a is taken by value, so the function changes its own copy and returns it.
 WordCounts merge(WordCounts a, const WordCounts& b) {
     throw "TODO";
 }
 
-// Group words by length, each group in input order:
-// group_by_length({"to", "be", "or", "not"}) == {2: {"to", "be", "or"}, 3: {"not"}}
+// Group words by length.
+// Each key is a length, and its group holds the words of that length in input order.
+//
+// Example:
+//   group_by_length({"to", "be", "or", "not"}) is {2: {"to", "be", "or"}, 3: {"not"}}
+//   group_by_length({"elephant", "a", "cat", "I", "dog"})
+//     is {1: {"a", "I"}, 3: {"cat", "dog"}, 8: {"elephant"}}
+//   group_by_length({}) is {}
+//
+// The map keeps its keys sorted, so the shortest length comes first.
 std::map<std::size_t, std::vector<std::string>> group_by_length(
     const std::vector<std::string>& words) {
     throw "TODO";

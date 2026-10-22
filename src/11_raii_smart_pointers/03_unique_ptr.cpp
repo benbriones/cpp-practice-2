@@ -63,16 +63,35 @@ struct Node {
 class IntStack {
 public:
     // Put value on top.
+    //
+    // Example:
+    //   stack.push(1);
+    //   stack.push(2);   // stack.top() == 2, stack.size() == 2
+    //
+    // Each node owns the one below it, so the new top node owns the old one.
     void push(int value) {
         throw "TODO";
     }
 
-    // Remove and return the top value. Throw std::out_of_range when empty.
+    // Remove the top value and return it, last in, first out.
+    // Throw std::out_of_range when the stack is empty.
+    //
+    // Example:
+    //   stack holds 1, 2, 3 (3 on top)
+    //   stack.pop() == 3
+    //   stack.pop() == 2   // now stack.size() == 1 and stack.top() == 1
+    //
+    // The removed node is deleted automatically once nothing owns it.
     int pop() {
         throw "TODO";
     }
 
-    // The top value, without removing it. Throw std::out_of_range when empty.
+    // Return the top value, without removing it.
+    // Throw std::out_of_range when the stack is empty.
+    //
+    // Example:
+    //   stack holds 1, 4 (4 on top)
+    //   stack.top() == 4   // the stack is unchanged
     int top() const {
         throw "TODO";
     }
@@ -106,16 +125,38 @@ struct Widget {
 };
 
 // Create a Widget on the heap and return the owning pointer.
+//
+// Example:
+//   std::unique_ptr<Widget> widget = make_widget("gear", 3);
+//   // widget->name == "gear", widget->size == 3, widgets_alive == 1
+//   widget.reset();   // deletes the Widget, so widgets_alive == 0
+//
+// The caller owns the Widget, which is deleted when that unique_ptr dies or resets.
 std::unique_ptr<Widget> make_widget(const std::string& name, int size) {
     throw "TODO";
 }
 
 // Take ownership of widget and keep it at the end of the shelf.
+//
+// Example:
+//   auto widget = make_widget("bolt", 1);
+//   adopt(shelf, std::move(widget));
+//   // shelf.back()->name == "bolt", and widget is now null
+//
+// The shelf owns its widgets now, so they die with the shelf.
 void adopt(std::vector<std::unique_ptr<Widget>>& shelf, std::unique_ptr<Widget> widget) {
     throw "TODO";
 }
 
 // Remove the widget at index from the shelf and hand ownership back to the caller.
+// The shelf gets one shorter; the other widgets keep their order.
+//
+// Example:
+//   shelf holds widgets "a", "b", "c"
+//   std::unique_ptr<Widget> taken = take(shelf, 1);
+//   // taken->name == "b", and shelf now holds "a", "c"
+//
+// Nothing is destroyed: the widget lives on until the caller lets go of it.
 std::unique_ptr<Widget> take(std::vector<std::unique_ptr<Widget>>& shelf, std::size_t index) {
     throw "TODO";
 }

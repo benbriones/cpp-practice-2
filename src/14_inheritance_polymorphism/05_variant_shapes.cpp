@@ -81,7 +81,16 @@ struct overloaded : Functions... {
     using Functions::operator()...;
 };
 
+// Return the shape's area.
+// Circle: pi × radius × radius. Rectangle: width × height.
 // Triangle area by Heron's formula, as in 02_shapes.
+//
+// Example:
+//   area(Circle{2}) is 4 * pi
+//   area(Rectangle{3, 4}) is 12
+//   area(Triangle{3, 4, 5}) is 6
+//
+// std::visit with overloaded picks the formula for whichever kind the shape holds.
 double area(const Shape& shape) {
     throw "TODO";
 }
@@ -90,24 +99,45 @@ double perimeter(const Shape& shape) {
     throw "TODO";
 }
 
-// "circle", "rectangle", or "triangle"
+// Return the shape's kind: "circle", "rectangle", or "triangle".
+//
+// Example:
+//   name(Rectangle{1, 1}) is "rectangle"
 std::string name(const Shape& shape) {
     throw "TODO";
 }
 
-// A new shape of the same kind with every length multiplied by factor.
+// Return a new shape of the same kind with every length multiplied by factor.
+// The original shape doesn't change.
+//
+// Example:
+//   scaled(Circle{2}, 1.5) is Circle{3}
+//   scaled(Rectangle{1, 2}, 2) is Rectangle{2, 4}
+//   scaled(Triangle{3, 4, 5}, 0.5) is Triangle{1.5, 2, 2.5}
+//
+// Area grows with the square of the factor: area(scaled(Rectangle{3, 4}, 3)) is 108.
 Shape scaled(const Shape& shape, double factor) {
     throw "TODO";
 }
 
-// How many shapes of each kind, in the order {circles, rectangles, triangles}.
+// Return how many shapes of each kind, in the order {circles, rectangles, triangles}.
 // shape.index() tells you which alternative a variant holds (0, 1, or 2 here).
+//
+// Example:
+//   count_kinds({Circle{1}, Triangle{3, 4, 5}, Circle{2}, Rectangle{1, 1}, Circle{3}})
+//   returns {3, 1, 1}
+//   count_kinds({}) returns {0, 0, 0}
 std::array<int, 3> count_kinds(const std::vector<Shape>& shapes) {
     throw "TODO";
 }
 
-// The total area of just the circles. std::get_if<Circle>(&shape) returns a
-// pointer to the Circle, or nullptr if the shape holds something else.
+// Return the total area of just the circles; every other shape is skipped.
+// std::get_if<Circle>(&shape) returns a pointer to the Circle,
+// or nullptr if the shape holds something else.
+//
+// Example:
+//   total_circle_area({Circle{1}, Rectangle{10, 10}, Circle{2}}) is 5 * pi   // pi + 4 * pi
+//   total_circle_area({Rectangle{1, 2}, Triangle{3, 4, 5}}) is 0
 double total_circle_area(const std::vector<Shape>& shapes) {
     throw "TODO";
 }

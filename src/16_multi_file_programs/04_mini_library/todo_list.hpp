@@ -66,26 +66,68 @@
 
 class TodoList {
 public:
-    // Add a task and return its id. Ids start at 1 and count up; an id is never
-    // reused, even after its task is removed.
+    // Add a task and return its id.
+    // Ids start at 1 and count up by one for each task added.
+    // An id is never reused, even after its task is removed.
+    //
+    // Example:
+    //   list.add("one") returns 1   // priority defaults to Medium
+    //   list.add("two", Priority::High) returns 2
+    //   list.remove(2);
+    //   list.add("three") returns 3, not 2
     int add(const std::string& title, Priority priority = Priority::Medium);
 
-    // Mark the task done. Return false if there's no task with that id.
+    // Mark the task with this id as done and return true.
+    // Return false if there's no task with that id.
+    //
+    // Example:
+    //   const int id = list.add("Buy milk");
+    //   list.complete(id) returns true, and list.find(id)->done is now true
+    //   list.complete(42) returns false
     bool complete(int id);
 
-    // Delete the task. Return false if there's no task with that id.
+    // Delete the task with this id and return true.
+    // Return false if there's no task with that id.
+    //
+    // Example:
+    //   list.add("a");                  // id 1
+    //   const int b = list.add("b");    // id 2
+    //   list.remove(b) returns true; size() is now 1 and find(b) is nullptr
+    //   list.remove(b) returns false, since it's already gone
     bool remove(int id);
 
-    // The task with this id, or nullptr if there isn't one.
+    // Return a pointer to the task with this id, or nullptr if there isn't one.
+    //
+    // Example:
+    //   list.add("Buy milk");                       // id 1
+    //   list.add("Write report", Priority::High);   // id 2
+    //   list.find(2)->title is "Write report"
+    //   list.find(99) is nullptr
+    //
+    // A pointer can say "none" with nullptr, which a reference can't.
     const Task* find(int id) const;
 
-    // Copies of the tasks not yet done: highest priority first, ties by id.
+    // Return copies of the tasks not yet done.
+    // Put the highest priority first; tasks with the same priority go by id, lowest first.
+    //
+    // Example:
+    //   ids 1 to 5 have priorities Low, Medium, High, High, High
+    //   list.complete(5);
+    //   pending() gives the tasks with ids {3, 4, 2, 1}
+    //
+    // They're copies, so sorting them doesn't reorder the list itself.
     std::vector<Task> pending() const;
 
-    // Number of tasks, done or not.
+    // Return the number of tasks, done or not.
+    //
+    // Example:
+    //   add three tasks and complete one: size() is 3
     std::size_t size() const;
 
-    // Number of tasks marked done.
+    // Return the number of tasks marked done.
+    //
+    // Example:
+    //   add three tasks and complete one: done_count() is 1
     std::size_t done_count() const;
 
 private:

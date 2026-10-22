@@ -73,20 +73,37 @@ struct Track {
     std::string title;
 };
 
-// Add name to the roster and return a greeting for them: "Welcome, Ada!".
+// Add name to the end of roster and return a greeting for them.
+// The greeting has the form "Welcome, <name>!".
+//
+// Example:
+//   roster = {"Grace"}
+//   enroll(roster, "Ada") returns "Welcome, Ada!"
+//   roster is now {"Grace", "Ada"}
 std::string enroll(std::vector<std::string>& roster, std::string name) {
     roster.push_back(std::move(name));
     return "Welcome, " + name + "!";
 }
 
-// A Track with the given title. Shouldn't copy or move anything.
+// Return a new Track with the given title.
+// It shouldn't copy or move anything.
+//
+// Example:
+//   Track track = make_track("Intro");
+//   // track.title is "Intro"; track_copies is 0, track_moves is 0.
 Track make_track(const std::string& title) {
     Track track(title);
     return std::move(track);
 }
 
-// Move every track from `tracks` onto the end of `archive` without copying any,
-// then leave `tracks` empty.
+// Move every track from `tracks` onto the end of `archive`, in order.
+// No track should be copied.
+// Leave `tracks` empty afterwards.
+//
+// Example:
+//   tracks = {"A", "B"}, archive = {"Old"}
+//   archive_all(tracks, archive);
+//   // archive is {"Old", "A", "B"}, tracks is empty, track_copies is 0.
 void archive_all(std::vector<Track>& tracks, std::vector<Track>& archive) {
     archive.reserve(archive.size() + tracks.size());
     for (const Track& track : tracks) {
@@ -95,7 +112,12 @@ void archive_all(std::vector<Track>& tracks, std::vector<Track>& archive) {
     tracks.clear();
 }
 
-// `count` tracks titled "1: <title>", "2: <title>", ... based on base.
+// Return `count` tracks titled "1: <title>", "2: <title>", ... based on base.
+// <title> is base's title. count == 0 returns an empty vector.
+//
+// Example:
+//   numbered(Track("Remix"), 3) returns tracks titled
+//   "1: Remix", "2: Remix", "3: Remix"
 std::vector<Track> numbered(Track base, int count) {
     std::vector<Track> result;
     for (int i = 1; i <= count; ++i) {

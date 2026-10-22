@@ -42,6 +42,12 @@
 #include <vector>
 
 // Exchange the two ints that a and b point at.
+//
+// Example:
+//   int x = 1;
+//   int y = 2;
+//   swap_values(&x, &y);
+//   // x is now 2, y is now 1
 void swap_values(int* a, int* b) {
     int* temp = a;
     a = b;
@@ -49,13 +55,25 @@ void swap_values(int* a, int* b) {
 }
 
 // Add bonus to every score.
+// bonus may be negative.
+//
+// Example:
+//   scores = {70, 85, 90}
+//   add_bonus(scores, 5);
+//   // scores is now {75, 90, 95}
 void add_bonus(std::vector<int>& scores, int bonus) {
     for (int score : scores) {
         score += bonus;
     }
 }
 
-// Write how many elements are negative into *count_out. count_out is never null.
+// Write how many elements are negative into *count_out.
+// 0 is not negative. count_out is never null.
+//
+// Example:
+//   int count = -1;
+//   count_negatives({3, -1, 0, -7, 2}, &count);
+//   // count is now 2
 void count_negatives(const std::vector<int>& values, int* count_out) {
     int count = 0;
     for (int value : values) {
@@ -64,7 +82,14 @@ void count_negatives(const std::vector<int>& values, int* count_out) {
     count_out = &count;
 }
 
-// Set the largest element to 0 (the first one on ties). values is never empty.
+// Set the largest element to 0.
+// If several elements tie for largest, zero only the first one.
+// values is never empty.
+//
+// Example:
+//   values = {4, 9, 9}
+//   zero_largest(values);
+//   // values is now {4, 0, 9}
 void zero_largest(std::vector<int>& values) {
     int& best = values[0];
     for (std::size_t i = 1; i < values.size(); ++i) {
@@ -73,8 +98,13 @@ void zero_largest(std::vector<int>& values) {
     best = 0;
 }
 
-// How many slots hold a pointer. nullptr slots are empty; a slot pointing at a 0
-// still counts.
+// Return how many slots hold a pointer.
+// nullptr slots are empty. A slot pointing at a 0 still counts.
+//
+// Example:
+//   int zero = 0;
+//   int five = 5;
+//   count_filled({&zero, nullptr, &five}) is 2
 int count_filled(const std::vector<const int*>& slots) {
     int count = 0;
     for (const int* slot : slots) {
@@ -84,13 +114,26 @@ int count_filled(const std::vector<const int*>& slots) {
 }
 
 // Add 1 to every int the pointers point at, skipping nullptrs.
+// A pointer that appears twice gets 1 added twice.
+//
+// Example:
+//   int x = 0;
+//   int y = 10;
+//   bump_all({&x, nullptr, &y, &x});
+//   // x is now 2, y is now 11
 void bump_all(const std::vector<int*>& counters) {
     for (int* p : counters) {
         if (p) *p++;
     }
 }
 
-// A reference to the largest age (the first one on ties). This one has no bug.
+// Return a reference to the largest age.
+// If several ages tie for largest, return the first one.
+// This one has no bug.
+//
+// Example:
+//   ages = {30, 72, 45, 72}
+//   &oldest(ages) == &ages[1]   // the first 72
 int& oldest(std::vector<int>& ages) {
     std::size_t best = 0;
     for (std::size_t i = 1; i < ages.size(); ++i) {
@@ -99,7 +142,14 @@ int& oldest(std::vector<int>& ages) {
     return ages[best];
 }
 
-// Add one year to the oldest age. ages is never empty.
+// Add one year to the oldest age.
+// If several ages tie for oldest, only the first one gets older.
+// ages is never empty.
+//
+// Example:
+//   ages = {30, 72, 45}
+//   birthday_for_oldest(ages);
+//   // ages is now {30, 73, 45}
 void birthday_for_oldest(std::vector<int>& ages) {
     auto age = oldest(ages);
     age += 1;

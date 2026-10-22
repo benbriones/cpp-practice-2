@@ -88,11 +88,32 @@ std::pair<int, int> trace_1() { return {10, 25}; }
 //     (1) x == y    (2) &x == &y    (3) &r == &x    (4) p == &r    (5) *p == r
 std::vector<int> trace_2() { return {1, 3, 5}; }
 
-// True when a and b are the same variable, not merely two variables with equal values.
+// Return true when a and b are the same variable.
+// Two different variables that merely hold equal values are not the same object.
+// A reference and the variable it names are the same object.
+//
+// Example:
+//   int x = 3;
+//   int y = 3;
+//   int& r = x;
+//   same_object(x, r) is true
+//   same_object(x, y) is false, even though both hold 3
+//
+// The question is "is this one box?", not "do these hold the same number?"
 bool same_object(const int& a, const int& b) { return &a == &b; }
 
-// The index of the element p points at, or values.size() when p doesn't point
-// into values (including when p is nullptr).
+// Return the index of the element that p points at.
+// If p doesn't point into values, return values.size().
+// That includes when p is nullptr.
+//
+// Example:
+//   values = {7, 7, 7}
+//   index_of(values, &values[2]) is 2
+//   int outside = 7;
+//   index_of(values, &outside) is 3, since outside isn't an element
+//   index_of(values, nullptr) is 3
+//
+// Compares addresses, not values: every element here holds 7.
 std::size_t index_of(const std::vector<int>& values, const int* p) {
     for (std::size_t i = 0; i < values.size(); i++) {
         if (&values[i] == p) {
@@ -103,7 +124,15 @@ std::size_t index_of(const std::vector<int>& values, const int* p) {
     return values.size();
 }
 
-// A pointer to each element of values, in order, so writing through result[i]
+// Return a pointer to each element of values, in order.
+// result[i] points at values[i]. An empty vector gives an empty result.
+//
+// Example:
+//   values = {1, 2, 3}
+//   std::vector<int*> pointers = pointers_to_each(values);
+//   *pointers[1] = 99;   // values is now {1, 99, 3}
+//
+// The pointers lead to the elements themselves, so writing through result[i]
 // changes values[i].
 std::vector<int*> pointers_to_each(std::vector<int>& values) {
     std::vector<int*> pointers{};

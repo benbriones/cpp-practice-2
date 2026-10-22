@@ -51,23 +51,54 @@
 
 #include <cstddef>
 
-// Number of characters before the '\0'.
+// Return the number of characters before the '\0'.
+// The '\0' itself isn't counted, and anything after the first '\0' is ignored.
+//
+// Example:
+//   my_strlen("hello") == 5
+//   my_strlen("") == 0
+//
+// The length isn't stored anywhere, so walk forward until you meet the '\0'.
 std::size_t my_strlen(const char* s) {
     throw "TODO";
 }
 
-// Like std::strcmp: negative if a sorts before b, 0 if equal, positive if after.
-// Only the sign matters. "app" sorts before "apple".
+// Compare a and b like std::strcmp does.
+// Return a negative number if a sorts before b, 0 if equal, positive if after.
+// Only the sign matters. A prefix sorts before the longer string: "app" < "apple".
+//
+// Example:
+//   my_strcmp("apple", "apple") == 0
+//   my_strcmp("apple", "banana") < 0
+//   my_strcmp("banana", "apple") > 0
+//   my_strcmp("app", "apple") < 0
 int my_strcmp(const char* a, const char* b) {
     throw "TODO";
 }
 
-// Copy src, including its '\0', into dest (which is big enough). Return dest.
+// Copy src, including its '\0', into dest, and return dest.
+// dest is always big enough to hold src.
+// Characters in dest after the copied '\0' are left as they were.
+//
+// Example:
+//   char buffer[16];
+//   my_strcpy(buffer, "hello") == buffer
+//   // buffer now starts with 'h', 'e', 'l', 'l', 'o', '\0'
+//
+// Without the '\0', dest has no end, and the next reader runs off it.
 char* my_strcpy(char* dest, const char* src) {
     throw "TODO";
 }
 
-// Pointer to the first c in s, or nullptr if s doesn't contain it.
+// Return a pointer to the first c in s.
+// Return nullptr if s doesn't contain c. An empty string contains nothing.
+//
+// Example:
+//   const char* text = "hello world";
+//   find_char(text, 'o') == text + 4
+//   find_char(text, 'z') == nullptr
+//
+// The result points into s itself, so it's a const char* like s.
 const char* find_char(const char* s, char c) {
     throw "TODO";
 }

@@ -69,7 +69,14 @@ std::ostream& operator<<(std::ostream& out, const Color& c) {
     return out << "Color(" << int{c.r} << ", " << int{c.g} << ", " << int{c.b} << ", " << int{c.a} << ")";
 }
 
-// Color{0x12, 0x34, 0x56, 0x78} packs to 0x12345678.
+// Return c packed into one 32-bit number laid out as 0xRRGGBBAA.
+// Red goes in bits 24-31, green in 16-23, blue in 8-15 and alpha in 0-7.
+//
+// Example:
+//   pack(Color{0x12, 0x34, 0x56, 0x78}) is 0x12345678
+//   pack(Color{255, 0, 0, 255}) is 0xFF0000FF   // opaque red
+//
+// Widen each channel to std::uint32_t before shifting it into place.
 std::uint32_t pack(Color c) {
     throw "TODO";
 }
@@ -78,26 +85,53 @@ Color unpack(std::uint32_t packed) {
     throw "TODO";
 }
 
-// "#RRGGBBAA" with upper-case hex digits. std::format("{:02X}", n) formats one byte.
+// Return c as text in the form "#RRGGBBAA", with upper-case hex digits.
+// Every channel takes exactly two digits, padded with a leading 0.
+//
+// Example:
+//   to_hex(Color{255, 128, 0, 255}) is "#FF8000FF"
+//   to_hex(Color{0x0A, 0xBC, 0x01, 0x7F}) is "#0ABC017F"
+//
+// std::format("{:02X}", n) formats one byte.
 std::string to_hex(Color c) {
     throw "TODO";
 }
 
-// The reverse of to_hex; lower-case digits are accepted too. Anything that
-// isn't '#' plus exactly 8 hex digits throws std::invalid_argument.
+// Return the Color that text spells out: the reverse of to_hex.
+// text must be '#' plus exactly 8 hex digits; lower-case digits are accepted too.
+// Throw std::invalid_argument for anything else.
+//
+// Example:
+//   from_hex("#FF8000FF") is Color{255, 128, 0, 255}
+//   from_hex("#0abc017f") is Color{0x0A, 0xBC, 0x01, 0x7F}
+//   from_hex("FF8000FF")    // throws std::invalid_argument: no '#'
+//   from_hex("#FF80G0FF")   // throws std::invalid_argument: G isn't a hex digit
 Color from_hex(std::string_view text) {
     throw "TODO";
 }
 
-// Average each channel of two colors, rounding down.
+// Return a color whose every channel is the average of x's and y's, rounded down.
+// Each channel is averaged on its own, so channels never leak into each other.
+//
+// Example:
+//   blend(Color{10, 20, 30, 40}, Color{20, 40, 60, 80}) is Color{15, 30, 45, 60}
+//   blend(Color{0, 0, 0, 0}, Color{255, 255, 255, 255}) is Color{127, 127, 127, 127}
+//   blend(Color{1, 3, 200, 255}, Color{2, 4, 100, 255}) is Color{1, 3, 150, 255}
+//
 // Bonus: on packed numbers, (x & y) + (((x ^ y) & 0xFEFEFEFE) >> 1) averages
 // all four bytes at once. Work out why it does before you use it.
 Color blend(Color x, Color y) {
     throw "TODO";
 }
 
-// The channels as binary, separated by spaces: "11111111 10000000 00000000 11111111".
-// std::bitset<8>(value).to_string() writes one byte.
+// Return the four channels as 8-digit binary numbers, in r, g, b, a order.
+// Separate the channels with single spaces.
+//
+// Example:
+//   to_binary(Color{255, 128, 0, 255}) is "11111111 10000000 00000000 11111111"
+//   to_binary(Color{1, 2, 4, 8}) is "00000001 00000010 00000100 00001000"
+//
+// std::bitset<8>(value).to_string() writes one byte, padded with leading 0s.
 std::string to_binary(Color c) {
     throw "TODO";
 }

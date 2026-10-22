@@ -60,35 +60,78 @@
 #include <stdexcept>
 #include <vector>
 
-// The largest element; for strings that's the alphabetically last one.
+// Return the largest element in values.
+// For strings, that's the one that comes last alphabetically.
 // Throw std::invalid_argument if values is empty.
+//
+// Example:
+//   largest(std::vector<int>{3, 9, 2}) is 9
+//   largest(std::vector<int>{-5, -2, -9}) is -2
+//   largest(std::vector<std::string>{"pear", "apple", "zucchini", "fig"}) is "zucchini"
+//   largest(std::vector<int>{}) throws std::invalid_argument
+//
+// The same body works for any T that can be compared with <.
 template <typename T>
 T largest(const std::vector<T>& values) {
     throw "TODO";
 }
 
-// How many elements equal target.
+// Return how many elements of values equal target.
+// An empty vector, or one with no match, gives 0.
+//
+// Example:
+//   count_matching(std::vector<int>{1, 2, 1, 3, 1}, 1) is 3
+//   words = {"the", "cat", "the", "hat"}
+//   count_matching(words, std::string("the")) is 2
+//
+// target has the same type T as the elements, so pass std::string("the"), not "the".
 template <typename T>
 std::size_t count_matching(const std::vector<T>& values, const T& target) {
     throw "TODO";
 }
 
 // Exchange the values of a and b without calling std::swap.
+// It must work for ints, strings, even whole vectors.
+//
+// Example:
+//   int a = 1;
+//   int b = 2;
+//   swap_values(a, b);
+//   // a is now 2, b is now 1.
+//
+// a and b are references, so the swap changes the caller's variables.
 template <typename T>
 void swap_values(T& a, T& b) {
     throw "TODO";
 }
 
-// Keys become values and values become keys: {{"a", 1}, {"b", 2}} → {{1, "a"}, {2, "b"}}.
+// Return a new map where each key becomes a value and each value becomes a key.
 // If several keys share a value, keep the one that comes last in the original map.
+// An empty map gives an empty map.
+//
+// Example:
+//   original = {{"a", 1}, {"b", 2}}
+//   invert(original) is {{1, "a"}, {2, "b"}}
+//   sizes = {{"ant", 1}, {"bee", 1}, {"cow", 3}}
+//   invert(sizes) is {{1, "bee"}, {3, "cow"}}   // "bee" comes after "ant"
+//
+// A std::map is sorted by key, so "last" means the largest key with that value.
 template <typename K, typename V>
 std::map<V, K> invert(const std::map<K, V>& original) {
     throw "TODO";
 }
 
-// Sum of the elements of any container you can loop over with range-for:
-// std::vector, std::array, std::set... For strings, the sum is the concatenation.
-// Start from  typename Container::value_type total{};  which is 0 for numbers and "" for strings.
+// Return the sum of the elements of any container you can loop over with range-for:
+// std::vector, std::array, std::set...
+// For strings, the sum is the concatenation.
+// Start from  typename Container::value_type total{};  which is 0 for numbers
+// and "" for strings, so an empty container gives 0 (or "").
+//
+// Example:
+//   sum(std::vector<int>{1, 2, 3, 4}) is 10
+//   sum(std::set<int>{5, 5, 10}) is 15, because a set holds 5 only once
+//   sum(std::vector<std::string>{"ab", "cd", "e"}) is "abcde"
+//   sum(std::vector<int>{}) is 0
 template <typename Container>
 typename Container::value_type sum(const Container& values) {
     throw "TODO";

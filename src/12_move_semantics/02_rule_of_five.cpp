@@ -94,12 +94,34 @@ public:
         return *this;
     }
 
-    // Take other's block; leave other empty.
+    // Move other's block into the new buffer without allocating anything.
+    // Take other's size and data pointer as they are.
+    // Leave other empty: size 0 and a null data pointer.
+    //
+    // Example:
+    //   Buffer source(3);
+    //   source.set(0, 7);
+    //   Buffer moved(std::move(source));
+    //   // moved.size() is 3, moved.get(0) is 7, moved.data() is source's old block.
+    //   // source.size() is 0, source.data() is nullptr; allocations is still 1.
+    //
+    // An empty source releases nothing in its destructor, so the block is freed once.
     Buffer(Buffer&& other) {
         throw "TODO";
     }
 
-    // Release this buffer's block, take other's, leave other empty, return *this.
+    // Move other's block into this existing buffer, then return *this.
+    // Release this buffer's old block first, then take other's size and pointer.
+    // Leave other empty: size 0 and a null data pointer.
+    //
+    // Example:
+    //   Buffer source(3);
+    //   Buffer target(10);
+    //   target = std::move(source);
+    //   // target.size() is 3 and owns source's old block; target's old block is freed.
+    //   // source.size() is 0, source.data() is nullptr; live_blocks is 1.
+    //
+    // Unlike the move constructor, the target already owns a block that must be released.
     Buffer& operator=(Buffer&& other) {
         throw "TODO";
     }

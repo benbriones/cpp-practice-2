@@ -70,23 +70,59 @@ Permission operator&(Permission a, Permission b) {
     return static_cast<Permission>(static_cast<std::uint8_t>(a) & static_cast<std::uint8_t>(b));
 }
 
-// True if every flag in `flags` is present in `set`. has(set, None) is true.
+// Return true if every flag in `flags` is also present in `set`.
+// Having only some of the flags isn't enough.
+// has(set, None) is always true, since None has no flags to check.
+//
+// Example:
+//   using P = Permission;
+//   has(P::Read | P::Write | P::Execute, P::Read | P::Execute) is true
+//   has(P::Read, P::Read | P::Write) is false   // Write is missing
+//   has(P::Write, P::None) is true
 bool has(Permission set, Permission flags) {
     throw "TODO";
 }
 
-// `set` with every flag in `flags` removed.
+// Return `set` with every flag in `flags` removed.
+// Flags in `flags` that aren't in `set` are simply ignored.
+//
+// Example:
+//   using P = Permission;
+//   without(P::Read | P::Write | P::Execute, P::Read | P::Execute) is P::Write
+//   without(P::Read, P::Write) is P::Read   // there was no Write to remove
+//   without(P::Execute, P::Execute) is P::None
+//
+// This is set difference: the flags in `set` but not in `flags`.
 Permission without(Permission set, Permission flags) {
     throw "TODO";
 }
 
-// Three characters, Unix style: "rwx", "r-x", "---".
+// Return `set` as three characters, Unix style.
+// The characters are 'r' or '-', then 'w' or '-', then 'x' or '-'.
+// '-' marks a flag that isn't in `set`.
+//
+// Example:
+//   using P = Permission;
+//   to_string(P::Read | P::Write | P::Execute) is "rwx"
+//   to_string(P::Read | P::Execute) is "r-x"
+//   to_string(P::Write) is "-w-"
+//   to_string(P::None) is "---"
 std::string to_string(Permission set) {
     throw "TODO";
 }
 
-// The reverse of to_string. Anything other than exactly three characters of
-// the form [r-][w-][x-] throws std::invalid_argument.
+// Return the Permission that text spells out: the reverse of to_string.
+// text must be exactly three characters of the form [r-][w-][x-].
+// Throw std::invalid_argument for anything else.
+//
+// Example:
+//   using P = Permission;
+//   parse_permissions("r--") is P::Read
+//   parse_permissions("-wx") is P::Write | P::Execute
+//   parse_permissions("rw")    // throws std::invalid_argument: too short
+//   parse_permissions("wrx")   // throws std::invalid_argument: letters out of order
+//
+// parse_permissions(to_string(p)) == p for every combination of flags.
 Permission parse_permissions(std::string_view text) {
     throw "TODO";
 }

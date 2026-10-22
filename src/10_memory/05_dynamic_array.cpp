@@ -86,29 +86,64 @@ public:
         throw "TODO";
     }
 
-    // Append value, growing the block as described above when it's full.
+    // Append value after the last element.
+    // When the block is full, grow it as described above: allocate twice the
+    // capacity (1 if it's 0), copy the elements across, and delete[] the old block.
+    //
+    // Example:
+    //   IntArray numbers;
+    //   numbers.push_back(1);   // size 1, capacity 1
+    //   numbers.push_back(2);   // size 2, capacity 2
+    //   numbers.push_back(3);   // size 3, capacity 4
+    //
+    // While size < capacity, push_back just writes into the next free slot.
     void push_back(int value) {
         throw "TODO";
     }
 
     // Remove the last element; capacity stays the same.
-    // Throws std::out_of_range when the array is empty.
+    // Throw std::out_of_range when the array is empty.
+    //
+    // Example:
+    //   numbers holds {1, 2, 3}, capacity 4
+    //   numbers.pop_back();   // numbers holds {1, 2}, capacity is still 4
+    //
+    // The block isn't freed or shrunk, so a later push_back reuses the slot.
     void pop_back() {
         throw "TODO";
     }
 
-    // The element at index. Throws std::out_of_range if index >= size().
+    // Return the element at index.
+    // Throw std::out_of_range if index >= size().
+    //
+    // Example:
+    //   numbers holds {10, 20, 30}
+    //   numbers.at(1) == 20
+    //   numbers.at(3) throws std::out_of_range
     int at(std::size_t index) const {
         throw "TODO";
     }
 
-    // Overwrite the element at index, with the same check as at().
+    // Overwrite the element at index with value.
+    // Use the same check as at(): throw std::out_of_range if index >= size().
+    //
+    // Example:
+    //   numbers holds {1, 2}
+    //   numbers.set(1, 99);   // numbers holds {1, 99}
+    //   numbers.set(2, 5);    // throws std::out_of_range
     void set(std::size_t index, int value) {
         throw "TODO";
     }
 
-    // Make the capacity at least n, keeping the elements and size(). If the
-    // capacity is already n or more, do nothing (never shrink).
+    // Make the capacity at least n, keeping the elements and size().
+    // If the capacity is already n or more, do nothing (never shrink).
+    //
+    // Example:
+    //   numbers holds {4, 5}, capacity 2
+    //   numbers.reserve(10);   // capacity 10, numbers still holds {4, 5}
+    //   numbers.reserve(3);    // does nothing: capacity stays 10
+    //
+    // Reserving up front lets the next push_backs skip reallocating.
     void reserve(std::size_t n) {
         throw "TODO";
     }

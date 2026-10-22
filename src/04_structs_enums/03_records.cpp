@@ -62,25 +62,62 @@ double total_payroll(const std::vector<Employee>& staff) {
     throw "TODO";
 }
 
-// Names of everyone in `department`, in their original order.
+// Return the names of everyone in `department`, in their original order.
+// An unknown department gives an empty vector.
+//
+// Example:
+//   staff = {{"Ada", "Engineering", 120000},
+//            {"Linus", "Operations", 90000},
+//            {"Grace", "Engineering", 135000}}
+//   names_in(staff, "Engineering") is {"Ada", "Grace"}
+//   names_in(staff, "Marketing") is {}
 std::vector<std::string> names_in(const std::vector<Employee>& staff,
                                   const std::string& department) {
     throw "TODO";
 }
 
-// A pointer to the best-paid employee (the first one, on ties), or nullptr if
-// staff is empty. Reach members through a pointer with ->:  best->name
+// Return a pointer to the best-paid employee in staff.
+// If several share the top salary, return the first one.
+// If staff is empty, return nullptr.
+//
+// Example:
+//   staff = {{"Ada", "Engineering", 120000},
+//            {"Grace", "Engineering", 135000},
+//            {"Barbara", "Research", 135000}}
+//   const Employee* best = highest_paid(staff);
+//   // best == &staff[1], so best->name is "Grace"
+//
+// Reach members through a pointer with ->:  best->name
 const Employee* highest_paid(const std::vector<Employee>& staff) {
     throw "TODO";
 }
 
 // Raise every salary in `department` by `percent` percent: 10 means × 1.10.
+// Employees in other departments keep their salary.
+// An unknown department changes nothing.
+//
+// Example:
+//   staff = {{"Ada", "Engineering", 120000},
+//            {"Linus", "Operations", 90000}}
+//   give_raise(staff, "Engineering", 10);
+//   // Ada's salary is now 132000, Linus's is still 90000
+//
+// Changes the employees in the caller's vector; returns nothing.
 void give_raise(std::vector<Employee>& staff, const std::string& department, double percent) {
     throw "TODO";
 }
 
-// The lowest and highest salary, as {low, high}. staff is never empty.
-// Callers can unpack the pair:  auto [low, high] = salary_range(staff);
+// Return the lowest and highest salary in staff, as {low, high}.
+// staff is never empty. With one employee, low and high are the same.
+//
+// Example:
+//   staff = {{"Ada", "Engineering", 120000},
+//            {"Linus", "Operations", 90000},
+//            {"Ken", "Operations", 85000}}
+//   auto [low, high] = salary_range(staff);
+//   // low is 85000, high is 120000
+//
+// Callers can unpack the pair with a structured binding, as above.
 std::pair<double, double> salary_range(const std::vector<Employee>& staff) {
     throw "TODO";
 }

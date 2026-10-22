@@ -67,10 +67,24 @@ class Stack {
 public:
     void push(const T& value) { throw "TODO"; }
 
-    // Remove and return the top value. Throw std::out_of_range if the stack is empty.
+    // Remove the top value and return it.
+    // Throw std::out_of_range if the stack is empty.
+    //
+    // Example:
+    //   stack.push(1);
+    //   stack.push(2);
+    //   stack.pop() returns 2, and the stack now holds just 1.
+    //
+    // The last value pushed is the first one popped.
     T pop() { throw "TODO"; }
 
-    // The top value, without removing it. Throw std::out_of_range if the stack is empty.
+    // Return the top value without removing it.
+    // Throw std::out_of_range if the stack is empty.
+    //
+    // Example:
+    //   stack.push("a");
+    //   stack.push("b");
+    //   stack.top() is "b", and size() is still 2.
     const T& top() const { throw "TODO"; }
 
     std::size_t size() const { throw "TODO"; }
@@ -80,23 +94,48 @@ private:
     std::vector<T> items_;
 };
 
-// Holds the N most recent values. Once full, each push overwrites the oldest
-// value. Store them in the std::array below; no vector, no heap.
+// Holds the N most recent values.
+// Once it's full, each push overwrites the oldest value.
+// Store the values in the std::array below; no vector, no heap.
+//
+// Example:
+//   RingBuffer<int, 3> buffer;
+//   for (int i = 1; i <= 5; ++i) buffer.push(i);
+//   // buffer now holds {3, 4, 5}: 4 overwrote 1, and 5 overwrote 2.
 template <typename T, std::size_t N>
 class RingBuffer {
 public:
     void push(const T& value) { throw "TODO"; }
 
-    // How many values are held right now (never more than N).
+    // Return how many values are held right now, never more than N.
+    //
+    // Example:
+    //   in a RingBuffer<int, 3>, size() is 2 after two pushes and 3 after five.
     std::size_t size() const { throw "TODO"; }
 
-    // Always N.
+    // Return N, the most values the buffer can hold.
+    // It's always N, however many values are held: RingBuffer<int, 4> gives 4.
     std::size_t capacity() const { throw "TODO"; }
 
-    // The i-th oldest value held: at(0) is the oldest. Throw std::out_of_range if i >= size().
+    // Return the i-th oldest value held: at(0) is the oldest.
+    // Throw std::out_of_range if i >= size().
+    //
+    // Example:
+    //   RingBuffer<std::string, 2> buffer;
+    //   push "a", then "b", then "c"   // "c" overwrites "a"
+    //   buffer.at(0) is "b", buffer.at(1) is "c"
+    //   buffer.at(2) throws std::out_of_range
+    //
+    // Once the buffer wraps around, the oldest value may no longer be in slots_[0].
     const T& at(std::size_t i) const { throw "TODO"; }
 
-    // Every value held, oldest first.
+    // Return every value held, oldest first.
+    // An empty buffer gives an empty vector.
+    //
+    // Example:
+    //   RingBuffer<int, 4> buffer;
+    //   for (int i = 1; i <= 103; ++i) buffer.push(i);
+    //   buffer.to_vector() is {100, 101, 102, 103}
     std::vector<T> to_vector() const { throw "TODO"; }
 
 private:
@@ -112,6 +151,12 @@ struct Pair {
 
     Pair(A a, B b) { throw "TODO"; }
 
-    // The same values with their order reversed: Pair{1, 'x'}.swapped() is Pair<char, int>{'x', 1}.
+    // Return a new Pair with the same values in reverse order.
+    // The types swap too: a Pair<A, B> gives a Pair<B, A>.
+    //
+    // Example:
+    //   Pair{1, 'x'}.swapped() is Pair<char, int>{'x', 1}
+    //
+    // swapped() is const, so the original Pair is left unchanged.
     Pair<B, A> swapped() const { throw "TODO"; }
 };

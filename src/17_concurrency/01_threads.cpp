@@ -52,21 +52,45 @@
 #include <thread>
 #include <vector>
 
-// Boundaries that split `size` items into `parts` contiguous chunks whose sizes
-// differ by at most 1, bigger chunks first. Returns parts + 1 indices:
-// chunk_bounds(10, 3) == {0, 4, 7, 10}, chunk_bounds(2, 4) == {0, 1, 2, 2, 2}.
-// parts is at least 1.
+// Return the boundaries that split `size` items into `parts` contiguous chunks.
+// Chunk sizes differ by at most 1, and the bigger chunks come first.
+// The result has parts + 1 indices, from 0 up to size. parts is at least 1.
+// With more parts than items, the extra chunks are empty.
+//
+// Example:
+//   chunk_bounds(9, 3) == {0, 3, 6, 9}
+//   chunk_bounds(10, 3) == {0, 4, 7, 10}     // chunk sizes 4, 3, 3
+//   chunk_bounds(2, 4) == {0, 1, 2, 2, 2}    // chunk sizes 1, 1, 0, 0
+//
+// Chunk i covers the indices from bounds[i] up to, but not including, bounds[i + 1].
 std::vector<int> chunk_bounds(int size, int parts) {
     throw "TODO";
 }
 
-// Sum of values, with `thread_count` threads each summing one chunk.
+// Return the sum of values, using `thread_count` threads that each sum one chunk.
 // thread_count is at least 1 and may exceed values.size().
+// The total can be too big for an int, so add up in long long.
+//
+// Example:
+//   parallel_sum({1, 2, 3, 4, 5}, 2) == 15
+//   parallel_sum({10, -4, 6}, 8) == 12   // more threads than values
+//   parallel_sum({}, 3) == 0
+//
+// The answer must match a plain loop's for every thread_count.
 long long parallel_sum(const std::vector<int>& values, int thread_count) {
     throw "TODO";
 }
 
 // Square every element in place, using `thread_count` threads.
+// Each element must be squared exactly once.
+// thread_count may exceed values.size(), and values may be empty.
+//
+// Example:
+//   values = {1, -2, 3, 4, 100'000}
+//   parallel_square(values, 2);
+//   values is now {1, 4, 9, 16, 10'000'000'000}
+//
+// Different elements are different memory, so threads on separate chunks need no lock.
 void parallel_square(std::vector<long long>& values, int thread_count) {
     throw "TODO";
 }
