@@ -106,17 +106,41 @@ int& max_ref(int& a, int& b) {
     return b;
 }
 
-// The longest word (the first one on ties), without copying it. words is never empty.
+// Return a reference to the longest word in words.
+// If several words tie for longest, return the first one.
+// words is never empty.
+//
+// Example:
+//   words = {"hi", "there", "you"}
+//   const std::string& w = longest(words);
+//   // w is "there", and &w == &words[1].
+//
+// Returns a const reference, so the caller reads the word without copying it.
 const std::string& longest(const std::vector<std::string>& words) { throw "TODO"; }
 
-// The element at index, Python style: -1 is the last element, -2 the one before,
-// and indexes past either end wrap around, so index 3 of a 3-element vector is
-// element 0. values is never empty.
+// Return a reference to the element at index, counting like Python.
+// Negative indexes count from the end: -1 is the last element, -2 the one before.
+// Indexes past either end wrap around. values is never empty.
+//
+// Example:
+//   values = {10, 20, 30}
+//   at_wrapped(values, -1) is 30, at_wrapped(values, 3) is 10
+//   at_wrapped(values, 4) is 20, at_wrapped(values, -4) is 30
+//   at_wrapped(values, -1) = 0;   // values is now {10, 20, 0}
+//
+// Since the function returns a reference, assigning to its result changes the vector.
 int& at_wrapped(std::vector<int>& values, int index) { throw "TODO"; }
 
+// Return a reference to name's count.
 // names[i]'s count is counts[i], and the two vectors are always the same size.
-// Return name's count, adding name with a count of 0 first if it isn't there:
-// ++count_for(names, counts, "ada") counts one more "ada".
+// If name isn't in names yet, add it with a count of 0 first.
+//
+// Example:
+//   names = {"ada"}, counts = {3}
+//   ++count_for(names, counts, "ada");   // counts is now {4}
+//   ++count_for(names, counts, "bob");   // names is {"ada", "bob"}, counts is {4, 1}
+//
+// Since the function returns a reference, ++ on its result updates counts directly.
 int& count_for(std::vector<std::string>& names, std::vector<int>& counts, const std::string& name) {
     throw "TODO";
 }
