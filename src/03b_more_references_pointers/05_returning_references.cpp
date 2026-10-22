@@ -50,6 +50,7 @@
 // ./grade 03b_more_references_pointers/05_returning_references
 
 #include <cstddef>
+#include <iterator>
 #include <string>
 #include <vector>
 
@@ -118,7 +119,7 @@ int &max_ref(int &a, int &b) {
 // Returns a const reference, so the caller reads the word without copying it.
 const std::string &longest(const std::vector<std::string> &words) {
     std::size_t currMaxSize = 0;
-    const std::string *currMaxValue  = &words[0];
+    const std::string *currMaxValue = &words[0];
 
     for (const std::string &w : words) {
         if (w.size() > currMaxSize) {
@@ -154,5 +155,16 @@ int &at_wrapped(std::vector<int> &values, int index) { throw "TODO"; }
 //
 // Since the function returns a reference, ++ on its result updates counts directly.
 int &count_for(std::vector<std::string> &names, std::vector<int> &counts, const std::string &name) {
-    throw "TODO";
+    // Check for name prescense
+    for (std::size_t i = 0; i < names.size(); i++) {
+        // If name present, increment its count
+        if (names[i] == name) {
+            return counts[i];
+        }
+    }
+
+    // If name not present after iterating, add it to names, and add count
+    names.push_back(name);
+    counts.push_back(0);
+    return counts[counts.size() - 1];
 }
