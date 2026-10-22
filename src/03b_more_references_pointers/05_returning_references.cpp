@@ -116,7 +116,19 @@ int& max_ref(int& a, int& b) {
 //   // w is "there", and &w == &words[1].
 //
 // Returns a const reference, so the caller reads the word without copying it.
-const std::string& longest(const std::vector<std::string>& words) { throw "TODO"; }
+const std::string& longest(const std::vector<std::string>& words) {
+    std::size_t currMaxSize = 0;
+    const std::string *currMaxValue  = &words[0];
+
+    for (const std::string &w : words) {
+        if (w.size() > currMaxSize) {
+            currMaxSize = w.size();
+            currMaxValue = &w;
+        }
+    }
+
+    return *currMaxValue;
+}
 
 // Return a reference to the element at index, counting like Python.
 // Negative indexes count from the end: -1 is the last element, -2 the one before.
