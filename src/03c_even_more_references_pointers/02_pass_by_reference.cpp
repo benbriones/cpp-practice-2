@@ -68,12 +68,10 @@
 //
 //     int x = 10;
 //     int y = 0;
-//     transfer(x, y, 3);
-//     transfer(y, x, 1);
-//     transfer(x, x, 5);
-std::pair<int, int> trace_3() {
-    throw "TODO";
-}
+//     transfer(x, y, 3); x is 7          y is 3
+//     transfer(y, x, 1); x is 8          y is 2
+//     transfer(x, x, 5); x is 8.    y is 2
+std::pair<int, int> trace_3() { return {8, 2}; }
 
 // Trace 4. What are x, y and z at the end? Return {x, y, z}.
 //
@@ -85,9 +83,7 @@ std::pair<int, int> trace_3() {
 //     sum_into(z, x, y);
 //     sum_into(x, y, x);
 //     sum_into(y, y, y);
-std::vector<int> trace_4() {
-    throw "TODO";
-}
+std::vector<int> trace_4() { throw "TODO"; }
 
 // Rearrange the values of a, b and c so that a <= b <= c.
 //
@@ -98,9 +94,7 @@ std::vector<int> trace_4() {
 //   sort3(x, y, z);   // x is now 1, y is 2, z is 3
 //
 // Each parameter is the caller's variable, so swapping values here swaps theirs.
-void sort3(int &a, int &b, int &c) {
-    throw "TODO";
-}
+void sort3(int &a, int &b, int &c) { throw "TODO"; }
 
 // Remove the first word from text and write it into word, then return true.
 // Words are separated by single spaces, and text never starts or ends with one.
@@ -116,7 +110,26 @@ void sort3(int &a, int &b, int &c) {
 //
 // text is both an input and an output: the function reads it, then shortens it.
 bool pop_word(std::string &text, std::string &word) {
-    throw "TODO";
+    if (text == "") return false;
+
+    // Get first word of text
+    // Getting first space of text, and use text.substr(0, index)
+    std::size_t firstSpaceIndex = text.find(" ");
+
+    if (firstSpaceIndex == std::string::npos) {
+        word = text;
+        text = "";
+        return true;
+    }
+
+    std::string firstWord = text.substr(0, firstSpaceIndex);
+
+    // Remove word from text
+    text = text.substr(firstSpaceIndex + 1, text.size() - firstSpaceIndex);
+
+    // Set word to first word
+    word = firstWord;
+    return true;
 }
 
 // Append a copy of every element of src to the end of dest, in order.
@@ -130,5 +143,10 @@ bool pop_word(std::string &text, std::string &word) {
 //
 // When they're the same vector, every push_back onto dest also grows src while you read it.
 void append_copy(std::vector<int> &dest, const std::vector<int> &src) {
-    throw "TODO";
+    std::vector<int> copyVec = src;
+
+
+    for (int s : copyVec) {
+        dest.push_back(s);
+    }
 }
