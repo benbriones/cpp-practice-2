@@ -49,9 +49,9 @@
 //   swap_values(&x, &y);
 //   // x is now 2, y is now 1
 void swap_values(int *a, int *b) {
-    int *temp = a;
-    a = b;
-    b = temp;
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 // Add bonus to every score.
@@ -62,7 +62,7 @@ void swap_values(int *a, int *b) {
 //   add_bonus(scores, 5);
 //   // scores is now {75, 90, 95}
 void add_bonus(std::vector<int> &scores, int bonus) {
-    for (int score : scores) {
+    for (int &score : scores) {
         score += bonus;
     }
 }
@@ -79,7 +79,7 @@ void count_negatives(const std::vector<int> &values, int *count_out) {
     for (int value : values) {
         if (value < 0) ++count;
     }
-    count_out = &count;
+    *count_out = count;
 }
 
 // Set the largest element to 0.
@@ -91,11 +91,11 @@ void count_negatives(const std::vector<int> &values, int *count_out) {
 //   zero_largest(values);
 //   // values is now {4, 0, 9}
 void zero_largest(std::vector<int> &values) {
-    int &best = values[0];
+    int *best = &values[0];
     for (std::size_t i = 1; i < values.size(); ++i) {
-        if (values[i] > best) best = values[i];
+        if (values[i] > *best) best = &values[i]; 
     }
-    best = 0;
+    *best = 0;
 }
 
 // Return how many slots hold a pointer.
@@ -108,7 +108,7 @@ void zero_largest(std::vector<int> &values) {
 int count_filled(const std::vector<const int *> &slots) {
     int count = 0;
     for (const int *slot : slots) {
-        if (*slot) ++count;
+        if (slot) ++count;
     }
     return count;
 }
