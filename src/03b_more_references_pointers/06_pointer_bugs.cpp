@@ -123,7 +123,7 @@ int count_filled(const std::vector<const int *> &slots) {
 //   // x is now 2, y is now 11
 void bump_all(const std::vector<int *> &counters) {
     for (int *p : counters) {
-        if (p) *p++;
+        if (p) p++;
     }
 }
 
