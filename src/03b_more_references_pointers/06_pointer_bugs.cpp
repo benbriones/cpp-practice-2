@@ -123,7 +123,7 @@ int count_filled(const std::vector<const int *> &slots) {
 //   // x is now 2, y is now 11
 void bump_all(const std::vector<int *> &counters) {
     for (int *p : counters) {
-        if (p) p++;
+        if (p) (*p)++;
     }
 }
 
@@ -151,6 +151,6 @@ int &oldest(std::vector<int> &ages) {
 //   birthday_for_oldest(ages);
 //   // ages is now {30, 73, 45}
 void birthday_for_oldest(std::vector<int> &ages) {
-    auto age = oldest(ages);
+    auto &age = oldest(ages);
     age += 1;
 }
