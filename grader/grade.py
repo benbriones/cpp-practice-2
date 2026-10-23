@@ -52,7 +52,7 @@ for _var in ("GRADER_OUT", "GRADER_MODE", "GRADER_INDEX"):
 
 USE_COLOR = sys.stdout.isatty() and "NO_COLOR" not in os.environ
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
-NUMBERED = re.compile(r"^\d+_")
+NUMBERED = re.compile(r"^\d+[a-z]?_")  # a letter suffix (03b_) slots an extra module in after 03_
 DIAGNOSTIC = re.compile(
     r"^(?P<file>[^\s:][^:]*):(?P<line>\d+):(?P<col>\d+): "
     r"(?P<kind>fatal error|error|warning|note): (?P<message>.*)$"
@@ -186,7 +186,8 @@ def matches(part: str, name: str) -> bool:
     number, _, label = name.partition("_")
     if part == name or part == label:
         return True
-    return part.isdigit() and number.isdigit() and int(part) == int(number)
+    # Leading zeros are optional: 3 and 03 name module 03, and 3b and 03b name module 03b.
+    return bool(re.fullmatch(r"\d+[a-z]?", part)) and part.lstrip("0") == number.lstrip("0")
 
 
 def pick(part: str, names: List[str], what: str) -> str:
