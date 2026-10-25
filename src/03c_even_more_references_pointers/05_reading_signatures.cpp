@@ -71,9 +71,7 @@
 //
 //     (1) f1(x)    (2) f2(x)    (3) f3(x)    (4) f4(&x)
 //     (5) f5(&x)   (6) x = f6(x)             (7) f7(px)
-std::vector<int> trace_7() {
-    throw "TODO";
-}
+std::vector<int> trace_7() { throw "TODO"; }
 
 // Return a pointer to balances[index], or nullptr when index is out of range.
 //
@@ -85,7 +83,9 @@ std::vector<int> trace_7() {
 //
 // Returns a pointer because the answer may be "no such account".
 int *find_account(std::vector<int> &balances, std::size_t index) {
-    throw "TODO";
+    if (index >= balances.size()) return nullptr;
+
+    return &balances[index];
 }
 
 // Take amount out of balance and return true.
@@ -100,7 +100,10 @@ int *find_account(std::vector<int> &balances, std::size_t index) {
 //
 // balance is a reference, so withdraw(balances[i], 30) changes the element itself.
 bool withdraw(int &balance, int amount) {
-    throw "TODO";
+    if (amount > balance || amount <= 0) return false;
+
+    balance -= amount;
+    return true;
 }
 
 // Move amount from account from to account to, and return true.
@@ -115,7 +118,13 @@ bool withdraw(int &balance, int amount) {
 //
 // Check both accounts before moving any money, so a failure changes nothing.
 bool transfer(std::vector<int> &balances, std::size_t from, std::size_t to, int amount) {
-    throw "TODO";
+    if (from >= balances.size() || to >= balances.size()) return false;
+    if (amount > balances[from]) return false;
+    if (amount <= 0) return false;
+
+    balances[from] -= amount;
+    balances[to] += amount;
+    return true;
 }
 
 // Return what balances would look like after taking fee from every account.
@@ -128,5 +137,14 @@ bool transfer(std::vector<int> &balances, std::size_t from, std::size_t to, int 
 //
 // balances is a copy, so the caller's accounts are safe while you change it.
 std::vector<int> after_fee(std::vector<int> balances, int fee) {
-    throw "TODO";
+    std::vector<int> cBal = balances;
+    for (int &s : cBal) {
+        if (s < fee) {
+            s = 0;
+            continue;
+        };
+        s -= fee;
+    }
+
+    return cBal;
 }

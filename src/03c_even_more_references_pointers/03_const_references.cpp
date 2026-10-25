@@ -88,8 +88,9 @@ std::vector<int> trace_5() { throw "TODO"; }
 bool is_palindrome(const std::string &text) {
     std::size_t left = 0;
     std::size_t right = text.size() - 1;
+    if (text.size() <= 1) return true;
 
-    while (left > right) {
+    while (left < right) {
         if (text[left] != text[right]) return false;
         left++;
         right--;
@@ -109,7 +110,27 @@ bool is_palindrome(const std::string &text) {
 //   // 4 and 1 both appear twice, and 4 comes first, so &m == &values[0]
 //
 // Returns a const reference because values is const: the caller reads the element, not a copy.
-const int &most_common(const std::vector<int> &values) { throw "TODO"; }
+const int &most_common(const std::vector<int> &values) {
+    std::size_t mostCommonIndex = 0;
+    int mostCommonCount = 1;
+
+    for (std::size_t i = 0; i < values.size(); i++) {
+        int counter = 1;
+
+        for (std::size_t j = 0; j < values.size(); j++) {
+            if (i == j) continue;
+
+            if (values[i] == values[j]) counter++;
+        }
+
+        if (counter > mostCommonCount) {
+            mostCommonCount = counter;
+            mostCommonIndex = i;
+        }
+    }
+
+    return values[mostCommonIndex];
+}
 
 // Return a pointer to the first word that starts with prefix, or nullptr if none does.
 // A word equal to prefix counts. An empty prefix matches every word.
@@ -123,5 +144,11 @@ const int &most_common(const std::vector<int> &values) { throw "TODO"; }
 // Returns const std::string*: it points into a const vector, so the caller may only read.
 const std::string *find_by_prefix(const std::vector<std::string> &words,
                                   const std::string &prefix) {
-    throw "TODO";
+    for (const std::string &s : words) {
+        if (s.starts_with(prefix)) {
+            return &s;
+        }
+    }
+
+    return nullptr;
 }

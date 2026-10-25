@@ -72,9 +72,7 @@
 //     bump_target(&p);
 //     lose_target(p);
 //     *p *= 2;
-std::vector<int> trace_6() {
-    throw "TODO";
-}
+std::vector<int> trace_6() { throw "TODO"; }
 
 // Return the sum of the vector values points at, or fallback when values is nullptr.
 // An empty vector sums to 0: it's a real vector, not a missing one.
@@ -88,7 +86,15 @@ std::vector<int> trace_6() {
 //
 // values is a pointer to a whole vector, so reach its elements through *values.
 int sum_or(const std::vector<int> *values, int fallback) {
-    throw "TODO";
+    int sum = 0;
+    if (!values) return fallback;
+    if (values->size() == 0) return 0;
+
+    for (int v : *values) {
+        sum += v;
+    }
+
+    return sum;
 }
 
 // Append value to the vector values points at.
@@ -104,7 +110,13 @@ int sum_or(const std::vector<int> *values, int fallback) {
 //
 // limit is an optional input: nullptr means "no limit".
 void push_clamped(std::vector<int> *values, int value, const int *limit) {
-    throw "TODO";
+    if (limit && value > *limit) {
+        values->push_back(*limit);
+        return;
+    }
+
+    values->push_back(value);
+    return;
 }
 
 // Swap where *a and *b point. The ints themselves don't change.
@@ -119,9 +131,11 @@ void push_clamped(std::vector<int> *values, int value, const int *limit) {
 //   // p now points at y and q at x. x is still 1, y is still 2
 //
 // a and b are pointers to the caller's pointers, so *a is the caller's p itself.
-void swap_pointers(int **a, int **b) {
-    throw "TODO";
-}
+void swap_pointers(int **a, int **b) { 
+    int *temp_a =  *a;
+    *a = *b;
+    *b = temp_a;
+ }
 
 // Point *out at the largest element of values and return true.
 // If several elements tie for largest, point at the first one.
@@ -134,6 +148,15 @@ void swap_pointers(int **a, int **b) {
 //   *best = 0;                    // values is now {3, 0, 4, 9}
 //
 // out is the address of the caller's pointer: *out = ... re-points it.
-bool point_at_max(std::vector<int> &values, int **out) {
-    throw "TODO";
-}
+bool point_at_max(std::vector<int> &values, int **out) { 
+    if (values.empty()) return false;
+    std::size_t currMaxIndex = 0;
+
+    for (std::size_t i =0; i < values.size(); i++) {
+        if (values[i] > values[currMaxIndex])  {
+            currMaxIndex = i;
+            *out = &values[i];
+        }
+    }
+    return true;
+ }
