@@ -75,7 +75,10 @@ struct Rect {
 //   distance({-1, -1}, {2, 3}) is 5.0
 //   distance({2, 2}, {2, 2}) is 0.0
 double distance(Point a, Point b) {
-    throw "TODO";
+    double x = b.x - a.x;
+    double y = b.y - a.y;
+
+    return std::sqrt(std::pow(x, 2) + std::pow(y, 2));
 }
 
 // Return the point halfway between a and b.
@@ -84,12 +87,14 @@ double distance(Point a, Point b) {
 //   midpoint({0, 0}, {4, 2}) is {2, 1}
 //   midpoint({-3, 5}, {1, -5}) is {-1, 0}
 Point midpoint(Point a, Point b) {
-    throw "TODO";
+    double x = (b.x + a.x) / 2;
+    double y = (b.y + a.y) / 2;
+
+    Point mid{x, y};
+    return mid;
 }
 
-double area(const Rect &r) {
-    throw "TODO";
-}
+double area(const Rect &r) { return r.width * r.height; }
 
 // Return true if p lies inside r or exactly on its edge.
 // r spans x from top_left.x to top_left.x + width, and y from top_left.y
@@ -101,8 +106,8 @@ double area(const Rect &r) {
 //   contains(r, {10, 5}) is true      // a corner counts as inside
 //   contains(r, {11, 2}) is false
 //   contains(r, {5, -0.5}) is false   // just above the top edge
-bool contains(const Rect &r, Point p) {
-    throw "TODO";
+bool contains(const Rect &r, Point p) { 
+    
 }
 
 // Return the smallest Rect that contains every point.
@@ -115,6 +120,4 @@ bool contains(const Rect &r, Point p) {
 //   // top_left is {-2, 2}, width is 6, height is 3
 //   bounding_box({{7, -3}})
 //   // top_left is {7, -3}, width and height are 0
-Rect bounding_box(const std::vector<Point> &points) {
-    throw "TODO";
-}
+Rect bounding_box(const std::vector<Point> &points) { throw "TODO"; }

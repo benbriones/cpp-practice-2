@@ -79,7 +79,21 @@ inline std::ostream &operator<<(std::ostream &out, Position p) {
 //   turn_right(Direction::North) is Direction::East
 //   turn_right(Direction::West) is Direction::North
 Direction turn_right(Direction d) {
-    throw "TODO";
+    switch (d) {
+        case Direction::North:
+            return Direction::East;
+
+        case Direction::East:
+            return Direction::South;
+
+        case Direction::South:
+            return Direction::West;
+
+        case Direction::West:
+            return Direction::North;
+    }
+
+    return Direction::North;  // Fallback
 }
 
 // Return the direction a quarter turn counter-clockwise from d.
@@ -88,13 +102,9 @@ Direction turn_right(Direction d) {
 // Example:
 //   turn_left(Direction::North) is Direction::West
 //   turn_left(Direction::East) is Direction::North
-Direction turn_left(Direction d) {
-    throw "TODO";
-}
+Direction turn_left(Direction d) { throw "TODO"; }
 
-Direction opposite(Direction d) {
-    throw "TODO";
-}
+Direction opposite(Direction d) { throw "TODO"; }
 
 // Return d's name as text: "North", "East", "South" or "West".
 //
@@ -102,9 +112,7 @@ Direction opposite(Direction d) {
 //   to_string(Direction::South) is "South"
 //
 // An enum class can't print itself, so this gives each value a readable name.
-std::string to_string(Direction d) {
-    throw "TODO";
-}
+std::string to_string(Direction d) { throw "TODO"; }
 
 // Return the position reached by moving `steps` squares from `from` in direction d.
 // North is +y, East is +x, South is -y, West is -x.
@@ -116,9 +124,7 @@ std::string to_string(Direction d) {
 //   walk({5, -2}, Direction::North, 2) is {5, 0}
 //
 // from is a copy, so the caller's Position doesn't change.
-Position walk(Position from, Direction d, int steps) {
-    throw "TODO";
-}
+Position walk(Position from, Direction d, int steps) { throw "TODO"; }
 
 // Return where you end up after following commands, one character at a time.
 // Start at (0, 0) facing North.
@@ -130,6 +136,4 @@ Position walk(Position from, Direction d, int steps) {
 //   // FF reaches (0, 2), R faces East, then FF reaches (2, 2)
 //   follow("LF") == Position{-1, 0}
 //   follow("F F x F!") == Position{0, 3}   // spaces, x and ! are ignored
-Position follow(std::string_view commands) {
-    throw "TODO";
-}
+Position follow(std::string_view commands) { throw "TODO"; }

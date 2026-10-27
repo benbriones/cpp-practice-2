@@ -59,7 +59,12 @@ struct Employee {
 };
 
 double total_payroll(const std::vector<Employee> &staff) {
-    throw "TODO";
+    double total = 0;
+    for (const Employee &e : staff) {
+        total += e.salary;
+    }
+
+    return total;
 }
 
 // Return the names of everyone in `department`, in their original order.
@@ -73,7 +78,15 @@ double total_payroll(const std::vector<Employee> &staff) {
 //   names_in(staff, "Marketing") is {}
 std::vector<std::string> names_in(const std::vector<Employee> &staff,
                                   const std::string &department) {
-    throw "TODO";
+    std::vector<std::string> name_results = {};
+
+    for (const Employee &s : staff) {
+        if (s.department == department) {
+            name_results.push_back(s.name);
+        }
+    }
+
+    return name_results;
 }
 
 // Return a pointer to the best-paid employee in staff.
@@ -89,7 +102,17 @@ std::vector<std::string> names_in(const std::vector<Employee> &staff,
 //
 // Reach members through a pointer with ->:  best->name
 const Employee *highest_paid(const std::vector<Employee> &staff) {
-    throw "TODO";
+    if (staff.empty()) return nullptr;
+
+    const Employee *curr_highest_paid = &staff[0];
+
+    for (const Employee &e : staff) {
+        if (e.salary > curr_highest_paid->salary) {
+            curr_highest_paid = &e;
+        }
+    }
+
+    return curr_highest_paid;
 }
 
 // Raise every salary in `department` by `percent` percent: 10 means × 1.10.
@@ -104,7 +127,13 @@ const Employee *highest_paid(const std::vector<Employee> &staff) {
 //
 // Changes the employees in the caller's vector; returns nothing.
 void give_raise(std::vector<Employee> &staff, const std::string &department, double percent) {
-    throw "TODO";
+    double converted_percent = 1.0 + (percent / 100.0);
+
+    for (Employee &s : staff) {
+        if (s.department == department) {
+            s.salary *= converted_percent;
+        }
+    }
 }
 
 // Return the lowest and highest salary in staff, as {low, high}.
@@ -119,5 +148,17 @@ void give_raise(std::vector<Employee> &staff, const std::string &department, dou
 //
 // Callers can unpack the pair with a structured binding, as above.
 std::pair<double, double> salary_range(const std::vector<Employee> &staff) {
-    throw "TODO";
+    double curr_max_salary = staff[0].salary;
+    double curr_min_salary = staff[0].salary;
+
+    for (const Employee &e : staff) {
+        if (e.salary > curr_max_salary) {
+            curr_max_salary = e.salary;
+        }
+        if (e.salary < curr_min_salary) {
+            curr_min_salary = e.salary;
+        }
+    }
+
+    return {curr_min_salary, curr_max_salary};
 }

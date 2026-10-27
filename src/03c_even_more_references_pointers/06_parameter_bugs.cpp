@@ -29,9 +29,8 @@
 // 6. Copying when the copy is the point is not a bug. A by-value parameter that
 //    the function changes and then returns is exactly right.
 //
-// Read grade's warnings after the results. "parameter set but not used" means a
-// write went into a copy nobody reads, and "address of stack memory associated
-// with parameter" means you're handing back a pointer into the function's copy.
+// The compiler can help with 2 and 3: "parameter set but not used" means a write
+// went into a copy nobody reads. grade lists warnings after the results.
 //
 // Each fix is small: adding or removing an & on a parameter, a local or a loop
 // variable. If a fix takes a rewrite, look again.
@@ -57,7 +56,7 @@
 //   tags = {"red"}
 //   add_tag(tags, "blue");   // tags is now {"red", "blue"}
 //   add_tag(tags, "red");    // tags is unchanged
-void add_tag(std::vector<std::string> tags, const std::string &tag) {
+void add_tag(std::vector<std::string> &tags, const std::string &tag) {
     for (const std::string &existing : tags) {
         if (existing == tag) return;
     }
@@ -71,7 +70,7 @@ void add_tag(std::vector<std::string> tags, const std::string &tag) {
 //   int m = 0;
 //   int s = 0;
 //   split_time(135, m, s);   // m is now 2, s is 15
-void split_time(int total, int minutes, int seconds) {
+void split_time(int total, int &minutes, int &seconds) {
     minutes = total / 60;
     seconds = total % 60;
 }
@@ -94,8 +93,7 @@ std::string underscored(std::string text) {
 //   values = {0, 3, 0}
 //   replace_zeros(values, 9);   // values is now {9, 3, 9}
 void replace_zeros(std::vector<int> &values, int fallback) {
-    std::vector<int> result = values;
-    for (int &value : result) {
+    for (int &value : values) {
         if (value == 0) value = fallback;
     }
 }
@@ -108,7 +106,7 @@ void replace_zeros(std::vector<int> &values, int fallback) {
 //   int *selected = nullptr;
 //   select_first(values, 5, selected);   // selected == &values[1]
 //   select_first(values, 9, selected);   // selected is nullptr
-void select_first(std::vector<int> &values, int target, int *selected) {
+void select_first(std::vector<int> &values, int target, int *&selected) {
     selected = nullptr;
     for (int &value : values) {
         if (value == target) {
@@ -127,7 +125,7 @@ void select_first(std::vector<int> &values, int target, int *selected) {
 //   slots = {&a, &b, nullptr, &a}
 //   clear_matches(slots, 1);   // slots is now {nullptr, &b, nullptr, nullptr}, a is still 1
 void clear_matches(std::vector<int *> &slots, int target) {
-    for (int *slot : slots) {
+    for (int *&slot : slots) {
         if (slot && *slot == target) slot = nullptr;
     }
 }
@@ -140,8 +138,10 @@ void clear_matches(std::vector<int *> &slots, int target) {
 //   subtract_from_all(values, 2);           // values is now {3, 5, 7}
 //   subtract_from_all(values, values[0]);   // values is now {0, 2, 4}
 void subtract_from_all(std::vector<int> &values, const int &amount) {
+    int originalAmount = amount;
+
     for (int &value : values) {
-        value -= amount;
+        value -= originalAmount;
     }
 }
 
@@ -152,7 +152,7 @@ void subtract_from_all(std::vector<int> &values, const int &amount) {
 //   values = {3, 8, 1, 8}
 //   int *top = largest(values);   // top == &values[1]
 //   *top = 0;                     // values is now {3, 0, 1, 8}
-int *largest(std::vector<int> values) {
+int *largest(std::vector<int> &values) {
     std::size_t best = 0;
     for (std::size_t i = 1; i < values.size(); ++i) {
         if (values[i] > values[best]) best = i;
