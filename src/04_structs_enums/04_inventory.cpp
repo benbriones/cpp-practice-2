@@ -76,6 +76,8 @@ struct Item {
     int quantity{};
 };
 
-int main() {
-    throw "TODO";
-}
+std::vector<Item> items{};
+
+void add(Item &i) {}
+
+int main() { return 0; }
